@@ -3,7 +3,7 @@ import ModalCrepesSucrees from '../Modal/ModalCrepesSucres';
 
 const CrepesSucrees = () => {
 	const { data } = useMenuList();
-	// console.log('first');
+	console.log('first');
 	return (
 		<div>
 			<h2 className="text-center text-xl font-bold mb-3">

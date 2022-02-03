@@ -1,7 +1,8 @@
 import { useMenuList } from '../../hooks/queries/useMenuList';
-import ModalCrepesSucrees from '../Modal/ModalCrepesSucres';
+import ModalBoissons from '../Modal/ModalBoissons';
+// import ModalBoissons from '../Modal/ModalBoissons';
 
-const CrepesSucrees = () => {
+const Boisson = () => {
 	const { data } = useMenuList();
 
 	return (
@@ -10,7 +11,7 @@ const CrepesSucrees = () => {
 				Crepes Sucrée
 			</h2>
 			<div>
-				{data?.crepesSucrees.data.map(
+				{data?.boissons.data.map(
 					(
 						{
 							attributes: {
@@ -26,7 +27,7 @@ const CrepesSucrees = () => {
 						},
 						i
 					) => (
-						<ModalCrepesSucrees
+						<ModalBoissons
 							product_name={product_name}
 							price={price}
 							category_name={category_name}
@@ -43,4 +44,4 @@ const CrepesSucrees = () => {
 	);
 };
 
-export default CrepesSucrees;
+export default Boisson;

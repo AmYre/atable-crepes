@@ -5,8 +5,8 @@ import { useGlobalContext } from '../context/Context';
 // import { useOrders } from '../hooks/queries/useOrders';
 // import { DELETE_ORDER } from '../hooks/mutations/useDeleteOrder';
 // import { useMutation } from '@apollo/client';
-import FooterImages from '../components/Footer/FooterImages';
-import AddCustomer from '../components/Customer/AddCustomer';
+// import FooterImages from '../components/Footer/FooterImages';
+// import AddCustomer from '../components/Customer/AddCustomer';
 // import { UPDATE_ORDER } from '../hooks/mutations/useUpdateOrder';
 
 const Menu = () => {
@@ -30,7 +30,7 @@ const Menu = () => {
 						<Tabs />
 					</>
 				</main>
-				<FooterImages />
+				{/* <FooterImages /> */}
 			</div>
 		</div>
 	);

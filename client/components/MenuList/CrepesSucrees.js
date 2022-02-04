@@ -33,7 +33,6 @@ const CrepesSucrees = () => {
 							url={url}
 							width={width}
 							height={height}
-							i={i}
 							key={i}
 						/>
 					)

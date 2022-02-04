@@ -1,8 +1,9 @@
 import { useGlobalContext } from '../../context/Context';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { EyeIcon } from '@heroicons/react/solid';
 import { useMenuList } from '../../hooks/queries/useMenuList';
+import { useForm } from 'react-hook-form';
 
 const ModalCrepesSucrees = ({
 	product_name,
@@ -13,14 +14,37 @@ const ModalCrepesSucrees = ({
 	height,
 	i,
 }) => {
-	const { data } = useMenuList();
-	console.log(data);
 	const { clients, activeTab, productsList, setProductsList, randomNumber } =
 		useGlobalContext();
+
+	const { data } = useMenuList();
+	const checkboxName = data.supplements.data.map(
+		({ attributes: { name } }) => {
+			return name;
+		}
+	);
+
+	const { register, watch, handleSubmit } = useForm();
+
+	const watchCheckbox = watch(checkboxName);
+	const checkedCount = watchCheckbox.filter(Boolean).length;
+
+	useEffect(() => {
+		const subscription = watch((data) => {
+			// console.log(data);
+		});
+		return () => {
+			subscription.unsubscribe();
+		};
+	}, [watch]);
+
+	console.log(productsList);
+	console.log(watchCheckbox);
 
 	const [modal, setModal] = useState(false);
 	const [inputQuantity, setInputQuantity] = useState(1);
 	const [specialInstruction, setSpecialInstruction] = useState('');
+	const [extra, setExtra] = useState([]);
 
 	const myLoader = ({ src, width, quality }) => {
 		return `http://localhost:1337${src}?w=${width}&q=${quality || 75}`;
@@ -63,7 +87,7 @@ const ModalCrepesSucrees = ({
 						</span>
 						<div className="h-36 w-full bg-white p-3 mt-2 mb-5 shadow border rounded ring-blue-600 outline-none focus:ring-2 overflow-hidden overflow-y-scroll">
 							{data?.supplements.data.map(
-								({ attributes: { name, price } }, i) => (
+								({ id, attributes: { name, price } }, i) => (
 									<div
 										className="flex items-center h-5 py-5 border-b-2"
 										key={i}
@@ -72,11 +96,32 @@ const ModalCrepesSucrees = ({
 											type="checkbox"
 											name={name}
 											id={name}
-											value={name}
+											value={watchCheckbox[i]}
+											onClick={() =>
+												console.log(watchCheckbox[i])
+											}
+											{...register(name)}
 											className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
 										/>
 										<label
-											htmlFor={name}
+											// htmlFor={name}
+											className="flex w-full justify-between"
+											onClick={() =>
+												console.log(
+													`le supplement est ${name} pour la ${product_name}`
+												)
+											}
+										>
+											<span className="ml-3 text-sm sm:text-sm lg:text-base font-medium text-black cursor-pointer">
+												{name}
+											</span>{' '}
+											<span className="ml-3 text-sm lg:text-base font-bold text-black cursor-pointer">
+												{price}0 €
+											</span>
+										</label>
+										{/* <label
+											onClick={() => console.log(name)}
+											htmlFor={product_name}
 											className="flex w-full justify-between"
 										>
 											<span className="ml-3 text-sm sm:text-sm lg:text-base font-medium text-black cursor-pointer">
@@ -85,7 +130,7 @@ const ModalCrepesSucrees = ({
 											<span className="ml-3 text-sm lg:text-base font-bold text-black cursor-pointer">
 												{price}0 €
 											</span>
-										</label>
+										</label> */}
 									</div>
 								)
 							)}
@@ -111,9 +156,9 @@ const ModalCrepesSucrees = ({
 										...productsList,
 										{
 											order_id: randomNumber,
-											client_name: clients[activeTab],
 											product_name: product_name,
 											category_name: category_name,
+											supplement: watchCheckbox[i],
 											price: price,
 											quantity: Number(inputQuantity),
 											special_instruction:

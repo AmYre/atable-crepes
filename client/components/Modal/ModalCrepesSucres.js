@@ -27,7 +27,6 @@ const ModalCrepesSucrees = ({
 	const { register, watch, handleSubmit } = useForm();
 
 	const watchCheckbox = watch(checkboxName);
-	const checkedCount = watchCheckbox.filter(Boolean).length;
 
 	useEffect(() => {
 		const subscription = watch((data) => {
@@ -39,16 +38,16 @@ const ModalCrepesSucrees = ({
 	}, [watch]);
 
 	console.log(productsList);
-	console.log(watchCheckbox);
 
 	const [modal, setModal] = useState(false);
 	const [inputQuantity, setInputQuantity] = useState(1);
 	const [specialInstruction, setSpecialInstruction] = useState('');
-	const [extra, setExtra] = useState([]);
+	const [itemList, setItemList] = useState([]);
 
 	const myLoader = ({ src, width, quality }) => {
 		return `http://localhost:1337${src}?w=${width}&q=${quality || 75}`;
 	};
+	console.log(itemList);
 
 	return (
 		<div
@@ -96,10 +95,14 @@ const ModalCrepesSucrees = ({
 											type="checkbox"
 											name={name}
 											id={name}
-											value={watchCheckbox[i]}
-											onClick={() =>
-												console.log(watchCheckbox[i])
-											}
+											value={name}
+											onClick={() => {
+												console.log(name);
+												setItemList([
+													...itemList,
+													name,
+												]);
+											}}
 											{...register(name)}
 											className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
 										/>
@@ -158,13 +161,14 @@ const ModalCrepesSucrees = ({
 											order_id: randomNumber,
 											product_name: product_name,
 											category_name: category_name,
-											supplement: watchCheckbox[i],
+											supplement: itemList,
 											price: price,
 											quantity: Number(inputQuantity),
 											special_instruction:
 												specialInstruction,
 										},
 									]);
+									setItemList([]);
 									setModal(!modal);
 								}}
 							>

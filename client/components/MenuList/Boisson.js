@@ -7,9 +7,7 @@ const Boisson = () => {
 
 	return (
 		<div>
-			<h2 className="text-center text-xl font-bold mb-3">
-				Crepes Sucrée
-			</h2>
+			<h2 className="text-center text-xl font-bold mb-3">Boissons</h2>
 			<div>
 				{data?.boissons.data.map(
 					(
@@ -34,7 +32,6 @@ const Boisson = () => {
 							url={url}
 							width={width}
 							height={height}
-							i={i}
 							key={i}
 						/>
 					)

@@ -1,9 +1,8 @@
 import { useGlobalContext } from '../../context/Context';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { EyeIcon } from '@heroicons/react/solid';
 import { useMenuList } from '../../hooks/queries/useMenuList';
-import { useForm } from 'react-hook-form';
+import SupplementDetail from '../MenuList/SupplementDetail';
 
 const ModalCrepesSucrees = ({
 	product_name,
@@ -14,46 +13,30 @@ const ModalCrepesSucrees = ({
 	height,
 	i,
 }) => {
-	const { clients, activeTab, productsList, setProductsList, randomNumber } =
-		useGlobalContext();
-
-	const { data } = useMenuList();
-	const checkboxName = data.supplements.data.map(
-		({ attributes: { name } }) => {
-			return name;
-		}
-	);
-
-	const { register, watch, handleSubmit } = useForm();
-
-	const watchCheckbox = watch(checkboxName);
-
-	useEffect(() => {
-		const subscription = watch((data) => {
-			// console.log(data);
-		});
-		return () => {
-			subscription.unsubscribe();
-		};
-	}, [watch]);
-
-	console.log(productsList);
-
 	const [modal, setModal] = useState(false);
 	const [inputQuantity, setInputQuantity] = useState(1);
-	const [specialInstruction, setSpecialInstruction] = useState('');
-	const [itemList, setItemList] = useState([]);
+	// const [specialInstruction, setSpecialInstruction] = useState('');
+
+	const {
+		productsList,
+		setProductsList,
+		randomNumber,
+		supplementName,
+		setSupplementName,
+		supplementPrice,
+		setSupplementPrice,
+	} = useGlobalContext();
+
+	const { data } = useMenuList();
+
+	const totalSupplement = supplementPrice.reduce((a, b) => a + b, 0);
 
 	const myLoader = ({ src, width, quality }) => {
 		return `http://localhost:1337${src}?w=${width}&q=${quality || 75}`;
 	};
-	console.log(itemList);
 
 	return (
-		<div
-			key={i}
-			className="flex items-center border-t-2 z-50 hover:bg-gray-100"
-		>
+		<div className={`flex items-center border-t-2 z-50 hover:bg-gray-100`}>
 			<div
 				className={`${
 					modal
@@ -73,84 +56,33 @@ const ModalCrepesSucrees = ({
 							className="object-contain"
 						/>
 						<p className="text-xl font-bold mt-5">{product_name}</p>
-						<input
+						{/* <input
 							className="h-10 w-full p-1 mt-2 mb-5 shadow border rounded form-input ring-blue-600 outline-none focus:ring-2"
 							type="number"
 							onChange={(e) => setInputQuantity(e.target.value)}
 							defaultValue="1"
 							min="1"
-						/>
+						/> */}
 
 						<span className="text-xl font-bold mt-5">
 							Supplement
 						</span>
+
 						<div className="h-36 w-full bg-white p-3 mt-2 mb-5 shadow border rounded ring-blue-600 outline-none focus:ring-2 overflow-hidden overflow-y-scroll">
 							{data?.supplements.data.map(
-								({ id, attributes: { name, price } }, i) => (
-									<div
-										className="flex items-center h-5 py-5 border-b-2"
-										key={i}
-									>
-										<input
-											type="checkbox"
-											name={name}
-											id={name}
-											value={name}
-											onClick={() => {
-												console.log(name);
-												setItemList([
-													...itemList,
-													name,
-												]);
-											}}
-											{...register(name)}
-											className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-										/>
-										<label
-											// htmlFor={name}
-											className="flex w-full justify-between"
-											onClick={() =>
-												console.log(
-													`le supplement est ${name} pour la ${product_name}`
-												)
-											}
-										>
-											<span className="ml-3 text-sm sm:text-sm lg:text-base font-medium text-black cursor-pointer">
-												{name}
-											</span>{' '}
-											<span className="ml-3 text-sm lg:text-base font-bold text-black cursor-pointer">
-												{price}0 €
-											</span>
-										</label>
-										{/* <label
-											onClick={() => console.log(name)}
-											htmlFor={product_name}
-											className="flex w-full justify-between"
-										>
-											<span className="ml-3 text-sm sm:text-sm lg:text-base font-medium text-black cursor-pointer">
-												{name}
-											</span>
-											<span className="ml-3 text-sm lg:text-base font-bold text-black cursor-pointer">
-												{price}0 €
-											</span>
-										</label> */}
-									</div>
+								(
+									{ id, attributes: { name, price } },
+									index
+								) => (
+									<SupplementDetail
+										name={name}
+										price={price}
+										index={index}
+										key={index}
+									/>
 								)
 							)}
 						</div>
-
-						<div className="flex justify-between">
-							<button
-								className="text-bold"
-								onClick={() => setModal(!modal)}
-							>
-								Fermé
-							</button>
-							<p className="text-xl font-bold">
-								{inputQuantity * price}0 €{' '}
-							</p>
-						</div>
-
 						<div className="absolute bottom-0 left-0 w-full">
 							<button
 								className="w-full text-bold bg-blue-600 text-white text-xl px-3 py-5"
@@ -161,19 +93,37 @@ const ModalCrepesSucrees = ({
 											order_id: randomNumber,
 											product_name: product_name,
 											category_name: category_name,
-											supplement: itemList,
+											supplement_name: supplementName,
+											supplement_price: supplementPrice,
 											price: price,
 											quantity: Number(inputQuantity),
-											special_instruction:
-												specialInstruction,
+											// special_instruction:
+											// 	specialInstruction,
 										},
 									]);
-									setItemList([]);
+
 									setModal(!modal);
+									setSupplementName([]);
+									setSupplementPrice([]);
+									totalSupplement = 0;
 								}}
 							>
 								Ajouter aux panier
 							</button>
+						</div>
+
+						<div className="flex justify-between">
+							<button
+								className="text-bold"
+								onClick={() => {
+									setModal(!modal);
+								}}
+							>
+								Fermé
+							</button>
+							<p className="text-xl font-bold">
+								{inputQuantity * price + totalSupplement} €{' '}
+							</p>
 						</div>
 					</div>
 				</div>
@@ -193,10 +143,12 @@ const ModalCrepesSucrees = ({
 					<p className="text-lg font-bold">{price} € </p>
 				</div>
 			</div>
-			<EyeIcon
+			<button
 				onClick={() => setModal(!modal)}
 				className="w-6 cursor-pointer"
-			/>
+			>
+				Choisir
+			</button>
 		</div>
 	);
 };

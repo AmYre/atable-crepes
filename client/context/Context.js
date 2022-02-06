@@ -11,6 +11,8 @@ const AppProvider = ({ children }) => {
 	const [activeTab, setActiveTab] = useState(0);
 	const [name, setName] = useState('');
 	const [theme, setTheme] = useState(false);
+	const [supplementName, setSupplementName] = useState([]);
+	const [supplementPrice, setSupplementPrice] = useState([]);
 
 	const randomNumber = Math.floor(Math.random() * 100000 + 1);
 
@@ -34,6 +36,10 @@ const AppProvider = ({ children }) => {
 				randomNumber,
 				theme,
 				setTheme,
+				supplementName,
+				setSupplementName,
+				supplementPrice,
+				setSupplementPrice,
 			}}
 		>
 			{children}

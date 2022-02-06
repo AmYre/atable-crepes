@@ -1,7 +1,7 @@
 import { useGlobalContext } from '../../context/Context';
 import Image from 'next/image';
 import { useState } from 'react';
-import { EyeIcon } from '@heroicons/react/solid';
+import { useMenuList } from '../../hooks/queries/useMenuList';
 
 const ModalBoissons = ({
 	product_name,
@@ -12,22 +12,30 @@ const ModalBoissons = ({
 	height,
 	i,
 }) => {
-	const { clients, activeTab, productsList, setProductsList, randomNumber } =
-		useGlobalContext();
-
 	const [modal, setModal] = useState(false);
 	const [inputQuantity, setInputQuantity] = useState(1);
-	const [specialInstruction, setSpecialInstruction] = useState('');
+	// const [specialInstruction, setSpecialInstruction] = useState('');
+
+	const { data } = useMenuList();
+
+	const {
+		productsList,
+		setProductsList,
+		randomNumber,
+		supplementName,
+		setSupplementName,
+		supplementPrice,
+		setSupplementPrice,
+	} = useGlobalContext();
+
+	const totalSupplement = supplementPrice.reduce((a, b) => a + b, 0);
 
 	const myLoader = ({ src, width, quality }) => {
 		return `http://localhost:1337${src}?w=${width}&q=${quality || 75}`;
 	};
 
 	return (
-		<div
-			key={i}
-			className="flex items-center border-t-2 z-50 hover:bg-gray-100"
-		>
+		<div className="flex items-center border-t-2 z-50 hover:bg-gray-100">
 			<div
 				className={`${
 					modal
@@ -47,15 +55,15 @@ const ModalBoissons = ({
 							className="object-contain"
 						/>
 						<p className="text-xl font-bold mt-5">{product_name}</p>
-						<input
-							className="h-10 w-full p-1 mt-2 shadow border rounded form-input ring-blue-600 outline-none focus:ring-2"
+						{/* <input
+							className="h-10 w-full p-1 mt-2 mb-5 shadow border rounded form-input ring-blue-600 outline-none focus:ring-2"
 							type="number"
 							onChange={(e) => setInputQuantity(e.target.value)}
 							defaultValue="1"
 							min="1"
-						/>
+						/> */}
 
-						<span className="text-xl font-bold mt-5">
+						{/* <span className="text-xl font-bold mt-5">
 							Demande spécial
 						</span>
 						<input
@@ -65,7 +73,36 @@ const ModalBoissons = ({
 							onChange={(e) =>
 								setSpecialInstruction(e.target.value)
 							}
-						/>
+						/> */}
+
+						<div className="absolute bottom-0 left-0 w-full">
+							<button
+								className="w-full text-bold bg-blue-600 text-white text-xl px-3 py-5"
+								onClick={() => {
+									setProductsList([
+										...productsList,
+										{
+											order_id: randomNumber,
+											product_name: product_name,
+											category_name: category_name,
+											supplement_name: supplementName,
+											supplement_price: supplementPrice,
+											price: price,
+											quantity: Number(inputQuantity),
+											// special_instruction:
+											// 	specialInstruction,
+										},
+									]);
+
+									setModal(!modal);
+									setSupplementName([]);
+									setSupplementPrice([]);
+									totalSupplement = 0;
+								}}
+							>
+								Ajouter aux panier
+							</button>
+						</div>
 						<div className="flex justify-between">
 							<button
 								className="text-bold"
@@ -76,30 +113,6 @@ const ModalBoissons = ({
 							<p className="text-xl font-bold">
 								{inputQuantity * price} €{' '}
 							</p>
-						</div>
-
-						<div className="absolute bottom-0 left-0 w-full">
-							<button
-								className="w-full text-bold bg-blue-600 text-white text-xl px-3 py-5"
-								onClick={() => {
-									setProductsList([
-										...productsList,
-										{
-											order_id: randomNumber,
-											client_name: clients[activeTab],
-											product_name: product_name,
-											category_name: category_name,
-											price: price,
-											quantity: Number(inputQuantity),
-											special_instruction:
-												specialInstruction,
-										},
-									]);
-									setModal(!modal);
-								}}
-							>
-								Ajouter aux panier
-							</button>
 						</div>
 					</div>
 				</div>
@@ -119,10 +132,12 @@ const ModalBoissons = ({
 					<p className="text-lg font-bold">{price} € </p>
 				</div>
 			</div>
-			<EyeIcon
+			<button
 				onClick={() => setModal(!modal)}
 				className="w-6 cursor-pointer"
-			/>
+			>
+				Choisir
+			</button>
 		</div>
 	);
 };

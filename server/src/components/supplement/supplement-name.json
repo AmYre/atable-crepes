@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_supplement_supplement_names",
+  "info": {
+    "displayName": "supplement_name",
+    "icon": "align-justify",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    }
+  }
+}

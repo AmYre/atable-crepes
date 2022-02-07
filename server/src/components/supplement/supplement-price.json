@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_supplement_supplement_prices",
+  "info": {
+    "displayName": "supplement_price",
+    "icon": "donate"
+  },
+  "options": {},
+  "attributes": {
+    "price": {
+      "type": "decimal"
+    }
+  }
+}

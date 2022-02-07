@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "commandes",
+  "info": {
+    "singularName": "commande",
+    "pluralName": "commandes",
+    "displayName": "commande",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "order_id": {
+      "type": "integer"
+    },
+    "total": {
+      "type": "decimal"
+    },
+    "products": {
+      "displayName": "products",
+      "type": "component",
+      "repeatable": true,
+      "component": "product-detail.products"
+    },
+    "confirm_order": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

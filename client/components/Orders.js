@@ -34,9 +34,6 @@ const Orders = () => {
 			>
 				Commander
 			</button>
-			{/* <Link href="/menu">
-				<a>Retour</a>
-			</Link> */}
 		</div>
 	);
 };

@@ -20,7 +20,6 @@ const ModalCrepesSucrees = ({
 	const {
 		productsList,
 		setProductsList,
-		randomNumber,
 		supplementName,
 		setSupplementName,
 		supplementPrice,
@@ -90,13 +89,12 @@ const ModalCrepesSucrees = ({
 									setProductsList([
 										...productsList,
 										{
-											order_id: randomNumber,
 											product_name: product_name,
 											category_name: category_name,
-											supplement_name: supplementName,
-											supplement_price: supplementPrice,
 											price: price,
 											quantity: Number(inputQuantity),
+											supplement_name: supplementName,
+											supplement_price: supplementPrice,
 											// special_instruction:
 											// 	specialInstruction,
 										},

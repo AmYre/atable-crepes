@@ -5,7 +5,6 @@ import { useGlobalContext } from '../context/Context';
 // import { useOrders } from '../hooks/queries/useOrders';
 // import { DELETE_ORDER } from '../hooks/mutations/useDeleteOrder';
 // import { useMutation } from '@apollo/client';
-import FooterImages from '../components/Footer/FooterImages';
 import Orders from '../components/Orders';
 // import AddCustomer from '../components/Customer/AddCustomer';
 // import { UPDATE_ORDER } from '../hooks/mutations/useUpdateOrder';
@@ -24,6 +23,8 @@ const Menu = () => {
 		);
 		setProductsList(removedProduct);
 	};
+
+	console.log(productsList);
 
 	const tot = productsList.map(({ supplement_price }) => supplement_price);
 
@@ -75,13 +76,13 @@ const Menu = () => {
 											key={i}
 										>
 											<p>{product_name}</p>
-											<div>
+											{/* <div>
 												{supplement_name.map(
 													(item, i) => (
 														<p key={i}>{item}</p>
 													)
 												)}
-											</div>
+											</div> */}
 											{/* <div>
 												{supplement_price.map(
 													(item, i) => (

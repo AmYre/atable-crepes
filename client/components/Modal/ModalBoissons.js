@@ -63,18 +63,6 @@ const ModalBoissons = ({
 							min="1"
 						/> */}
 
-						{/* <span className="text-xl font-bold mt-5">
-							Demande spécial
-						</span>
-						<input
-							className="h-10 w-full p-1 mt-2 mb-5 shadow border rounded ring-blue-600 outline-none focus:ring-2"
-							type="text"
-							placeholder="Example: Sans sel, sans sucre"
-							onChange={(e) =>
-								setSpecialInstruction(e.target.value)
-							}
-						/> */}
-
 						<div className="absolute bottom-0 left-0 w-full">
 							<button
 								className="w-full text-bold bg-blue-600 text-white text-xl px-3 py-5"
@@ -82,13 +70,12 @@ const ModalBoissons = ({
 									setProductsList([
 										...productsList,
 										{
-											order_id: randomNumber,
 											product_name: product_name,
 											category_name: category_name,
-											supplement_name: supplementName,
-											supplement_price: supplementPrice,
 											price: price,
 											quantity: Number(inputQuantity),
+											supplement_name: supplementName,
+											supplement_price: supplementPrice,
 											// special_instruction:
 											// 	specialInstruction,
 										},

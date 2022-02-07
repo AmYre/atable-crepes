@@ -30,6 +30,9 @@
       "type": "component",
       "repeatable": true,
       "component": "supplement.supplement-price"
+    },
+    "product_id": {
+      "type": "integer"
     }
   }
 }

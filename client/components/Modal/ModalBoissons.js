@@ -76,6 +76,7 @@ const ModalBoissons = ({
 											quantity: Number(inputQuantity),
 											supplement_name: supplementName,
 											supplement_price: supplementPrice,
+											product_id: randomNumber,
 											// special_instruction:
 											// 	specialInstruction,
 										},

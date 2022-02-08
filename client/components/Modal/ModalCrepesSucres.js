@@ -1,6 +1,6 @@
 import { useGlobalContext } from '../../context/Context';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useMenuList } from '../../hooks/queries/useMenuList';
 import SupplementDetail from '../MenuList/SupplementDetail';
 
@@ -15,7 +15,6 @@ const ModalCrepesSucrees = ({
 }) => {
 	const [modal, setModal] = useState(false);
 	const [inputQuantity, setInputQuantity] = useState(1);
-	// const [specialInstruction, setSpecialInstruction] = useState('');
 
 	const {
 		productsList,

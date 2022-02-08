@@ -1,6 +1,5 @@
 import { useMenuList } from '../../hooks/queries/useMenuList';
 import ModalBoissons from '../Modal/ModalBoissons';
-// import ModalBoissons from '../Modal/ModalBoissons';
 
 const Boisson = () => {
 	const { data } = useMenuList();

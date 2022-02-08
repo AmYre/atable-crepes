@@ -10,7 +10,7 @@ const Orders = ({ currentUserId }) => {
 
 	const concatArrays = tot.reduce((a, b) => a.concat(b), []);
 
-	const totalSupplement = concatArrays.reduce((a, b) => a + b.price, 0);
+	const totalSupplement = concatArrays.reduce((a, b) => a + b?.price, 0);
 
 	const total = productsList.reduce((a, b) => a + b.price * b.quantity, 0);
 

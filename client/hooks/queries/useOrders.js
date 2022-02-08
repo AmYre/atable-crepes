@@ -15,6 +15,7 @@ export const GET_ORDER = gql`
 						category_name
 						price
 						supplement_list {
+							id
 							name
 							price
 						}

@@ -14,7 +14,6 @@ const ModalBoissons = ({
 }) => {
 	const [modal, setModal] = useState(false);
 	const [inputQuantity, setInputQuantity] = useState(1);
-	// const [specialInstruction, setSpecialInstruction] = useState('');
 
 	const { data } = useMenuList();
 
@@ -22,13 +21,9 @@ const ModalBoissons = ({
 		productsList,
 		setProductsList,
 		randomNumber,
-		supplementName,
-		setSupplementName,
-		supplementPrice,
-		setSupplementPrice,
+		supplementList,
+		setSupplementList,
 	} = useGlobalContext();
-
-	// const totalSupplement = supplementPrice.reduce((a, b) => a + b, 0);
 
 	const myLoader = ({ src, width, quality }) => {
 		return `http://localhost:1337${src}?w=${width}&q=${quality || 75}`;
@@ -50,18 +45,18 @@ const ModalBoissons = ({
 							src={url}
 							layout="intrinsic"
 							width={400}
-							height={400}
+							height={250}
 							alt={product_name}
 							className="object-contain"
 						/>
 						<p className="text-xl font-bold mt-5">{product_name}</p>
-						{/* <input
+						<input
 							className="h-10 w-full p-1 mt-2 mb-5 shadow border rounded form-input ring-blue-600 outline-none focus:ring-2"
 							type="number"
 							onChange={(e) => setInputQuantity(e.target.value)}
 							defaultValue="1"
 							min="1"
-						/> */}
+						/>
 
 						<div className="absolute bottom-0 left-0 w-full">
 							<button
@@ -73,19 +68,14 @@ const ModalBoissons = ({
 											product_name: product_name,
 											category_name: category_name,
 											price: price,
+											supplement_list: supplementList,
 											quantity: Number(inputQuantity),
-											supplement_name: supplementName,
-											supplement_price: supplementPrice,
 											product_id: randomNumber,
-											// special_instruction:
-											// 	specialInstruction,
 										},
 									]);
-
 									setModal(!modal);
-									setSupplementName([]);
-									setSupplementPrice([]);
-									totalSupplement = 0;
+									// setSupplementList([]);
+									// totalSupplement = 0;
 								}}
 							>
 								Ajouter aux panier

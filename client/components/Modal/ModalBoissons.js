@@ -28,7 +28,7 @@ const ModalBoissons = ({
 		setSupplementPrice,
 	} = useGlobalContext();
 
-	const totalSupplement = supplementPrice.reduce((a, b) => a + b, 0);
+	// const totalSupplement = supplementPrice.reduce((a, b) => a + b, 0);
 
 	const myLoader = ({ src, width, quality }) => {
 		return `http://localhost:1337${src}?w=${width}&q=${quality || 75}`;
@@ -121,7 +121,9 @@ const ModalBoissons = ({
 				</div>
 			</div>
 			<button
-				onClick={() => setModal(!modal)}
+				onClick={() => {
+					setModal(!modal);
+				}}
 				className="w-6 cursor-pointer"
 			>
 				Choisir

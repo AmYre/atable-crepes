@@ -8,8 +8,7 @@ const AppProvider = ({ children }) => {
 	const [productsList, setProductsList] = useState([]);
 	const [quantity, setQuantity] = useState(1);
 	const [theme, setTheme] = useState(false);
-	const [supplementName, setSupplementName] = useState([]);
-	const [supplementPrice, setSupplementPrice] = useState([]);
+	const [supplementList, setSupplementList] = useState([]);
 
 	const randomNumber = Math.floor(Math.random() * 100000 + 1);
 
@@ -27,10 +26,8 @@ const AppProvider = ({ children }) => {
 				randomNumber,
 				theme,
 				setTheme,
-				supplementName,
-				setSupplementName,
-				supplementPrice,
-				setSupplementPrice,
+				supplementList,
+				setSupplementList,
 			}}
 		>
 			{children}

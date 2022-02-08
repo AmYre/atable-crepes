@@ -2,12 +2,7 @@ import { useState } from 'react';
 import { useGlobalContext } from '../../context/Context';
 
 const SupplementDetail = ({ name, price, index }) => {
-	const {
-		supplementPrice,
-		setSupplementPrice,
-		supplementName,
-		setSupplementName,
-	} = useGlobalContext();
+	const { supplementList, setSupplementList } = useGlobalContext();
 	const [activeTab, setActiveTab] = useState(false);
 
 	return (
@@ -31,8 +26,10 @@ const SupplementDetail = ({ name, price, index }) => {
 			<button
 				onClick={() => {
 					setActiveTab(!activeTab);
-					setSupplementName([...supplementName, name]);
-					setSupplementPrice([...supplementPrice, price]);
+					setSupplementList([
+						...supplementList,
+						{ name: name, price: price },
+					]);
 				}}
 			>
 				Add

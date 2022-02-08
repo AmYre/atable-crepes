@@ -2,12 +2,9 @@
   "collectionName": "components_supplement_supplement_prices",
   "info": {
     "displayName": "supplement_price",
-    "icon": "donate"
+    "icon": "donate",
+    "description": ""
   },
   "options": {},
-  "attributes": {
-    "price": {
-      "type": "decimal"
-    }
-  }
+  "attributes": {}
 }

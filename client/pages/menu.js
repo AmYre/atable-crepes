@@ -4,13 +4,14 @@ import Orders from '../components/Orders';
 import { useMutation } from '@apollo/client';
 import { useMenuList } from '../hooks/queries/useMenuList';
 import { CREATE_ORDER } from '../hooks/mutations/useCreateOrder';
-// import { useOrders } from '../hooks/queries/useOrders';
+import { useOrders } from '../hooks/queries/useOrders';
 // import Orders from '../components/Orders';
 // import { DELETE_ORDER } from '../hooks/mutations/useDeleteOrder';
 // import AddCustomer from '../components/Customer/AddCustomer';
 // import { UPDATE_ORDER } from '../hooks/mutations/useUpdateOrder';
 
 const Menu = () => {
+	const { refetch, data: orderData } = useOrders();
 	const { loading } = useMenuList();
 	const {
 		productsList,
@@ -19,9 +20,12 @@ const Menu = () => {
 		firstStep,
 		setFirstStep,
 		randomNumber,
+		supplementList,
 	} = useGlobalContext();
 
-	const [createOrder] = useMutation(CREATE_ORDER);
+	const [createOrder, { data: newOrderData }] = useMutation(CREATE_ORDER);
+
+	const currentUserId = newOrderData?.createCommande.data.id;
 
 	const removeProduct = (id) => {
 		const removedProduct = productsList.filter(
@@ -30,12 +34,11 @@ const Menu = () => {
 		setProductsList(removedProduct);
 	};
 
-	console.log(productsList);
-
-	const tot = productsList.map(({ supplement_price }) => supplement_price);
+	const tot = productsList.map(({ supplement_list }) => supplement_list);
 
 	const concatArrays = tot.reduce((a, b) => a.concat(b), []);
-	const totalSupplement = concatArrays.reduce((a, b) => a + b, 0);
+
+	const totalSupplement = concatArrays.reduce((a, b) => a + b.price, 0);
 
 	const total = productsList.reduce((a, b) => a + b.price * b.quantity, 0);
 
@@ -66,8 +69,7 @@ const Menu = () => {
 											price,
 											product_id,
 											quantity,
-											supplement_name,
-											supplement_price,
+											supplement_list,
 										},
 										i
 									) => (
@@ -77,19 +79,14 @@ const Menu = () => {
 										>
 											<p>{product_name}</p>
 											<div>
-												{supplement_name.map(
+												{supplement_list.map(
 													(item, i) => (
-														<p key={i}>{item}</p>
+														<p key={i}>
+															{item.name}
+														</p>
 													)
 												)}
 											</div>
-											{/* <div>
-												{supplement_price.map(
-													(item, i) => (
-														<p key={i}>{item} €</p>
-													)
-												)}
-											</div> */}
 											<div className="flex">
 												<p className="p-2">
 													{quantity}
@@ -114,7 +111,7 @@ const Menu = () => {
 								<p>{totalSupplement + total} €</p>
 							</div>
 						</div>
-						<Orders />
+						<Orders currentUserId={currentUserId} />
 					</section>
 				</div>
 			) : (

@@ -19,17 +19,11 @@
     "product_name": {
       "type": "string"
     },
-    "supplement_name": {
+    "supplement_list": {
       "displayName": "supplement",
       "type": "component",
       "repeatable": true,
       "component": "product-detail.supplement"
-    },
-    "supplement_price": {
-      "displayName": "supplement_price",
-      "type": "component",
-      "repeatable": true,
-      "component": "supplement.supplement-price"
     },
     "product_id": {
       "type": "integer"

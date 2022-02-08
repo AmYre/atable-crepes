@@ -14,16 +14,11 @@ export const CREATE_ORDER = gql`
 			}
 		) {
 			data {
+				id
 				attributes {
 					order_id
 					total
 					confirm_order
-					# products {
-					# 	product_name
-					# 	client_name
-					# 	quantity
-					# 	price
-					# }
 				}
 			}
 		}

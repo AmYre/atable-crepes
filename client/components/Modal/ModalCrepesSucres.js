@@ -9,6 +9,7 @@ const ModalCrepesSucrees = ({
 	price,
 	category_name,
 	url,
+	preparation_time,
 	width,
 	height,
 	i,
@@ -125,6 +126,9 @@ const ModalCrepesSucrees = ({
 
 			<div className="flex justify-between w-full p-2">
 				<p className="text-lg font-bold">{product_name}</p>
+				<p className="text-sm font-semibold">
+					Temps de préparation {preparation_time.slice(4, 8)} Min
+				</p>
 				<div className="flex space-x-2">
 					<p className="text-lg font-bold">{price} € </p>
 				</div>

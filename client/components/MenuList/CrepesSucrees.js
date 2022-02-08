@@ -18,6 +18,7 @@ const CrepesSucrees = () => {
 								product_name,
 								price,
 								category_name,
+								preparation_time,
 								image: {
 									data: {
 										attributes: { url, width, height },
@@ -30,6 +31,7 @@ const CrepesSucrees = () => {
 						<ModalCrepesSucrees
 							product_name={product_name}
 							price={price}
+							preparation_time={preparation_time}
 							category_name={category_name}
 							url={url}
 							width={width}

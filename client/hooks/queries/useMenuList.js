@@ -8,6 +8,7 @@ const GET_PRODUCTS = gql`
 					category_name
 					price
 					product_name
+					preparation_time
 					image {
 						data {
 							attributes {

@@ -7,9 +7,11 @@ export const GET_ORDER = gql`
 				id
 				attributes {
 					order_id
+					is_prepared
 					confirm_order
 					total
 					products {
+						id
 						quantity
 						product_name
 						category_name

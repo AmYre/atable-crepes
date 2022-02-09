@@ -55,7 +55,7 @@ const Menu = () => {
 								Récap' de votre commande
 							</h2>
 							<div className="flex justify-between font-bold">
-								<p>Nom</p>
+								<p>Produit</p>
 								<p>Supplement</p>
 								<p>quantite</p>
 								<p>supprimer</p>

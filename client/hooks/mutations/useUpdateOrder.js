@@ -6,6 +6,7 @@ export const UPDATE_ORDER = gql`
 		$total: Float
 		$order_id: Int
 		$confirm_order: Boolean
+		$is_prepared: Boolean
 		$products: [ComponentProductDetailProductsInput]
 	) {
 		updateCommande(
@@ -14,12 +15,14 @@ export const UPDATE_ORDER = gql`
 				total: $total
 				order_id: $order_id
 				confirm_order: $confirm_order
+				is_prepared: $is_prepared
 				products: $products
 			}
 		) {
 			data {
 				attributes {
 					confirm_order
+					is_prepared
 					products {
 						product_name
 						price

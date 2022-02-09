@@ -9,6 +9,7 @@ export const GET_ORDER = gql`
 					order_id
 					is_prepared
 					confirm_order
+					preparation_time
 					total
 					products {
 						id

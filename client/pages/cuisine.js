@@ -5,6 +5,18 @@ import { useMutation } from '@apollo/client';
 
 const Kitchen = () => {
 	const { data, refetch } = useOrders();
+	// let startingMinutes = 1;
+	// let time = startingMinutes * 60;
+	// let minutes;
+	// let seconds;
+
+	// const timerCountDown = () => {
+	// 	minutes = Math.floor(time / 60);
+	// 	seconds = time % 60;
+	// 	time--;
+	// 	seconds = seconds < 10 ? `0${seconds}` : seconds;
+	// 	console.log(minutes, seconds);
+	// };
 
 	const [updateOrder, { called }] = useMutation(UPDATE_ORDER);
 
@@ -13,6 +25,10 @@ const Kitchen = () => {
 			const timer = refetch();
 			return clearInterval(timer);
 		}, 10000);
+		// setInterval(() => {
+		// 	const timer = timerCountDown();
+		// 	return clearInterval(timer);
+		// }, 1000);
 	}, []);
 
 	const total = data?.commandes.data.reduce(
@@ -110,9 +126,9 @@ const Kitchen = () => {
 												)
 											)}
 										</div>
-										<p className="mx-auto">
+										{/* <p className="mx-auto">
 											Total: {total}
-										</p>
+										</p> */}
 									</div>
 								)
 							)}

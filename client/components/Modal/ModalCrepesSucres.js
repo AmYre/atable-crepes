@@ -23,6 +23,8 @@ const ModalCrepesSucrees = ({
 		randomNumber,
 		supplementList,
 		setSupplementList,
+		preparationTime,
+		setPreparationTime,
 	} = useGlobalContext();
 
 	const { data } = useMenuList();
@@ -32,7 +34,7 @@ const ModalCrepesSucrees = ({
 	const myLoader = ({ src, width, quality }) => {
 		return `http://localhost:1337${src}?w=${width}&q=${quality || 75}`;
 	};
-
+	// console.log(preparationTime);
 	return (
 		<div className={`flex items-center border-t-2 z-50 hover:bg-gray-100`}>
 			<div
@@ -89,7 +91,10 @@ const ModalCrepesSucrees = ({
 											product_id: randomNumber,
 										},
 									]);
-
+									setPreparationTime([
+										...preparationTime,
+										Number(preparation_time.slice(4, 5)),
+									]);
 									setModal(!modal);
 									setSupplementList([]);
 									totalSupplement = 0;

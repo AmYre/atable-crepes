@@ -4,7 +4,7 @@ import { useGlobalContext } from '../context/Context';
 import { UPDATE_ORDER } from '../hooks/mutations/useUpdateOrder';
 
 const Orders = ({ currentUserId }) => {
-	const { productsList } = useGlobalContext();
+	const { productsList, preparationTime } = useGlobalContext();
 
 	const tot = productsList.map(({ supplement_list }) => supplement_list);
 
@@ -14,10 +14,13 @@ const Orders = ({ currentUserId }) => {
 
 	const total = productsList.reduce((a, b) => a + b.price * b.quantity, 0);
 
+	const totalPreparationTime = preparationTime.reduce((a, b) => a + b, 0);
+
 	const [updateOrder, { called }] = useMutation(UPDATE_ORDER, {
 		variables: {
 			id: Number(currentUserId),
 			confirm_order: true,
+			preparation_time: totalPreparationTime,
 			total: total + totalSupplement,
 			products: productsList,
 		},

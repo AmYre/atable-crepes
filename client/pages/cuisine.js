@@ -22,7 +22,7 @@ const Kitchen = () => {
 
 	return (
 		<>
-			<main className="flex flex-col gap-10 justify-center items-center w-screen h-screen p-20">
+			<main className="flex flex-col gap-10 justify-center items-center p-20">
 				<section className="w-full">
 					<div className="flex flex-col w-full bg-gray-800 rounded text-gray-50 shadow gap-8 p-10">
 						<h2 className="font-semibold text-xl">
@@ -37,26 +37,95 @@ const Kitchen = () => {
 								<p>prix</p>
 							</div>
 						</div>
-						{data?.commandes.data.map(
-							(
-								{
-									id,
-									attributes: {
-										confirm_order,
-										order_id,
-										is_prepared,
-										products,
-										total,
+						{data?.commandes.data
+							.filter(
+								({ attributes: { is_prepared } }) =>
+									is_prepared === false
+							)
+							.map(
+								(
+									{
+										id,
+										attributes: {
+											confirm_order,
+											order_id,
+											is_prepared,
+											products,
+											total,
+										},
 									},
-								},
-								i
-							) => (
-								<div
-									key={i}
-									className={`flex flex-col pb-2 ${
-										is_prepared && 'text-lime-500'
-									}`}
-								>
+									i
+								) => (
+									<div key={i} className="flex flex-col pb-2">
+										<div>
+											{/* <img src={'./'} /> */}
+											{products.map(
+												(
+													{
+														product_name,
+														supplement_list,
+														quantity,
+														price,
+													},
+													i
+												) => (
+													<div
+														className="flex justify-between"
+														key={i}
+													>
+														<p>{product_name}</p>
+														<div>
+															{supplement_list?.map(
+																(item, i) => (
+																	<p key={i}>
+																		{
+																			item.name
+																		}
+																	</p>
+																)
+															)}
+														</div>
+														<div className="flex">
+															<p className="p-2">
+																{quantity}
+															</p>
+														</div>
+														<p
+															className="cursor-pointer"
+															onClick={() => {
+																updateOrder({
+																	variables: {
+																		id: Number(
+																			id
+																		),
+																		is_prepared: true,
+																	},
+																});
+															}}
+														>
+															X
+														</p>
+														<p>{price} €</p>
+													</div>
+												)
+											)}
+										</div>
+										<p className="mx-auto">
+											Total: {total}
+										</p>
+									</div>
+								)
+							)}
+						<h2 className="font-semibold text-xl">
+							Commande terminée
+						</h2>
+						{data?.commandes.data
+							.filter(
+								({ attributes: { is_prepared } }) =>
+									is_prepared === true
+							)
+							.map(({ attributes: { products } }, i) => (
+								<div key={i} className="flex flex-col pb-2">
 									<div>
 										{/* <img src={'./'} /> */}
 										{products.map(
@@ -88,29 +157,13 @@ const Kitchen = () => {
 															{quantity}
 														</p>
 													</div>
-													<p
-														className="cursor-pointer"
-														onClick={() => {
-															updateOrder({
-																variables: {
-																	id: Number(
-																		id
-																	),
-																	is_prepared: true,
-																},
-															});
-														}}
-													>
-														X
-													</p>
 													<p>{price} €</p>
 												</div>
 											)
 										)}
 									</div>
 								</div>
-							)
-						)}
+							))}
 						<div className="flex pt-5 justify-between w-full border-t-2 border-gray-50">
 							<p>Total</p>
 							<p>{total} €</p>

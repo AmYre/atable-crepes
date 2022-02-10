@@ -15,7 +15,6 @@ const Kitchen = () => {
 	// 	seconds = time % 60;
 	// 	time--;
 	// 	seconds = seconds < 10 ? `0${seconds}` : seconds;
-	// 	console.log(minutes, seconds);
 	// };
 
 	const [updateOrder, { called }] = useMutation(UPDATE_ORDER);

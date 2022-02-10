@@ -5,13 +5,14 @@ import { useMutation } from '@apollo/client';
 import { useMenuList } from '../hooks/queries/useMenuList';
 import { CREATE_ORDER } from '../hooks/mutations/useCreateOrder';
 import { useOrders } from '../hooks/queries/useOrders';
+import { useEffect } from 'react';
 // import Orders from '../components/Orders';
 // import { DELETE_ORDER } from '../hooks/mutations/useDeleteOrder';
 // import AddCustomer from '../components/Customer/AddCustomer';
 // import { UPDATE_ORDER } from '../hooks/mutations/useUpdateOrder';
 
 const Menu = () => {
-	const { refetch, data: orderData } = useOrders();
+	const { refetch } = useOrders();
 	const { loading } = useMenuList();
 	const {
 		productsList,
@@ -126,6 +127,7 @@ const Menu = () => {
 								confirm_order: false,
 							},
 						});
+						refetch();
 					}}
 				>
 					Choisir une crépes

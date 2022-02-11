@@ -2,11 +2,24 @@ import Image from 'next/image';
 import { MoonIcon, ShoppingBagIcon, SunIcon } from '@heroicons/react/solid';
 import { useGlobalContext } from '../context/Context';
 import Link from 'next/link';
+import { useOrders } from '../hooks/queries/useOrders';
+import { useEffect } from 'react';
 
 const Navbar = () => {
 	const { productsList, theme, setTheme } = useGlobalContext();
-
+	const { data, refetch } = useOrders();
 	const cardLength = productsList.reduce((a, b) => a + b.quantity * 1, 0);
+
+	useEffect(() => {
+		setInterval(() => {
+			const timer = refetch();
+			return clearInterval(timer);
+		}, 10000);
+	}, []);
+
+	const isPreparedOrder = data?.commandes.data.filter(
+		({ attributes: { is_prepared } }) => is_prepared === false
+	);
 
 	return (
 		<div
@@ -20,6 +33,7 @@ const Navbar = () => {
 			<nav className="flex gap-3 dark:bg-grey-600">
 				<div>Contact</div>
 				<div>Menus</div>
+				<div>{isPreparedOrder?.length - 1} Commande en cours ...</div>
 			</nav>
 			<div>
 				<a href="/login">Connexion</a>

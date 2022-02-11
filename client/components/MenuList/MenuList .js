@@ -7,33 +7,21 @@ import { useOrders } from '../../hooks/queries/useOrders';
 import { useEffect } from 'react';
 
 const FoodAndDrink = () => {
-	const { data, refetch } = useOrders();
 	const { loading } = useMenuList();
 
-	useEffect(() => {
-		setInterval(() => {
-			const timer = refetch();
-			return clearInterval(timer);
-		}, 10000);
-	}, []);
+	// const productsArray = data?.commandes.data.map(
+	// 	(item) => item?.attributes.products
+	// );
 
-	const productsArray = data?.commandes.data.map(
-		(item) => item?.attributes.products
-	);
+	// const mergedArray = [].concat.apply([], productsArray);
 
-	const isPreparedOrder = data?.commandes.data.filter(
-		({ attributes: { is_prepared } }) => is_prepared === false
-	);
+	// const categoryRequired = mergedArray.filter(
+	// 	({ category_name }, i) => category_name === 'crepes sucree'
+	// );
 
-	const mergedArray = [].concat.apply([], productsArray);
-
-	const categoryRequired = mergedArray.filter(
-		({ category_name }, i) => category_name === 'crepes sucree'
-	);
-
-	const waiting_time = data?.commandes.data
-		.filter((item) => item.attributes.is_prepared === false)
-		.reduce((a, b) => a + b.attributes.preparation_time, 0);
+	// const waiting_time = data?.commandes.data
+	// 	.filter((item) => item.attributes.is_prepared === false)
+	// 	.reduce((a, b) => a + b.attributes.preparation_time, 0);
 
 	if (loading)
 		return (
@@ -49,8 +37,7 @@ const FoodAndDrink = () => {
 	return (
 		<div>
 			<h3 className="p-5 text-center text-white text-xl font-bold">
-				FAITES VOTRE CHOIX -- {isPreparedOrder?.length - 1} Commande en
-				cours ...
+				FAITES VOTRE CHOIX
 			</h3>
 			<div className="bg-white h-96 p-6 mx-5 mt-2 mb-5 shadow-md  overflow-hidden overflow-y-scroll">
 				<div className="shadow-xl m-2 my-2">

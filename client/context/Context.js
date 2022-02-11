@@ -10,6 +10,8 @@ const AppProvider = ({ children }) => {
 	const [theme, setTheme] = useState(false);
 	const [supplementList, setSupplementList] = useState([]);
 	const [preparationTime, setPreparationTime] = useState([]);
+	const [minutes, setMinutes] = useState(0);
+	const [seconds, setSeconds] = useState(0);
 
 	const randomNumber = Math.floor(Math.random() * 100000 + 1);
 
@@ -31,6 +33,10 @@ const AppProvider = ({ children }) => {
 				setSupplementList,
 				preparationTime,
 				setPreparationTime,
+				minutes,
+				setMinutes,
+				seconds,
+				setSeconds,
 			}}
 		>
 			{children}

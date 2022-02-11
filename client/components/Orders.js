@@ -1,11 +1,20 @@
 import { gql, useMutation } from '@apollo/client';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { useGlobalContext } from '../context/Context';
 import { UPDATE_ORDER } from '../hooks/mutations/useUpdateOrder';
 import { useOrders } from '../hooks/queries/useOrders';
 
 const Orders = ({ currentUserId }) => {
-	const { productsList, preparationTime } = useGlobalContext();
+	const [statusCrepes, setStatusCrepes] = useState('');
+	const {
+		productsList,
+		preparationTime,
+		minutes,
+		setMinutes,
+		seconds,
+		setSeconds,
+	} = useGlobalContext();
 	const { data: orderData } = useOrders();
 
 	const tot = productsList.map(({ supplement_list }) => supplement_list);
@@ -33,31 +42,55 @@ const Orders = ({ currentUserId }) => {
 		.reduce((a, b) => a + b.attributes.preparation_time, 0);
 
 	let time = (waiting_time + totalPreparationTime) * 60;
-	let minutes;
-	let seconds;
 
 	const timerCountDown = () => {
 		if (time > 0) {
-			minutes = Math.floor(time / 60);
-			seconds = time % 60;
+			setMinutes(Math.floor(time / 60));
+			setSeconds(time % 60);
 			time--;
-			seconds = seconds < 10 ? `0${seconds}` : seconds;
-			console.log(
-				`Temps restant ${minutes} et ${seconds} and time is ${time}`
-			);
+			seconds < 10 ? `0${seconds}` : seconds;
 		} else {
 			console.log('Commande est prete');
 		}
 	};
+	useEffect(() => {
+		if (minutes < 15 && minutes > 10) {
+			setStatusCrepes('Attente estimé moins de 15 minutes');
+		} else if (minutes < 10 && minutes > 5) {
+			setStatusCrepes('Attente estimé moins de 10 minutes');
+		} else if (minutes <= 5) {
+			setStatusCrepes('Votre crépes est en cuisson');
+		} else {
+			setStatusCrepes('Plus de 15 minutes');
+		}
+	}, [minutes]);
+
 	console.log(
-		`Votre temps pour cette commande ${totalPreparationTime} minute`
+		`Votre temps pour cette commande ${totalPreparationTime} minute. Temps en attente ds la base ${waiting_time}. Temps total pour cette commande ${
+			waiting_time + totalPreparationTime
+		}`
 	);
-	console.log(`Temps en attente ds la base ${waiting_time}`);
-	console.log((waiting_time + totalPreparationTime) * 60);
 
 	return (
 		<div>
-			{called && <h2>Votre commande est en cours de préparation</h2>}
+			<div
+				className={`${
+					called
+						? 'flex items-center justify-center z-10 bg-white bg-opacity-70 h-screen w-full fixed bottom-0 left-0'
+						: 'hidden'
+				} `}
+			>
+				<div className="bg-white py-0 rounded w-full md:w-4/5 lg:w-2/3">
+					<div className="flex flex-col justify-around w-full h-screen py-10 px-3 bg-gray-100 relative">
+						<h2 className="text-base font-bold mt-5 text-center">
+							Votre commande est en cours de préparation
+						</h2>
+						<p className="text-base font-bold mt-5 text-center">
+							{statusCrepes}
+						</p>
+					</div>
+				</div>
+			</div>
 			<button
 				onClick={() => {
 					updateOrder();

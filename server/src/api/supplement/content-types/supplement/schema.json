@@ -4,7 +4,8 @@
   "info": {
     "singularName": "supplement",
     "pluralName": "supplements",
-    "displayName": "supplement"
+    "displayName": "supplement",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -16,6 +17,9 @@
     },
     "price": {
       "type": "decimal"
+    },
+    "price_id": {
+      "type": "string"
     }
   }
 }

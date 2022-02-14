@@ -6,6 +6,7 @@ const GET_PRODUCTS = gql`
 			data {
 				attributes {
 					category_name
+					price_id
 					price
 					product_name
 					preparation_time
@@ -25,6 +26,7 @@ const GET_PRODUCTS = gql`
 			data {
 				attributes {
 					category_name
+					price_id
 					product_name
 					price
 					image {
@@ -42,6 +44,7 @@ const GET_PRODUCTS = gql`
 		supplements {
 			data {
 				attributes {
+					price_id
 					name
 					price
 				}

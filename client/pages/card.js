@@ -1,77 +1,69 @@
-import React from 'react';
-import Orders from '../components/Orders';
-import { useGlobalContext } from '../context/Context';
+import { useEffect } from 'react';
+import { loadStripe } from '@stripe/stripe-js';
+import { useRouter } from 'next/router';
 
-const card = () => {
-	const { productsList, setProductsList } = useGlobalContext();
+// Make sure to call `loadStripe` outside of a component’s render to avoid
+// recreating the `Stripe` object on every render.
+loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+const PreviewPage = () => {
+	const router = useRouter();
+	const { success, canceled } = router.query;
 
-	const total = productsList.reduce((a, b) => a + b.price * b.quantity, 0);
+	useEffect(() => {
+		// Check to see if this is a redirect back from Checkout
+		const query = new URLSearchParams(window.location.search);
 
-	const removeProduct = (id) => {
-		const removedProduct = productsList.filter(
-			(product) => product.order_id !== id
-		);
-		setProductsList(removedProduct);
-	};
+		if (success !== undefined || canceled !== undefined) {
+			if (query.get('success')) {
+				console.log(
+					'Order placed! You will receive an email confirmation.'
+				);
+			}
+
+			if (query.get('canceled')) {
+				console.log(
+					'Order canceled -- continue to shop around and checkout when you’re ready.'
+				);
+			}
+		}
+	}, [success, canceled]);
 
 	return (
-		<div>
+		<form action="/api/checkout_sessions" method="POST">
 			<section>
-				<div className="flex flex-col w-full bg-gray-800 rounded text-gray-50 shadow gap-8 p-10">
-					<h2 className="font-semibold text-xl">
-						Récap' de votre commande
-					</h2>
-					<div className="flex justify-between font-bold">
-						<p>Nom</p>
-						<p>desc'</p>
-						<p>quantite</p>
-						<p>supprimer</p>
-						<p>prix</p>
-					</div>
-					<div className="flex justify-between pb-2">
-						{/* <p>{client_name}</p> */}
-						<div>
-							{productsList.map(
-								(
-									{
-										product_name,
-										price,
-										client_name,
-										order_id,
-										quantity,
-									},
-									i
-								) => (
-									<div className="flex space-x-16" key={i}>
-										<p>{client_name} </p>
-										<p>{product_name}</p>
-										<div className="flex">
-											<p className="p-2">{quantity}</p>
-										</div>
-										<p
-											className="cursor-pointer"
-											onClick={() =>
-												removeProduct(order_id)
-											}
-										>
-											X
-										</p>
-										<p>{price} €</p>
-									</div>
-								)
-							)}
-						</div>
-					</div>
-					<div className="flex pt-5 justify-between w-full border-t-2 border-gray-50">
-						<p>Total</p>
-
-						<p>{total} €</p>
-					</div>
-				</div>
-				<Orders />
+				<h2 className="font-semibold text-xl">Stripe session</h2>
+				<button type="submit" role="link">
+					Checkout
+				</button>
 			</section>
-		</div>
+			<style jsx>
+				{`
+					section {
+						background: #ffffff;
+						display: flex;
+						flex-direction: column;
+						width: 400px;
+						height: 112px;
+						border-radius: 6px;
+						justify-content: space-between;
+					}
+					button {
+						height: 36px;
+						background: #556cd6;
+						border-radius: 4px;
+						color: white;
+						border: 0;
+						font-weight: 600;
+						cursor: pointer;
+						transition: all 0.2s ease;
+						box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
+					}
+					button:hover {
+						opacity: 0.8;
+					}
+				`}
+			</style>
+		</form>
 	);
 };
-
-export default card;
+export default PreviewPage;

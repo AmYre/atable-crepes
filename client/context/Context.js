@@ -8,6 +8,7 @@ const AppProvider = ({ children }) => {
 	const [productsList, setProductsList] = useState([]);
 	const [quantity, setQuantity] = useState(1);
 	const [theme, setTheme] = useState(false);
+	const [payed, setPayed] = useState(false);
 	const [supplementList, setSupplementList] = useState([]);
 	const [preparationTime, setPreparationTime] = useState([]);
 	const [minutes, setMinutes] = useState(0);
@@ -37,6 +38,8 @@ const AppProvider = ({ children }) => {
 				setMinutes,
 				seconds,
 				setSeconds,
+				payed,
+				setPayed,
 			}}
 		>
 			{children}

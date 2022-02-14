@@ -4,7 +4,8 @@
   "info": {
     "singularName": "boisson",
     "pluralName": "boissons",
-    "displayName": "boisson"
+    "displayName": "boisson",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -21,13 +22,17 @@
       "type": "decimal"
     },
     "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
+    },
+    "price_id": {
+      "type": "string"
     }
   }
 }

@@ -33,6 +33,9 @@
     },
     "preparation_time": {
       "type": "time"
+    },
+    "price_id": {
+      "type": "string"
     }
   }
 }

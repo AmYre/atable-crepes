@@ -9,20 +9,6 @@ import { useEffect } from 'react';
 const FoodAndDrink = () => {
 	const { loading } = useMenuList();
 
-	// const productsArray = data?.commandes.data.map(
-	// 	(item) => item?.attributes.products
-	// );
-
-	// const mergedArray = [].concat.apply([], productsArray);
-
-	// const categoryRequired = mergedArray.filter(
-	// 	({ category_name }, i) => category_name === 'crepes sucree'
-	// );
-
-	// const waiting_time = data?.commandes.data
-	// 	.filter((item) => item.attributes.is_prepared === false)
-	// 	.reduce((a, b) => a + b.attributes.preparation_time, 0);
-
 	if (loading)
 		return (
 			<BounceLoader

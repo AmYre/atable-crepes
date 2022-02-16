@@ -24,7 +24,7 @@
       "repeatable": true,
       "component": "product-detail.products"
     },
-    "confirm_order": {
+    "is_payed": {
       "type": "boolean",
       "default": false
     },

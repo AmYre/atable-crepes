@@ -1,69 +1,65 @@
-import { useEffect } from 'react';
-import { loadStripe } from '@stripe/stripe-js';
-import { useRouter } from 'next/router';
+import React from 'react';
 
-// Make sure to call `loadStripe` outside of a component’s render to avoid
-// recreating the `Stripe` object on every render.
-loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
-const PreviewPage = () => {
-	const router = useRouter();
-	const { success, canceled } = router.query;
-
-	useEffect(() => {
-		// Check to see if this is a redirect back from Checkout
-		const query = new URLSearchParams(window.location.search);
-
-		if (success !== undefined || canceled !== undefined) {
-			if (query.get('success')) {
-				console.log(
-					'Order placed! You will receive an email confirmation.'
-				);
-			}
-
-			if (query.get('canceled')) {
-				console.log(
-					'Order canceled -- continue to shop around and checkout when you’re ready.'
-				);
-			}
-		}
-	}, [success, canceled]);
-
+const Card = () => {
 	return (
-		<form action="/api/checkout_sessions" method="POST">
+		<div>
 			<section>
-				<h2 className="font-semibold text-xl">Stripe session</h2>
-				<button type="submit" role="link">
-					Checkout
-				</button>
+				<div className="flex flex-col w-full bg-gray-800 rounded text-gray-50 shadow gap-8 p-10">
+					<h2 className="font-semibold text-xl">
+						Récap' de votre commande
+					</h2>
+					<div className="flex justify-between font-bold">
+						<p>Produit</p>
+						<p>Supplement</p>
+						<p>quantite</p>
+						<p>supprimer</p>
+						<p>prix</p>
+					</div>
+					<div className="flex flex-col pb-2">
+						{productsList.map(
+							(
+								{
+									product_name,
+									price,
+									product_id,
+									quantity,
+									supplement_list,
+								},
+								i
+							) => (
+								<div className="flex justify-between" key={i}>
+									<p>{product_name}</p>
+									<div>
+										{supplement_list?.map((item, i) => (
+											<p key={i}>{item.name}</p>
+										))}
+									</div>
+									<div className="flex">
+										<p className="p-2">{quantity}</p>
+									</div>
+									<p
+										className="cursor-pointer"
+										onClick={() =>
+											removeProduct(product_id)
+										}
+									>
+										X
+									</p>
+									<p>{price} €</p>
+								</div>
+							)
+						)}
+					</div>
+					<div className="flex pt-5 justify-between w-full border-t-2 border-gray-50">
+						<p>Total</p>
+
+						<p>{totalSupplement + total} €</p>
+					</div>
+				</div>
+				<Orders currentUserId={currentUserId} />
 			</section>
-			<style jsx>
-				{`
-					section {
-						background: #ffffff;
-						display: flex;
-						flex-direction: column;
-						width: 400px;
-						height: 112px;
-						border-radius: 6px;
-						justify-content: space-between;
-					}
-					button {
-						height: 36px;
-						background: #556cd6;
-						border-radius: 4px;
-						color: white;
-						border: 0;
-						font-weight: 600;
-						cursor: pointer;
-						transition: all 0.2s ease;
-						box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
-					}
-					button:hover {
-						opacity: 0.8;
-					}
-				`}
-			</style>
-		</form>
+		</div>
 	);
 };
-export default PreviewPage;
+
+export default Card;

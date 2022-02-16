@@ -1,9 +1,9 @@
 import OrderBtn from './OrderBtn';
 
-const Orders = ({ currentUserId }) => {
+const Orders = ({ currentOrderId }) => {
 	return (
 		<div>
-			<OrderBtn currentUserId={currentUserId} />
+			<OrderBtn currentOrderId={currentOrderId} />
 		</div>
 	);
 };

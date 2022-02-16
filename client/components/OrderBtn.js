@@ -8,7 +8,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 const stripePromise = loadStripe(process.env.stripe_public_key);
 
-const OrderBtn = ({ currentUserId }) => {
+const OrderBtn = ({ currentOrderId }) => {
 	const [statusCrepes, setStatusCrepes] = useState('');
 	const {
 		productsList,
@@ -29,14 +29,14 @@ const OrderBtn = ({ currentUserId }) => {
 
 	const [updateOrder, { called }] = useMutation(UPDATE_ORDER, {
 		variables: {
-			id: Number(currentUserId),
-			confirm_order: true,
+			id: Number(currentOrderId),
+			// is_payed: false,
 			preparation_time: totalPreparationTime,
-			total: total + totalSupplement,
+			// total: total + totalSupplement,
 			products: productsList,
 		},
 	});
-
+	console.log(productsList);
 	const waiting_time = orderData?.commandes.data
 		.filter((item) => item.attributes.is_prepared === false)
 		.reduce((a, b) => a + b.attributes.preparation_time, 0);
@@ -69,13 +69,14 @@ const OrderBtn = ({ currentUserId }) => {
 	const handleUpdateOrder = () => {
 		// Later after payemnt i called the update order
 		updateOrder();
-		setInterval(() => {
-			const timer = timerCountDown();
-			return clearInterval(timer);
-		}, 1000);
+		// setInterval(() => {
+		// 	const timer = timerCountDown();
+		// 	return clearInterval(timer);
+		// }, 1000);
 	};
 
 	const createCheckoutSession = async () => {
+		handleUpdateOrder();
 		const stripe = await stripePromise;
 
 		// Call the backend to create a checkout session..
@@ -89,10 +90,8 @@ const OrderBtn = ({ currentUserId }) => {
 		const result = await stripe.redirectToCheckout({
 			sessionId: checkoutSession.data.id,
 		});
-
+		console.log(result);
 		if (result.error) alert(result.error.message);
-
-		// handleUpdateOrder();
 	};
 
 	return (

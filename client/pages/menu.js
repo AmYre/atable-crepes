@@ -26,7 +26,7 @@ const Menu = () => {
 
 	const [createOrder, { data: newOrderData }] = useMutation(CREATE_ORDER);
 
-	const currentUserId = newOrderData?.createCommande.data.id;
+	const currentOrderId = newOrderData?.createCommande.data.id;
 
 	const removeProduct = (id) => {
 		const removedProduct = productsList.filter(
@@ -112,7 +112,7 @@ const Menu = () => {
 								<p>{totalSupplement + total} €</p>
 							</div>
 						</div>
-						<Orders currentUserId={currentUserId} />
+						<Orders currentOrderId={currentOrderId} />
 					</section>
 				</div>
 			) : (

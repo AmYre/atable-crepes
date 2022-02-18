@@ -16,7 +16,7 @@ const Card = () => {
 						<p>prix</p>
 					</div>
 					<div className="flex flex-col pb-2">
-						{productsList.map(
+						{productsList?.map(
 							(
 								{
 									product_name,

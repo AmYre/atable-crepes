@@ -29,7 +29,9 @@ const ModalCrepesSucrees = ({
 
 	const { data } = useMenuList();
 
-	const totalSupplement = supplementList.reduce((a, b) => a + b.price, 0);
+	const totalSupplement = Number(
+		supplementList.reduce((a, b) => a + b.price, 0)
+	);
 
 	const myLoader = ({ src, width, quality }) => {
 		return `http://localhost:1337${src}?w=${width}&q=${quality || 75}`;
@@ -114,7 +116,7 @@ const ModalCrepesSucrees = ({
 								Fermé
 							</button>
 							<p className="text-xl font-bold">
-								{inputQuantity * price + totalSupplement} €{' '}
+								{price + totalSupplement}0 €{' '}
 							</p>
 						</div>
 					</div>

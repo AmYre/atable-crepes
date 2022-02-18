@@ -2,6 +2,7 @@ import { useOrders } from '../hooks/queries/useOrders';
 import { useEffect } from 'react';
 import { UPDATE_ORDER } from '../hooks/mutations/useUpdateOrder';
 import { useMutation } from '@apollo/client';
+import CuisineOrder from '../components/CuisineOrder';
 
 const Kitchen = () => {
 	const { data, refetch } = useOrders();
@@ -17,8 +18,6 @@ const Kitchen = () => {
 	// 	seconds = seconds < 10 ? `0${seconds}` : seconds;
 	// };
 
-	const [updateOrder, { called }] = useMutation(UPDATE_ORDER);
-
 	useEffect(() => {
 		setInterval(() => {
 			const timer = refetch();
@@ -30,10 +29,9 @@ const Kitchen = () => {
 		// }, 1000);
 	}, []);
 
-	const total = data?.commandes.data.reduce(
-		(a, b) => a + b.attributes.total,
-		0
-	);
+	const total = data?.commandes.data
+		.reduce((a, b) => a + b.attributes.total, 0)
+		.toFixed(2);
 
 	return (
 		<>
@@ -54,8 +52,8 @@ const Kitchen = () => {
 						</div>
 						{data?.commandes.data
 							.filter(
-								({ attributes: { is_prepared } }) =>
-									is_prepared === false
+								({ attributes: { is_prepared, is_payed } }) =>
+									is_prepared === false && is_payed === true
 							)
 							.map(
 								(
@@ -71,64 +69,11 @@ const Kitchen = () => {
 									},
 									i
 								) => (
-									<div key={i} className="flex flex-col pb-2">
-										<div>
-											{/* <img src={'./'} /> */}
-											{products.map(
-												(
-													{
-														product_name,
-														supplement_list,
-														quantity,
-														price,
-													},
-													i
-												) => (
-													<div
-														className="flex justify-between"
-														key={i}
-													>
-														<p>{product_name}</p>
-														<div>
-															{supplement_list?.map(
-																(item, i) => (
-																	<p key={i}>
-																		{
-																			item.name
-																		}
-																	</p>
-																)
-															)}
-														</div>
-														<div className="flex">
-															<p className="p-2">
-																{quantity}
-															</p>
-														</div>
-														<p
-															className="cursor-pointer"
-															onClick={() => {
-																updateOrder({
-																	variables: {
-																		id: Number(
-																			id
-																		),
-																		is_prepared: true,
-																	},
-																});
-															}}
-														>
-															X
-														</p>
-														<p>{price} €</p>
-													</div>
-												)
-											)}
-										</div>
-										{/* <p className="mx-auto">
-											Total: {total}
-										</p> */}
-									</div>
+									<CuisineOrder
+										key={i}
+										id={id}
+										products={products}
+									/>
 								)
 							)}
 						<h2 className="font-semibold text-xl">

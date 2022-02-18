@@ -1,8 +1,8 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 export default async (req, res) => {
-	const { products } = req.body;
-
+	const { products, supplement_total, id } = req.body;
+	console.log(id);
 	const transformedItem = products?.map((item) => ({
 		price_data: {
 			product_data: {
@@ -10,6 +10,11 @@ export default async (req, res) => {
 			},
 			currency: 'eur',
 			unit_amount: item.price * 100,
+			// item.supplement_list
+			// 	.reduce((a, b) => a.concat(b), [])
+			// 	.reduce((a, b) => a + b.price, 0)
+			// 	.toFixed(2) *
+			// 	100,
 		},
 		quantity: item.quantity,
 		description:
@@ -21,8 +26,11 @@ export default async (req, res) => {
 		payment_method_types: ['card'],
 		line_items: transformedItem,
 		mode: 'payment',
-		success_url: `${process.env.HOST}/result?session_id={CHECKOUT_SESSION_ID}`,
+		success_url: `${process.env.HOST}/success?session_id={CHECKOUT_SESSION_ID}`,
 		cancel_url: `${process.env.HOST}/card`,
+		metadata: {
+			id: id,
+		},
 	});
 
 	res.status(200).json({ id: session.id });

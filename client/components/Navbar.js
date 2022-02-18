@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 const Navbar = () => {
 	const { productsList, theme, setTheme } = useGlobalContext();
 	const { data, refetch } = useOrders();
-	const cardLength = productsList.reduce((a, b) => a + b.quantity * 1, 0);
+	// const cardLength = productsList.reduce((a, b) => a + b.quantity * 1, 0);
 
 	useEffect(() => {
 		setInterval(() => {
@@ -40,11 +40,11 @@ const Navbar = () => {
 			</div>
 			<div className="relative">
 				<ShoppingBagIcon className="w-6 cursor-pointer absolute right-0 top-0" />
-				<Link href="/card">
+				{/* <Link href="/card">
 					<a className="absolute left-0 bottom-0 text-white p-2 bg-red-600 rounded-full">
 						{cardLength}
 					</a>
-				</Link>
+				</Link> */}
 			</div>
 			<div onClick={() => setTheme(!theme)}>
 				{theme ? (

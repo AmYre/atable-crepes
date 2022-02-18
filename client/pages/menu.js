@@ -34,7 +34,13 @@ const Menu = () => {
 		);
 		setProductsList(removedProduct);
 	};
-
+	console.log(
+		productsList
+			.map((item) => item.supplement_list)
+			.reduce((a, b) => a.concat(b), [])
+			.reduce((a, b) => a + b.price, 0)
+			.toFixed(2) * 100
+	);
 	const tot = productsList.map(({ supplement_list }) => supplement_list);
 
 	const concatArrays = tot.reduce((a, b) => a.concat(b), []);

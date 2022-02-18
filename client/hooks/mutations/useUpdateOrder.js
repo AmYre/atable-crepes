@@ -23,12 +23,19 @@ export const UPDATE_ORDER = gql`
 		) {
 			data {
 				attributes {
+					order_id
 					is_payed
 					is_prepared
 					preparation_time
 					products {
+						quantity
 						product_name
+						category_name
 						price
+						supplement_list {
+							name
+							price
+						}
 					}
 				}
 			}

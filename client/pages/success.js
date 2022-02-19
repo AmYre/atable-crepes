@@ -10,6 +10,7 @@ const Success = () => {
 	const router = useRouter();
 	const { data: orderData } = useOrders();
 	const [statusCrepes, setStatusCrepes] = useState('');
+	const [moreDetail, setMoreDetail] = useState(false);
 	const {
 		productsList,
 		setProductsList,
@@ -42,7 +43,7 @@ const Success = () => {
 	);
 
 	useEffect(() => {
-		if (data !== undefined) {
+		if (data !== undefined && data.session.id.startsWith('cs_')) {
 			updateOrder();
 			setProductsList(OrderData);
 			handleTimer();
@@ -62,10 +63,11 @@ const Success = () => {
 			time--;
 			seconds < 10 ? `0${seconds}` : seconds;
 		} else {
+			return;
 			console.log('Commande est prete');
 		}
 	};
-	console.log(minutes, seconds);
+
 	useEffect(() => {
 		if (minutes < 15 && minutes >= 10) {
 			setStatusCrepes('Attente estimé moins de 15 minutes');
@@ -86,38 +88,78 @@ const Success = () => {
 		}, 1000);
 	};
 
+	const currentOrderId = orderData?.commandes.data.find(
+		({ id }) => Number(id) === Number(data?.session.metadata.id)
+	);
+
+	console.log(currentOrderId?.attributes.products);
+
 	return (
 		<>
 			{data ? (
-				<div>
-					<div>
-						<h1>
-							Payment Result {data?.session.payment_intent.status}
-						</h1>
-						<p>Status: {data?.session.payment_status}</p>
-						<p>Total: {data?.session.amount_total / 100} €</p>
-						{/* <pre>
-						{data ? JSON.stringify(data, null, 2) : 'Loading...'}
-					</pre> */}
-					</div>
-					<div
-						className={`${
-							called
-								? 'flex items-center justify-center z-10 bg-white bg-opacity-70 h-screen w-full fixed bottom-0 left-0'
-								: 'hidden'
-						} `}
-					>
-						<div className="bg-white py-0 rounded w-full md:w-4/5 lg:w-2/3">
-							<div className="flex flex-col justify-around w-full h-screen py-10 px-3 bg-gray-100 relative">
-								<h2 className="text-base font-bold mt-5 text-center">
-									Votre commande est en cours de préparation
-								</h2>
-								<p className="text-base font-bold mt-5 text-center">
-									{statusCrepes}
-								</p>
+				<div className="bg-gray-100 h-screen">
+					<main className="max-w-screen-lg mx-auto">
+						<div className="flex flex-col p-10 bg-white">
+							<div className="space-x-2 mb-5">
+								<h1 className="text-2xl">
+									Merci de votre achat, votre commandes est
+									confirmé!
+								</h1>
 							</div>
+
+							<p>
+								Votre commande est en cours de préparation vous
+								serez averti lorsque votre commande est prete
+							</p>
+							<button
+								onClick={() => setMoreDetail(!moreDetail)}
+								className="mt-8 mb-5 bg-red-500 rounded-md shadow-lg px-3 py-2 text-gray-50"
+							>
+								Voir le detail de ma commande
+							</button>
+							{moreDetail && (
+								<div>
+									<h2 className="border-t-2 space-x-2 my-5 text-2xl">
+										Détail de votre commande
+									</h2>
+									{currentOrderId?.attributes.products.map(
+										(
+											{ product_name, supplement_list },
+											i
+										) => (
+											<div
+												key={i}
+												className="flex space-x-10"
+											>
+												<p>{product_name}:</p>
+												{supplement_list.map(
+													({ name }, i) => (
+														<p key={i}>{name}</p>
+													)
+												)}
+											</div>
+										)
+									)}
+
+									<p className="text-2xl text-right">
+										Total:{' '}
+										{data?.session.amount_total / 100}0 €
+									</p>
+								</div>
+							)}
+							{called ? (
+								<div>
+									<h2 className="border-t-2 space-x-2 my-5 text-2xl">
+										Votre commande est en cours de
+										préparation
+									</h2>
+									<p>{statusCrepes}</p>
+								</div>
+							) : (
+								'Loading...'
+							)}
 						</div>
-					</div>
+					</main>
 				</div>
 			) : (
 				'Loading'

@@ -32,7 +32,7 @@ const ModalCrepesSucrees = ({
 	const totalSupplement = Number(
 		supplementList.reduce((a, b) => a + b.price, 0)
 	);
-
+	// console.log(Number(totalSupplement.toFixed(2)));
 	const myLoader = ({ src, width, quality }) => {
 		return `http://localhost:1337${src}?w=${width}&q=${quality || 75}`;
 	};
@@ -116,7 +116,7 @@ const ModalCrepesSucrees = ({
 								Fermé
 							</button>
 							<p className="text-xl font-bold">
-								{price + totalSupplement}0 €{' '}
+								{price + Number(totalSupplement.toFixed(2))} €{' '}
 							</p>
 						</div>
 					</div>

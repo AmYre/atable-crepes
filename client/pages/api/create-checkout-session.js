@@ -27,7 +27,7 @@ export default async (req, res) => {
 		line_items: transformedItem,
 		mode: 'payment',
 		success_url: `${process.env.HOST}/success?session_id={CHECKOUT_SESSION_ID}`,
-		cancel_url: `${process.env.HOST}/card`,
+		cancel_url: `${process.env.HOST}/menu?id=${id}`,
 		metadata: {
 			id: id,
 		},

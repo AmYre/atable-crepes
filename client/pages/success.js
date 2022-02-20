@@ -47,6 +47,8 @@ const Success = () => {
 			updateOrder();
 			setProductsList(OrderData);
 			handleTimer();
+
+			localStorage.clear();
 		}
 	}, [data]);
 
@@ -92,7 +94,9 @@ const Success = () => {
 		({ id }) => Number(id) === Number(data?.session.metadata.id)
 	);
 
-	console.log(currentOrderId?.attributes.products);
+	// console.log(currentOrderId?.attributes.products);
+	// console.log(orderData);
+	// console.log(Number(data?.session.metadata.id));
 
 	return (
 		<>

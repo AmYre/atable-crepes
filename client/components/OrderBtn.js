@@ -3,10 +3,12 @@ import { useGlobalContext } from '../context/Context';
 import { UPDATE_ORDER } from '../hooks/mutations/useUpdateOrder';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 const stripePromise = loadStripe(process.env.stripe_public_key);
 
 const OrderBtn = ({ currentOrderId }) => {
 	const { productsList, preparationTime } = useGlobalContext();
+	const router = useRouter();
 	// const { data: orderData } = useOrders();
 
 	const tot = productsList.map(({ supplement_list }) => supplement_list);
@@ -17,13 +19,14 @@ const OrderBtn = ({ currentOrderId }) => {
 
 	const [updateOrder] = useMutation(UPDATE_ORDER, {
 		variables: {
-			id: Number(currentOrderId),
+			id: Number(currentOrderId) || Number(router.query.id),
 			preparation_time: totalPreparationTime,
 			products: productsList,
 		},
 	});
 
 	const createCheckoutSession = async () => {
+		localStorage.setItem('productList', JSON.stringify(productsList)); // save the basket in localStorage before paying
 		updateOrder();
 		const stripe = await stripePromise;
 
@@ -31,7 +34,7 @@ const OrderBtn = ({ currentOrderId }) => {
 		const checkoutSession = await axios.post(
 			'/api/create-checkout-session',
 			{
-				id: Number(currentOrderId),
+				id: Number(currentOrderId) || Number(router.query.id),
 				products: productsList,
 				supplement_total: totalSupplement,
 			}

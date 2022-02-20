@@ -1,17 +1,15 @@
 import { useGlobalContext } from '../context/Context';
 import MenuList from '../components/MenuList/MenuList ';
 import Orders from '../components/Orders';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { useMenuList } from '../hooks/queries/useMenuList';
 import { CREATE_ORDER } from '../hooks/mutations/useCreateOrder';
 import { useOrders } from '../hooks/queries/useOrders';
 import { useEffect } from 'react';
-// import Orders from '../components/Orders';
-// import { DELETE_ORDER } from '../hooks/mutations/useDeleteOrder';
-// import AddCustomer from '../components/Customer/AddCustomer';
-// import { UPDATE_ORDER } from '../hooks/mutations/useUpdateOrder';
+import { useRouter } from 'next/router';
 
 const Menu = () => {
+	const router = useRouter();
 	const { refetch } = useOrders();
 	const { loading } = useMenuList();
 	const {
@@ -24,6 +22,8 @@ const Menu = () => {
 		supplementList,
 	} = useGlobalContext();
 
+	// console.log(data.commande.data.attributes.products);
+
 	const [createOrder, { data: newOrderData }] = useMutation(CREATE_ORDER);
 
 	const currentOrderId = newOrderData?.createCommande.data.id;
@@ -33,25 +33,38 @@ const Menu = () => {
 			(product) => product.product_id !== id
 		);
 		setProductsList(removedProduct);
+		localStorage.clear();
 	};
-	console.log(
-		productsList
-			.map((item) => item.supplement_list)
-			.reduce((a, b) => a.concat(b), [])
-			.reduce((a, b) => a + b.price, 0)
-			.toFixed(2) * 100
-	);
-	const tot = productsList.map(({ supplement_list }) => supplement_list);
+	// console.log(
+	// 	productsList
+	// 		.map((item) => item.supplement_list)
+	// 		.reduce((a, b) => a.concat(b), [])
+	// 		.reduce((a, b) => a + b.price, 0)
+	// 		.toFixed(2) * 100
+	// );
+	const tot = productsList?.map(({ supplement_list }) => supplement_list);
 
-	const concatArrays = tot.reduce((a, b) => a.concat(b), []);
+	const concatArrays = tot?.reduce((a, b) => a.concat(b), []);
 
 	const totalSupplement = concatArrays.reduce((a, b) => a + b?.price, 0);
 
 	const total = productsList.reduce((a, b) => a + b.price * b.quantity, 0);
 
+	if (typeof window !== 'undefined') {
+		const localProduct = localStorage.getItem('productList');
+		const parserdData = JSON.parse(localProduct);
+		console.log(parserdData);
+	}
+
+	useEffect(() => {
+		if (parserdData) {
+			setProductsList(parserdData);
+		}
+	}, []);
+
 	return (
 		<div className="flex flex-col bg-blue-300 w-screen h-screen">
-			{firstStep && !loading ? (
+			{(firstStep && !loading) || (router.query.id && !loading) ? (
 				<div className="flex flex-col justify-between">
 					<main>
 						<MenuList />

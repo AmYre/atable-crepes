@@ -32,20 +32,15 @@ const Navbar = () => {
 			</a>
 			<nav className="flex gap-3 dark:bg-grey-600">
 				<div>Contact</div>
-				<div>Menus</div>
+				<Link href="/menu">
+					<a>Menus</a>
+				</Link>
 				<div>{isPreparedOrder?.length} Commande en cours ...</div>
 			</nav>
 			<div>
 				<a href="/login">Connexion</a>
 			</div>
-			<div className="relative">
-				<ShoppingBagIcon className="w-6 cursor-pointer absolute right-0 top-0" />
-				{/* <Link href="/card">
-					<a className="absolute left-0 bottom-0 text-white p-2 bg-red-600 rounded-full">
-						{cardLength}
-					</a>
-				</Link> */}
-			</div>
+
 			<div onClick={() => setTheme(!theme)}>
 				{theme ? (
 					<SunIcon className="w-6" />

@@ -9,12 +9,14 @@ export default async (req, res) => {
 				name: item.product_name,
 			},
 			currency: 'eur',
-			unit_amount: item.price * 100,
-			// item.supplement_list
-			// 	.reduce((a, b) => a.concat(b), [])
-			// 	.reduce((a, b) => a + b.price, 0)
-			// 	.toFixed(2) *
-			// 	100,
+			unit_amount: Number(
+				item.price * 100 +
+					item.supplement_list
+						.reduce((a, b) => a.concat(b), [])
+						.reduce((a, b) => a + b.price, 0)
+						.toFixed(2) *
+						100
+			),
 		},
 		quantity: item.quantity,
 		description:

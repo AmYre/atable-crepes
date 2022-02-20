@@ -53,7 +53,7 @@ const Menu = () => {
 	if (typeof window !== 'undefined') {
 		const localProduct = localStorage.getItem('productList');
 		const parserdData = JSON.parse(localProduct);
-		console.log(parserdData);
+		// console.log(parserdData);
 	}
 
 	useEffect(() => {
@@ -120,7 +120,7 @@ const Menu = () => {
 											>
 												X
 											</p>
-											<p>{price} €</p>
+											<p>{price.toFixed(2)} €</p>
 										</div>
 									)
 								)}
@@ -128,7 +128,10 @@ const Menu = () => {
 							<div className="flex pt-5 justify-between w-full border-t-2 border-gray-50">
 								<p>Total</p>
 
-								<p>{totalSupplement + total} €</p>
+								<p>
+									{Number(totalSupplement + total).toFixed(2)}{' '}
+									€
+								</p>
 							</div>
 						</div>
 						<Orders currentOrderId={currentOrderId} />

@@ -30,9 +30,13 @@ const ModalCrepesSucrees = ({
 	const { data } = useMenuList();
 
 	const totalSupplement = Number(
-		supplementList.reduce((a, b) => a + b.price, 0)
+		supplementList.reduce((a, b) => a + b.price, 0).toFixed(2)
 	);
-	// console.log(Number(totalSupplement.toFixed(2)));
+	// const totalSup = data?.supplements.data.map(
+	// 	({ id, attributes: { name, price } }) => price
+	// );
+	// console.log(Number(totalSupplement.toFixed(2)) + Number(totalSup[0]));
+
 	const myLoader = ({ src, width, quality }) => {
 		return `http://localhost:1337${src}?w=${width}&q=${quality || 75}`;
 	};
@@ -99,7 +103,7 @@ const ModalCrepesSucrees = ({
 									]);
 									setModal(!modal);
 									setSupplementList([]);
-									totalSupplement = 0;
+									// totalSupplement = 0;
 								}}
 							>
 								Ajouter aux panier
@@ -111,12 +115,14 @@ const ModalCrepesSucrees = ({
 								className="text-bold"
 								onClick={() => {
 									setModal(!modal);
+									setSupplementList([]);
+									// totalSupplement = 0;
 								}}
 							>
 								Fermé
 							</button>
 							<p className="text-xl font-bold">
-								{price + Number(totalSupplement.toFixed(2))} €{' '}
+								{Number(price + totalSupplement).toFixed(2)} €{' '}
 							</p>
 						</div>
 					</div>

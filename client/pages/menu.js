@@ -7,6 +7,7 @@ import { CREATE_ORDER } from '../hooks/mutations/useCreateOrder';
 import { useOrders } from '../hooks/queries/useOrders';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { TrashIcon } from '@heroicons/react/solid';
 
 const Menu = () => {
 	const router = useRouter();
@@ -55,6 +56,7 @@ const Menu = () => {
 
 	if (loading) return 'Loading...';
 
+	console.log(productsList);
 	return (
 		<div className="flex flex-col bg-blue-300 w-screen h-screen">
 			{(firstStep && !loading) || (router.query.id && !loading) ? (
@@ -105,14 +107,13 @@ const Menu = () => {
 													{quantity}
 												</p>
 											</div>
-											<p
-												className="cursor-pointer"
+											<TrashIcon
+												className="cursor-pointer w-4 h-4"
 												onClick={() =>
 													removeProduct(product_id)
 												}
-											>
-												X
-											</p>
+											/>
+
 											<p>{price.toFixed(2)} €</p>
 										</div>
 									)

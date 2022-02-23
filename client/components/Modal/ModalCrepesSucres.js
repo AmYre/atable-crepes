@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { useMenuList } from '../../hooks/queries/useMenuList';
 import SupplementDetail from '../MenuList/SupplementDetail';
+import { PlusIcon } from '@heroicons/react/solid';
 
 const ModalCrepesSucrees = ({
 	product_name,
@@ -79,6 +80,7 @@ const ModalCrepesSucrees = ({
 										index={index}
 										key={index}
 										id={id}
+										modal={modal}
 									/>
 								)
 							)}
@@ -142,14 +144,20 @@ const ModalCrepesSucrees = ({
 					<p className="text-lg font-bold">{price.toFixed(2)} € </p>
 				</div>
 			</div>
-			<button
+			<PlusIcon
+				onClick={() => {
+					setModal(!modal);
+				}}
+				className="w-8 h-8 cursor-pointer"
+			/>
+			{/* <button
 				onClick={() => {
 					setModal(!modal);
 				}}
 				className="w-6 cursor-pointer"
 			>
 				Choisir
-			</button>
+			</button> */}
 		</div>
 	);
 };

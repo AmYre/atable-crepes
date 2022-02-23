@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useGlobalContext } from '../../context/Context';
 import { PlusIcon, TrashIcon } from '@heroicons/react/solid';
 
-const SupplementDetail = ({ name, price, index, id }) => {
+const SupplementDetail = ({ name, price, index, id, modal }) => {
 	const { supplementList, setSupplementList } = useGlobalContext();
 	const [activeTab, setActiveTab] = useState(false);
+
+	useEffect(() => {
+		setActiveTab(false);
+	}, [modal]);
 
 	const removeProduct = (id) => {
 		const removedProduct = supplementList.filter(
@@ -13,7 +17,6 @@ const SupplementDetail = ({ name, price, index, id }) => {
 		setSupplementList(removedProduct);
 	};
 
-	console.log(supplementList);
 	return (
 		<div
 			className={`flex items-center h-5 py-5 border-b-2 ${

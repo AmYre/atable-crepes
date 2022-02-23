@@ -55,9 +55,9 @@ const ModalCrepesSucrees = ({
 						<Image
 							loader={myLoader}
 							src={url}
-							layout="intrinsic"
-							width={400}
-							height={250}
+							layout="responsive"
+							width={370}
+							height={180}
 							alt={product_name}
 							className="object-contain"
 						/>
@@ -78,6 +78,7 @@ const ModalCrepesSucrees = ({
 										price={price}
 										index={index}
 										key={index}
+										id={id}
 									/>
 								)
 							)}
@@ -103,7 +104,6 @@ const ModalCrepesSucrees = ({
 									]);
 									setModal(!modal);
 									setSupplementList([]);
-									// totalSupplement = 0;
 								}}
 							>
 								Ajouter aux panier
@@ -116,7 +116,6 @@ const ModalCrepesSucrees = ({
 								onClick={() => {
 									setModal(!modal);
 									setSupplementList([]);
-									// totalSupplement = 0;
 								}}
 							>
 								Fermé
@@ -139,11 +138,8 @@ const ModalCrepesSucrees = ({
 
 			<div className="flex justify-between w-full p-2">
 				<p className="text-lg font-bold">{product_name}</p>
-				{/* <p className="text-sm font-semibold">
-					Temps de préparation {preparation_time.slice(4, 8)} Min
-				</p> */}
 				<div className="flex space-x-2">
-					<p className="text-lg font-bold">{price} € </p>
+					<p className="text-lg font-bold">{price.toFixed(2)} € </p>
 				</div>
 			</div>
 			<button

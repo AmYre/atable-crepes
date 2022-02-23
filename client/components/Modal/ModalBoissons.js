@@ -89,7 +89,7 @@ const ModalBoissons = ({
 								Fermé
 							</button>
 							<p className="text-xl font-bold">
-								{inputQuantity * price} €{' '}
+								{Number(inputQuantity * price).toFixed(2)} €{' '}
 							</p>
 						</div>
 					</div>
@@ -107,7 +107,7 @@ const ModalBoissons = ({
 			<div className="flex justify-between w-full p-2">
 				<p className="text-lg font-bold">{product_name}</p>
 				<div className="flex space-x-2">
-					<p className="text-lg font-bold">{price} € </p>
+					<p className="text-lg font-bold">{price.toFixed(2)} € </p>
 				</div>
 			</div>
 			<button

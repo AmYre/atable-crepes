@@ -3,8 +3,6 @@ import { css } from '@emotion/react';
 import BounceLoader from 'react-spinners/BounceLoader';
 import { useMenuList } from '../../hooks/queries/useMenuList';
 import Boisson from './Boisson';
-import { useOrders } from '../../hooks/queries/useOrders';
-import { useEffect } from 'react';
 
 const FoodAndDrink = () => {
 	const { loading } = useMenuList();

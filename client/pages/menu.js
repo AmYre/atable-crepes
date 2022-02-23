@@ -22,8 +22,6 @@ const Menu = () => {
 		supplementList,
 	} = useGlobalContext();
 
-	// console.log(data.commande.data.attributes.products);
-
 	const [createOrder, { data: newOrderData }] = useMutation(CREATE_ORDER);
 
 	const currentOrderId = newOrderData?.createCommande.data.id;
@@ -35,22 +33,15 @@ const Menu = () => {
 		setProductsList(removedProduct);
 		localStorage.clear();
 	};
-	// console.log(
-	// 	productsList
-	// 		.map((item) => item.supplement_list)
-	// 		.reduce((a, b) => a.concat(b), [])
-	// 		.reduce((a, b) => a + b.price, 0)
-	// 		.toFixed(2) * 100
-	// );
+
+	// concat all the arrays together and get all totals amounts
 	const tot = productsList?.map(({ supplement_list }) => supplement_list);
-
 	const concatArrays = tot?.reduce((a, b) => a.concat(b), []);
-
 	const totalSupplement = concatArrays.reduce((a, b) => a + b?.price, 0);
-
 	const total = productsList.reduce((a, b) => a + b.price * b.quantity, 0);
 
 	if (typeof window !== 'undefined') {
+		// require to have localstorage to work with next
 		const localProduct = localStorage.getItem('productList');
 		const parserdData = JSON.parse(localProduct);
 		// console.log(parserdData);
@@ -61,6 +52,8 @@ const Menu = () => {
 			setProductsList(parserdData);
 		}
 	}, []);
+
+	if (loading) return 'Loading...';
 
 	return (
 		<div className="flex flex-col bg-blue-300 w-screen h-screen">

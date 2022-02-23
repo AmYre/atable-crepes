@@ -9,8 +9,8 @@ const stripePromise = loadStripe(process.env.stripe_public_key);
 const OrderBtn = ({ currentOrderId }) => {
 	const { productsList, preparationTime } = useGlobalContext();
 	const router = useRouter();
-	// const { data: orderData } = useOrders();
 
+	// concat all the arrays together and get all totals amounts
 	const tot = productsList.map(({ supplement_list }) => supplement_list);
 	const concatArrays = tot.reduce((a, b) => a.concat(b), []);
 	const totalSupplement = concatArrays.reduce((a, b) => a + b?.price, 0);
@@ -18,8 +18,9 @@ const OrderBtn = ({ currentOrderId }) => {
 	const totalPreparationTime = preparationTime.reduce((a, b) => a + b, 0);
 
 	const [updateOrder] = useMutation(UPDATE_ORDER, {
+		// update order with the products
 		variables: {
-			id: Number(currentOrderId) || Number(router.query.id),
+			id: Number(currentOrderId) || Number(router.query.id), // ID form data return when create the order or from the query params
 			preparation_time: totalPreparationTime,
 			products: productsList,
 		},

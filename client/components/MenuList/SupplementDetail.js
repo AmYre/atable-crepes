@@ -1,39 +1,54 @@
 import { useState } from 'react';
 import { useGlobalContext } from '../../context/Context';
+import { PlusIcon, TrashIcon } from '@heroicons/react/solid';
 
-const SupplementDetail = ({ name, price, index }) => {
+const SupplementDetail = ({ name, price, index, id }) => {
 	const { supplementList, setSupplementList } = useGlobalContext();
 	const [activeTab, setActiveTab] = useState(false);
 
+	const removeProduct = (id) => {
+		const removedProduct = supplementList.filter(
+			(product) => product.id_list !== id
+		);
+		setSupplementList(removedProduct);
+	};
+
+	console.log(supplementList);
 	return (
 		<div
 			className={`flex items-center h-5 py-5 border-b-2 ${
-				activeTab && 'bg-blue-300'
-			}`}
+				activeTab && 'bg-gray-200'
+			} `}
 			key={index}
 		>
-			<label
-				// htmlFor={`${name} ${product_name}`}
-				className={`flex w-full justify-between`}
-			>
+			<label className={`flex w-full justify-between`}>
 				<span className="ml-3 text-sm sm:text-sm lg:text-base font-medium text-black cursor-pointer">
 					{name}
 				</span>{' '}
 				<span className="ml-3 text-sm lg:text-base font-bold text-black cursor-pointer">
-					{price} €
+					{price.toFixed(2)} €
 				</span>
 			</label>
-			<button
-				onClick={() => {
-					setActiveTab(!activeTab);
-					setSupplementList([
-						...supplementList,
-						{ name: name, price: price },
-					]);
-				}}
-			>
-				Add
-			</button>
+			{activeTab ? (
+				<TrashIcon
+					className="w-4 h-4 cursor-pointer mx-2"
+					onClick={() => {
+						setActiveTab(!activeTab);
+						removeProduct(id);
+					}}
+				/>
+			) : (
+				<PlusIcon
+					className="w-4 h-4 cursor-pointer mx-2"
+					onClick={() => {
+						setActiveTab(!activeTab);
+						setSupplementList([
+							...supplementList,
+							{ name: name, price: price, id_list: id },
+						]);
+					}}
+				/>
+			)}
 		</div>
 	);
 };

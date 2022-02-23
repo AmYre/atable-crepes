@@ -37,7 +37,6 @@ const Success = () => {
 				id: Number(data?.session.metadata.id),
 				is_payed: true,
 				total: data?.session.amount_total / 100,
-				// preparation_time: totalPreparationTime,
 			},
 		}
 	);
@@ -47,7 +46,6 @@ const Success = () => {
 			updateOrder();
 			setProductsList(OrderData);
 			handleTimer();
-
 			localStorage.clear();
 		}
 	}, [data]);
@@ -66,7 +64,6 @@ const Success = () => {
 			seconds < 10 ? `0${seconds}` : seconds;
 		} else {
 			return;
-			console.log('Commande est prete');
 		}
 	};
 
@@ -83,7 +80,6 @@ const Success = () => {
 	}, [minutes]);
 
 	const handleTimer = () => {
-		// updateOrder();
 		setInterval(() => {
 			const timer = timerCountDown();
 			return clearInterval(timer);

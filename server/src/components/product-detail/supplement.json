@@ -12,6 +12,9 @@
     },
     "price": {
       "type": "decimal"
+    },
+    "id_list": {
+      "type": "string"
     }
   }
 }

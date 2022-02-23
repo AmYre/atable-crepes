@@ -17,9 +17,6 @@
     },
     "price": {
       "type": "decimal"
-    },
-    "price_id": {
-      "type": "string"
     }
   }
 }

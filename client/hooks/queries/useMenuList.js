@@ -41,6 +41,7 @@ const GET_PRODUCTS = gql`
 		}
 		supplements {
 			data {
+				id
 				attributes {
 					name
 					price

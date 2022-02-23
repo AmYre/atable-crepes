@@ -33,15 +33,11 @@ const ModalCrepesSucrees = ({
 	const totalSupplement = Number(
 		supplementList.reduce((a, b) => a + b.price, 0).toFixed(2)
 	);
-	// const totalSup = data?.supplements.data.map(
-	// 	({ id, attributes: { name, price } }) => price
-	// );
-	// console.log(Number(totalSupplement.toFixed(2)) + Number(totalSup[0]));
 
 	const myLoader = ({ src, width, quality }) => {
 		return `http://localhost:1337${src}?w=${width}&q=${quality || 75}`;
 	};
-	// console.log(preparationTime);
+
 	return (
 		<div className={`flex items-center border-t-2 z-50 hover:bg-gray-100`}>
 			<div
@@ -150,14 +146,6 @@ const ModalCrepesSucrees = ({
 				}}
 				className="w-8 h-8 cursor-pointer"
 			/>
-			{/* <button
-				onClick={() => {
-					setModal(!modal);
-				}}
-				className="w-6 cursor-pointer"
-			>
-				Choisir
-			</button> */}
 		</div>
 	);
 };

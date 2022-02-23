@@ -2,6 +2,7 @@ import { useGlobalContext } from '../../context/Context';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useMenuList } from '../../hooks/queries/useMenuList';
+import { PlusIcon } from '@heroicons/react/solid';
 
 const ModalBoissons = ({
 	product_name,
@@ -53,6 +54,7 @@ const ModalBoissons = ({
 						<input
 							className="h-10 w-full p-1 mt-2 mb-5 shadow border rounded form-input ring-blue-600 outline-none focus:ring-2"
 							type="number"
+							value={inputQuantity}
 							onChange={(e) => setInputQuantity(e.target.value)}
 							defaultValue="1"
 							min="1"
@@ -74,8 +76,7 @@ const ModalBoissons = ({
 										},
 									]);
 									setModal(!modal);
-									// setSupplementList([]);
-									// totalSupplement = 0;
+									setInputQuantity(1);
 								}}
 							>
 								Ajouter aux panier
@@ -84,7 +85,10 @@ const ModalBoissons = ({
 						<div className="flex justify-between">
 							<button
 								className="text-bold"
-								onClick={() => setModal(!modal)}
+								onClick={() => {
+									setModal(!modal);
+									setInputQuantity(1);
+								}}
 							>
 								Fermé
 							</button>
@@ -110,14 +114,12 @@ const ModalBoissons = ({
 					<p className="text-lg font-bold">{price.toFixed(2)} € </p>
 				</div>
 			</div>
-			<button
+			<PlusIcon
 				onClick={() => {
 					setModal(!modal);
 				}}
-				className="w-6 cursor-pointer"
-			>
-				Choisir
-			</button>
+				className="w-8 h-8 cursor-pointer"
+			/>
 		</div>
 	);
 };

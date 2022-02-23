@@ -66,15 +66,14 @@ const Menu = () => {
 					</main>
 					<section>
 						<div className="flex flex-col w-full bg-gray-800 rounded text-gray-50 shadow gap-8 p-10">
-							<h2 className="font-semibold text-xl">
+							<h2 className="font-bold text-2xl uppercase border-b-2 py-1">
 								Récap' de votre commande
 							</h2>
 							<div className="flex justify-between font-bold">
-								<p>Produit</p>
-								<p>Supplement</p>
-								<p>quantite</p>
-								<p>supprimer</p>
-								<p>prix</p>
+								<p className="uppercase">Produit</p>
+								<p className="uppercase">quantite</p>
+								<p className="uppercase">supprimer</p>
+								<p className="uppercase">prix</p>
 							</div>
 							<div className="flex flex-col pb-2">
 								{productsList.map(
@@ -92,21 +91,37 @@ const Menu = () => {
 											className="flex justify-between"
 											key={i}
 										>
-											<p>{product_name}</p>
-											<div>
-												{supplement_list?.map(
-													(item, i) => (
-														<p key={i}>
-															{item.name}
-														</p>
-													)
-												)}
+											<div className="flex flex-col">
+												<div className="flex">
+													<p className="text-lg font-bold pr-5">
+														{product_name}
+													</p>
+													<p className="text-lg font-bold">
+														x {quantity}
+													</p>
+												</div>
+												<div className="flex my-2">
+													{supplement_list?.map(
+														(item, i) => (
+															<p
+																className="font-light text-xs md:text-sm px-1"
+																key={i}
+															>
+																{item.name}{' '}
+																{item.price.toFixed(
+																	2
+																)}{' '}
+																€
+															</p>
+														)
+													)}
+												</div>
 											</div>
-											<div className="flex">
+											{/* <div className="flex">
 												<p className="p-2">
 													{quantity}
 												</p>
-											</div>
+											</div> */}
 											<TrashIcon
 												className="cursor-pointer w-4 h-4"
 												onClick={() =>
@@ -120,9 +135,9 @@ const Menu = () => {
 								)}
 							</div>
 							<div className="flex pt-5 justify-between w-full border-t-2 border-gray-50">
-								<p>Total</p>
+								<p className="text-xl font-bold">Total</p>
 
-								<p>
+								<p className="text-xl font-bold">
 									{Number(totalSupplement + total).toFixed(2)}{' '}
 									€
 								</p>

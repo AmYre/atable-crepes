@@ -58,11 +58,13 @@ const ModalCrepesSucrees = ({
 							alt={product_name}
 							className="object-contain"
 						/>
-						<p className="text-xl font-bold mt-5">{product_name}</p>
+						<p className="text-lg md:text-xl font-bold mt-5 uppercase m-7">
+							Supplément pour {product_name}
+						</p>
 
-						<span className="text-xl font-bold mt-5">
+						{/* <span className="text-xl font-bold mt-5">
 							Supplement
-						</span>
+						</span> */}
 
 						<div className="h-36 w-full bg-white p-3 mt-2 mb-5 shadow border rounded ring-blue-600 outline-none focus:ring-2 overflow-hidden overflow-y-scroll">
 							{data?.supplements.data.map(
@@ -135,9 +137,11 @@ const ModalCrepesSucrees = ({
 			/>
 
 			<div className="flex justify-between w-full p-2">
-				<p className="text-lg font-bold">{product_name}</p>
+				<p className="text-sm md:text-lg font-bold">{product_name}</p>
 				<div className="flex space-x-2">
-					<p className="text-lg font-bold">{price.toFixed(2)} € </p>
+					<p className="text-sm md:text-lg font-bold">
+						{price.toFixed(2)} €{' '}
+					</p>
 				</div>
 			</div>
 			<PlusIcon

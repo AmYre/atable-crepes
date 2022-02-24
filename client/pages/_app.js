@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }) {
 			<ApolloProvider client={client}>
 				<Navbar />
 				<Head>
-					<title>@ Table Crépes!</title>
+					<title>@ Vos Crépes!</title>
 					<link rel="icon" href="/favi.png" />
 					<link rel="preconnect" href="https://fonts.gstatic.com" />
 					<link rel="preconnect" href="https://fonts.gstatic.com" />

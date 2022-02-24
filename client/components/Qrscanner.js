@@ -42,17 +42,12 @@ const Qrscanner = () => {
 				<source src="/home.mp4" type="video/mp4" />
 			</video>
 			<div className="h-1/3 w-full flex flex-col justify-center items-center">
-				<div className="w-30">
-					<Image
-						src="/logo.png"
-						alt="A Table logo"
-						width={150}
-						height={'80%'}
-					/>
-				</div>
-				<h1 className="text-xl text-center md:text-xl">
-					vous souhaite un bon appétit
+				<h1 className="text-xl text-center md:text-2xl">
+					Bienvenue sur a vos Crépes
 				</h1>
+				<h2 className="text-base text-center md:text-lg">
+					pour commencé veuillez scanner le QR Code
+				</h2>
 			</div>
 			<section className="h-2/3 w-full flex flex-col justify-start items-center">
 				<h2 className="mt-10 text-2xl md:text-xl">

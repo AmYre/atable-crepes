@@ -48,16 +48,13 @@ const OrderBtn = ({ currentOrderId }) => {
 	};
 
 	return (
-		<div>
-			<button
-				role="link"
-				onClick={createCheckoutSession}
-				className="bg-red-500 rounded-md shadow-lg px-4 py-3 text-gray-50"
-			>
-				{/* <Link href="/api/create-checkout-session">Commander</Link> */}
-				Commander
-			</button>
-		</div>
+		<button
+			role="link"
+			onClick={createCheckoutSession}
+			className="w-full text-bold text-xl bg-red-500 shadow-lg px-4 py-3 text-gray-50"
+		>
+			Commander
+		</button>
 	);
 };
 

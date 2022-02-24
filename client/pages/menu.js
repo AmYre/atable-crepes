@@ -56,26 +56,24 @@ const Menu = () => {
 
 	if (loading) return 'Loading...';
 
-	console.log(productsList);
 	return (
-		<div className="flex flex-col bg-blue-300 w-screen h-screen">
+		<div className="flex flex-col bg-blue-300 w-screen ">
 			{(firstStep && !loading) || (router.query.id && !loading) ? (
 				<div className="flex flex-col justify-between">
 					<main>
 						<MenuList />
 					</main>
 					<section>
-						<div className="flex flex-col w-full bg-gray-800 rounded text-gray-50 shadow gap-8 p-10">
-							<h2 className="font-bold text-2xl uppercase border-b-2 py-1">
+						<div className="flex flex-col justify-center mx-5 h-96 bg-gray-800 rounded text-gray-50 shadow gap-8 px-10">
+							<h2 className="font-bold text-lg md:text-xl uppercase border-b-2 py-1">
 								Récap' de votre commande
 							</h2>
 							<div className="flex justify-between font-bold">
-								<p className="uppercase">Produit</p>
-								<p className="uppercase">quantite</p>
-								<p className="uppercase">supprimer</p>
-								<p className="uppercase">prix</p>
+								<p className="text-sm md:text-lg">Produit</p>
+
+								<p className="text-sm md:text-lg">prix</p>
 							</div>
-							<div className="flex flex-col pb-2">
+							<div className="flex flex-col h-20 pb-2 overflow-auto">
 								{productsList.map(
 									(
 										{
@@ -93,14 +91,14 @@ const Menu = () => {
 										>
 											<div className="flex flex-col">
 												<div className="flex">
-													<p className="text-lg font-bold pr-5">
+													<p className="text-sm md:text-base font-bold pr-5">
 														{product_name}
 													</p>
-													<p className="text-lg font-bold">
+													<p className="text-sm md:text-base font-bold">
 														x {quantity}
 													</p>
 												</div>
-												<div className="flex my-2">
+												<div className="flex flex-wrap my-2">
 													{supplement_list?.map(
 														(item, i) => (
 															<p
@@ -117,52 +115,56 @@ const Menu = () => {
 													)}
 												</div>
 											</div>
-											{/* <div className="flex">
-												<p className="p-2">
-													{quantity}
+											<div className="flex items-center">
+												<p className="px-2 font-semibold">
+													{price.toFixed(2)} €
 												</p>
-											</div> */}
-											<TrashIcon
-												className="cursor-pointer w-4 h-4"
-												onClick={() =>
-													removeProduct(product_id)
-												}
-											/>
-
-											<p>{price.toFixed(2)} €</p>
+												<TrashIcon
+													className="cursor-pointer w-4 h-4"
+													onClick={() =>
+														removeProduct(
+															product_id
+														)
+													}
+												/>
+											</div>
 										</div>
 									)
 								)}
 							</div>
-							<div className="flex pt-5 justify-between w-full border-t-2 border-gray-50">
-								<p className="text-xl font-bold">Total</p>
+							<div className="flex justify-between w-full border-t-2 border-gray-50">
+								<p className="text-lg md:text-xl font-bold">
+									Total
+								</p>
 
-								<p className="text-xl font-bold">
+								<p className="text-lg font-bold">
 									{Number(totalSupplement + total).toFixed(2)}{' '}
 									€
 								</p>
 							</div>
 						</div>
-						<Orders currentOrderId={currentOrderId} />
 					</section>
+					<Orders currentOrderId={currentOrderId} />
 				</div>
 			) : (
-				<button
-					className="w-1/5 m-auto bg-red-500 hover:bg-red-400 rounded-md shadow-lg px-4 py-3 text-gray-50"
-					onClick={() => {
-						setFirstStep(!firstStep);
-						createOrder({
-							variables: {
-								order_id: randomNumber,
-								total: 0,
-								confirm_order: false,
-							},
-						});
-						refetch();
-					}}
-				>
-					Choisir une crépes
-				</button>
+				<div className="h-screen m-auto">
+					<button
+						className="m-auto bg-red-500 hover:bg-red-400 rounded-md shadow-lg px-4 py-3 text-gray-50"
+						onClick={() => {
+							setFirstStep(!firstStep);
+							createOrder({
+								variables: {
+									order_id: randomNumber,
+									total: 0,
+									confirm_order: false,
+								},
+							});
+							refetch();
+						}}
+					>
+						Choisir une crépes
+					</button>
+				</div>
 			)}
 		</div>
 	);

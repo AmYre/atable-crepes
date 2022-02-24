@@ -1,7 +1,6 @@
 import { useGlobalContext } from '../../context/Context';
 import Image from 'next/image';
 import { useState } from 'react';
-import { useMenuList } from '../../hooks/queries/useMenuList';
 import { PlusIcon } from '@heroicons/react/solid';
 
 const ModalBoissons = ({
@@ -15,8 +14,6 @@ const ModalBoissons = ({
 }) => {
 	const [modal, setModal] = useState(false);
 	const [inputQuantity, setInputQuantity] = useState(1);
-
-	const { data } = useMenuList();
 
 	const {
 		productsList,
@@ -109,9 +106,11 @@ const ModalBoissons = ({
 			/>
 
 			<div className="flex justify-between w-full p-2">
-				<p className="text-lg font-bold">{product_name}</p>
+				<p className="text-sm md:text-lg font-bold">{product_name}</p>
 				<div className="flex space-x-2">
-					<p className="text-lg font-bold">{price.toFixed(2)} € </p>
+					<p className="text-sm md:text-lg font-bold">
+						{price.toFixed(2)} €{' '}
+					</p>
 				</div>
 			</div>
 			<PlusIcon

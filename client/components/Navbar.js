@@ -6,10 +6,12 @@ import {
 	SunIcon,
 } from '@heroicons/react/solid';
 import { useGlobalContext } from '../context/Context';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useOrders } from '../hooks/queries/useOrders';
 import { useEffect, useState } from 'react';
+import NavListMobi from './NavListMobi';
+import Link from 'next/link';
+import NavListDesk from './NavListDesk';
 
 export const Navbar = () => {
 	const router = useRouter();
@@ -52,11 +54,11 @@ export const Navbar = () => {
 				</a>
 			</div>
 			<nav
-				onClick={() => setActive(false)}
-				className={` md:flex md:gap-3 dark:bg-grey-600 font-bold transition duration-200 ${
+				// onClick={() => setActive(false)}
+				className={`md:flex md:gap-3 font-bold transition duration-500 ease-in-out delay-150 dark:bg-grey-600 ${
 					active
-						? 'md:hidden fixed top-0 right-0 h-full w-3/4 flex items-center flex-col bg-white'
-						: 'hidden'
+						? 'translate-x-0 md:hidden fixed top-0 right-0 h-full w-3/4 flex items-center flex-col bg-white'
+						: 'translate-x-full fixed top-0 right-0 h-full w-3/4 flex items-center flex-col bg-white'
 				}`}
 			>
 				<div className="flex justify-between w-full items-center px-7">
@@ -70,6 +72,7 @@ export const Navbar = () => {
 							height={'80%'}
 						/>
 					</a>
+
 					<h2 className="text-sm font-light md:hidden">
 						{isPreparedOrder?.length} Commande en cours ...
 					</h2>
@@ -81,61 +84,13 @@ export const Navbar = () => {
 					</div>
 				</div>
 				<div className="my-auto">
-					<div
-						className={`${
-							active
-								? 'flex flex-col items-center space-y-14'
-								: 'space-x-6'
-						}`}
-					>
-						<Link href="/">
-							<a
-								className={
-									router.pathname == '/'
-										? 'text-red-500 hover:bg-red-500 hover:text-white rounded-3xl py-2 px-4 transition duration-200'
-										: 'text-black hover:bg-black hover:text-white rounded-3xl py-2 px-4 transition duration-200'
-								}
-							>
-								Acceuil
-							</a>
-						</Link>
-						<Link href="/menu">
-							<a
-								className={
-									router.pathname == '/menu'
-										? 'text-red-500 hover:bg-red-500 hover:text-white rounded-3xl py-2 px-4 transition duration-200'
-										: 'text-black hover:bg-black hover:text-white rounded-3xl py-2 px-4 transition duration-200'
-								}
-							>
-								Menu
-							</a>
-						</Link>
-						<Link href="/contact">
-							<a
-								className={
-									router.pathname == '/contact'
-										? 'text-red-500 hover:bg-red-500 hover:text-white rounded-3xl py-2 px-4 transition duration-200'
-										: 'text-black hover:bg-black hover:text-white rounded-3xl py-2 px-4 transition duration-200'
-								}
-							>
-								Contact
-							</a>
-						</Link>
-						<Link href="/login">
-							<a
-								className={
-									router.pathname == '/login'
-										? 'text-red-500 hover:bg-red-500 hover:text-white rounded-3xl py-2 px-4 transition duration-200'
-										: 'text-black hover:bg-black hover:text-white rounded-3xl py-2 px-4 transition duration-200'
-								}
-							>
-								Connexion
-							</a>
-						</Link>
+					<div>
+						<NavListMobi />
 					</div>
 				</div>
 			</nav>
 			<div className="hidden md:flex">
+				<NavListDesk />
 				<h2 className="text-sm">
 					{isPreparedOrder?.length} Commande en cours ...
 				</h2>
@@ -150,7 +105,7 @@ export const Navbar = () => {
 					<MoonIcon className="w-6" />
 				)}
 			</div> */}
-			<div className="md:hidden">
+			<div className="md:hidden cursor-pointer">
 				<MenuIcon onClick={handleClick} className="w-8 h-8" />
 			</div>
 		</header>

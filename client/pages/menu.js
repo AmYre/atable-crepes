@@ -22,6 +22,8 @@ const Menu = () => {
 		setFirstStep,
 		randomNumber,
 		supplementList,
+		preparationTime,
+		setPreparationTime,
 	} = useGlobalContext();
 
 	const [createOrder, { data: newOrderData }] = useMutation(CREATE_ORDER);
@@ -42,17 +44,21 @@ const Menu = () => {
 	const totalSupplement = concatArrays.reduce((a, b) => a + b?.price, 0);
 	const total = productsList.reduce((a, b) => a + b.price * b.quantity, 0);
 
+	let preperationT = 0;
 	if (typeof window !== 'undefined') {
 		// require to have localstorage to work with next
 		const localProduct = localStorage.getItem('productList');
+		preperationT = localStorage.getItem('preperation time');
 		const parserdData = JSON.parse(localProduct);
-		// console.log(parserdData);
 	}
 
 	useEffect(() => {
 		if (parserdData) {
 			setProductsList(parserdData);
+			setPreparationTime([...preparationTime, Number(preperationT)]);
 		}
+		localStorage.clear('productList');
+		localStorage.clear('preperation time');
 	}, []);
 
 	useEffect(() => {

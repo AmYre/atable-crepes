@@ -28,6 +28,7 @@ const OrderBtn = ({ currentOrderId }) => {
 
 	const createCheckoutSession = async () => {
 		localStorage.setItem('productList', JSON.stringify(productsList)); // save the basket in localStorage before paying
+		localStorage.setItem('preperation time', totalPreparationTime);
 		updateOrder();
 		const stripe = await stripePromise;
 		// Call the backend to create a checkout session..

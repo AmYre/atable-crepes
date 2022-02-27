@@ -127,10 +127,19 @@ const Success = () => {
 												key={i}
 												className="flex space-x-10"
 											>
-												<p>{product_name}:</p>
+												<p className="text-xs md:text-sm font-bold">
+													{product_name}:
+												</p>
 												{supplement_list.map(
 													({ name }, i) => (
-														<p key={i}>{name}</p>
+														<div
+															key={i}
+															className="flex flex-wrap my-2"
+														>
+															<p className="font-normal text-xs md:text-sm px-1">
+																{name}
+															</p>
+														</div>
 													)
 												)}
 											</div>

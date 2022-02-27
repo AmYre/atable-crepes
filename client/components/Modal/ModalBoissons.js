@@ -53,7 +53,7 @@ const ModalBoissons = ({
 							type="number"
 							value={inputQuantity}
 							onChange={(e) => setInputQuantity(e.target.value)}
-							defaultValue="1"
+							// defaultValue="1"
 							min="1"
 						/>
 

@@ -20,11 +20,11 @@ const FoodAndDrink = () => {
 
 	return (
 		<div>
-			<h3 className="p-5 text-center text-white text-xl font-bold">
+			<h3 className="p-5 text-center text-gray-700 text-xl font-bold">
 				FAITES VOTRE CHOIX
 			</h3>
-			<div className="bg-gray-100 h-96 p-6 mx-5 mt-2 mb-5 shadow-md overflow-hidden overflow-y-scroll">
-				<div className="m-3 my-2 p-2 bg-white shadow-md">
+			<div className="h-96 mx-5 mt-2 mb-5 bg-white shadow-md overflow-hidden overflow-y-scroll">
+				<div className="m-3 my-2 p-2 bg-white">
 					<CrepesSucrees />
 					<Boisson />
 				</div>

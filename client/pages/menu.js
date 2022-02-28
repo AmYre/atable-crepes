@@ -8,7 +8,7 @@ import { useOrders } from '../hooks/queries/useOrders';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { TrashIcon } from '@heroicons/react/solid';
-import { Navbar } from '../components/navbar';
+import { Navbar } from '../components/Navbar/Navbar';
 
 const Menu = () => {
 	const router = useRouter();
@@ -68,7 +68,7 @@ const Menu = () => {
 	if (loading) return 'Loading...';
 
 	return (
-		<div className="flex flex-col bg-gray-100 w-screen ">
+		<div className="flex flex-col bg-gray-100">
 			<Navbar />
 			{(firstStep && !loading) || (router.query.id && !loading) ? (
 				<div className="flex flex-col justify-between">

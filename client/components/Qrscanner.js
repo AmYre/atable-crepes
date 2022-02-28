@@ -28,7 +28,7 @@ const Qrscanner = () => {
 	};
 
 	return (
-		<main className="font-comfortaa text-white h-screen w-screen flex flex-col justify-center items-center">
+		<main className="font-comfortaa text-white h-screen flex flex-col justify-center items-center">
 			<video
 				autoPlay
 				muted

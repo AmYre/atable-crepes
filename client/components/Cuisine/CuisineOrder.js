@@ -13,9 +13,9 @@ const CuisineOrder = ({
 	const [updateOrder] = useMutation(UPDATE_ORDER);
 
 	return (
-		<div className="flex flex-col min-h-full pb-2 overflow-auto">
+		<div className="flex flex-col min-h-full border-gray-900 border-x-2 overflow-auto">
 			{/* <img src={'./'} /> */}
-			<div className="flex justify-around p-3 border-2 mb-2">
+			<div className="flex justify-around p-3 border-gray-900 border-y-2 text-gray-100 bg-gray-900">
 				<h2
 					onClick={() => {
 						updateOrder({
@@ -42,7 +42,10 @@ const CuisineOrder = ({
 			{/* <p>{updatedAt}</p> */}
 			{products.map(
 				({ product_name, supplement_list, quantity, price }, i) => (
-					<div className="flex justify-between" key={i}>
+					<div
+						className="flex justify-between px-2 pt-2 border-gray-900 border-b-2 hover:bg-gray-100"
+						key={i}
+					>
 						<div className="flex flex-col">
 							<div className="flex">
 								<p className="text-sm md:text-base font-bold pr-5">

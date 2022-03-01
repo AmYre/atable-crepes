@@ -4,22 +4,23 @@ const CuisineOrderFinish = ({ order_id, products, key }) => {
 	const [activeTab, setActiveTab] = useState(false);
 
 	return (
-		<div key={key} className="flex flex-col min-h-full  overflow-auto">
+		<div
+			key={key}
+			className="flex flex-col min-h-full border-x-2 overflow-auto"
+		>
 			{/* <img src={'./'} /> */}
 			<div
 				onClick={() => setActiveTab(!activeTab)}
-				className="flex justify-around p-3 border-2 mb-1"
+				className="flex justify-around p-3 mb-1 bg-gray-200"
 			>
-				<h2 className="text-xl fond-bold cursor-pointer">
-					N° {order_id}
-				</h2>
+				<h2 className="text-xl fond-bold">N° {order_id}</h2>
 				<p className="text-xl text-green-400 ">Livrer</p>
 			</div>
 			{products.map(
 				({ product_name, supplement_list, quantity, price }, i) => (
 					<div key={i} className={`overflow-hidden`}>
 						<div
-							className={`flex justify-between transition duration-500 ${
+							className={`flex justify-between px-2 border-b-2 transition duration-500 ${
 								activeTab
 									? '-translate-y-0 h-auto'
 									: '-translate-y-full h-0'

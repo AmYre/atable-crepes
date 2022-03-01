@@ -35,10 +35,10 @@ const Kitchen = () => {
 
 	return (
 		<>
-			<main className="flex flex-col gap-10 justify-center items-center p-10">
+			<main className="flex flex-col gap-10 justify-center items-center p-10 bg-gray-200">
 				<section className="w-full">
-					<div className="flex flex-col justify-center py-5 bg-gray-800 rounded text-gray-50 shadow gap-8 px-10">
-						<h2 className="font-bold text-lg md:text-xl uppercase border-b-2 py-1">
+					<div className="flex flex-col justify-center py-5 bg-white text-gray-900 rounded shadow-lg gap-8 px-10">
+						<h2 className="font-bold text-lg md:text-xl uppercase border-gray-900 border-b-2 py-1">
 							Commande en cours
 						</h2>
 						<div className="flex justify-between font-bold">
@@ -80,7 +80,7 @@ const Kitchen = () => {
 									/>
 								)
 							)}
-						<h2 className="font-bold text-lg md:text-xl uppercase border-b-2 py-1">
+						<h2 className="font-bold text-lg md:text-xl uppercase border-gray-900 border-b-2 py-1">
 							Commande terminée
 						</h2>
 						{data?.commandes.data
@@ -97,8 +97,8 @@ const Kitchen = () => {
 									/>
 								)
 							)}
-						<div className="flex pt-5 justify-between w-full border-t-2 border-gray-50">
-							<p>Total</p>
+						<div className="flex pt-5 justify-between w-full mb-5 border-gray-50">
+							<p className="text-xl font-bold">Total</p>
 							<p>{total} €</p>
 						</div>
 					</div>

@@ -31,6 +31,7 @@ const Menu = () => {
 	const currentOrderId = newOrderData?.createCommande.data.id;
 
 	const removeProduct = (id) => {
+		// remove the crepes from the recap list when click on trash icon
 		const removedProduct = productsList.filter(
 			(product) => product.product_id !== id
 		);
@@ -38,6 +39,12 @@ const Menu = () => {
 		localStorage.clear();
 	};
 
+	const removeTime = (index) => {
+		// remove the time of a single crepes from the recap list when click on trash icon
+		preparationTime.splice(index, 1);
+	};
+
+	console.log(preparationTime);
 	// concat all the arrays together and get all totals amounts
 	const tot = productsList?.map(({ supplement_list }) => supplement_list);
 	const concatArrays = tot?.reduce((a, b) => a.concat(b), []);
@@ -95,11 +102,11 @@ const Menu = () => {
 											quantity,
 											supplement_list,
 										},
-										i
+										index
 									) => (
 										<div
 											className="flex justify-between"
-											key={i}
+											key={index}
 										>
 											<div className="flex flex-col">
 												<div className="flex">
@@ -132,12 +139,13 @@ const Menu = () => {
 													{price.toFixed(2)} €
 												</p>
 												<TrashIcon
-													className="cursor-pointer w-4 h-4"
-													onClick={() =>
+													onClick={() => {
 														removeProduct(
 															product_id
-														)
-													}
+														);
+														removeTime(index);
+													}}
+													className="cursor-pointer w-4 h-4"
 												/>
 											</div>
 										</div>

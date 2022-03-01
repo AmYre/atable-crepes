@@ -1,31 +1,31 @@
 import { useOrders } from '../hooks/queries/useOrders';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { UPDATE_ORDER } from '../hooks/mutations/useUpdateOrder';
 import CuisineOrder from '../components/CuisineOrder';
 
 const Kitchen = () => {
 	const { data, refetch } = useOrders();
-	// let startingMinutes = 1;
-	// let time = startingMinutes * 60;
-	// let minutes;
-	// let seconds;
+	const [minutes, setMinutes] = useState(0);
+	const [seconds, setSeconds] = useState(0);
+	let startingMinutes = 0;
+	let time = startingMinutes * 60;
 
-	// const timerCountDown = () => {
-	// 	minutes = Math.floor(time / 60);
-	// 	seconds = time % 60;
-	// 	time--;
-	// 	seconds = seconds < 10 ? `0${seconds}` : seconds;
-	// };
+	const timerCountDown = () => {
+		setMinutes(Math.floor(time / 60));
+		setSeconds(time % 60);
+		time--;
+		seconds < 10 ? `0${seconds}` : seconds;
+	};
 
 	useEffect(() => {
 		setInterval(() => {
 			const timer = refetch();
 			return clearInterval(timer);
 		}, 10000);
-		// setInterval(() => {
-		// 	const timer = timerCountDown();
-		// 	return clearInterval(timer);
-		// }, 1000);
+		setInterval(() => {
+			const timer = timerCountDown();
+			return clearInterval(timer);
+		}, 1000);
 	}, []);
 
 	const total = data?.commandes.data
@@ -43,8 +43,8 @@ const Kitchen = () => {
 						<div className="flex justify-between font-bold">
 							<p className="text-sm md:text-lg">Produit</p>
 							<p className="text-sm md:text-lg">Commande</p>
-							{/* <p>quantite</p>
-							<p>supprimer</p> */}
+							<p>Temps</p>
+							{/* <p>supprimer</p> */}
 							<p className="text-sm md:text-lg">prix</p>
 						</div>
 						{data?.commandes.data
@@ -63,6 +63,7 @@ const Kitchen = () => {
 											products,
 											updatedAt,
 											total,
+											preparation_time,
 										},
 									},
 									i
@@ -73,6 +74,8 @@ const Kitchen = () => {
 										id={id}
 										updatedAt={updatedAt}
 										products={products}
+										preparation_time={preparation_time}
+										minutes={minutes}
 									/>
 								)
 							)}

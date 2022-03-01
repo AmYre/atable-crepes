@@ -51,7 +51,11 @@ const Success = () => {
 	}, [data]);
 
 	const waiting_time = orderData?.commandes.data
-		.filter((item) => item.attributes.is_prepared === false)
+		.filter(
+			(item) =>
+				item.attributes.is_prepared === false &&
+				item.attributes.is_payed === true
+		)
 		.reduce((a, b) => a + b.attributes.preparation_time, 0);
 
 	let time = (waiting_time + totalPreparationTime) * 60;

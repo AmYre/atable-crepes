@@ -4,11 +4,21 @@ import { UPDATE_ORDER } from '../hooks/mutations/useUpdateOrder';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { useOrders } from '../hooks/queries/useOrders';
 const stripePromise = loadStripe(process.env.stripe_public_key);
 
 const OrderBtn = ({ currentOrderId }) => {
 	const { productsList, preparationTime } = useGlobalContext();
 	const router = useRouter();
+	const { data: orderData } = useOrders();
+
+	const waiting_time = orderData?.commandes.data // Get the total waiting time from the server
+		.filter(
+			(item) =>
+				item.attributes.is_prepared === false &&
+				item.attributes.is_payed === true
+		)
+		.reduce((a, b) => a + b.attributes.preparation_time, 0);
 
 	// concat all the arrays together and get all totals amounts
 	const tot = productsList.map(({ supplement_list }) => supplement_list);
@@ -21,11 +31,11 @@ const OrderBtn = ({ currentOrderId }) => {
 		// update order with the products
 		variables: {
 			id: Number(currentOrderId) || Number(router.query.id), // ID form data return when create the order or from the query params
-			preparation_time: totalPreparationTime,
+			preparation_time: Number(totalPreparationTime + waiting_time),
 			products: productsList,
 		},
 	});
-
+	console.log(totalPreparationTime, waiting_time);
 	const createCheckoutSession = async () => {
 		localStorage.setItem('productList', JSON.stringify(productsList)); // save the basket in localStorage before paying
 		localStorage.setItem('preperation time', totalPreparationTime);

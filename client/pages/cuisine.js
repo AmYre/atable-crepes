@@ -1,7 +1,8 @@
 import { useOrders } from '../hooks/queries/useOrders';
 import { useEffect, useState } from 'react';
 import { UPDATE_ORDER } from '../hooks/mutations/useUpdateOrder';
-import CuisineOrder from '../components/CuisineOrder';
+import CuisineOrder from '../components/Cuisine/CuisineOrder';
+import CuisineOrderFinish from '../components/Cuisine/CuisineOrderFinish';
 
 const Kitchen = () => {
 	const { data, refetch } = useOrders();
@@ -87,46 +88,15 @@ const Kitchen = () => {
 								({ attributes: { is_prepared } }) =>
 									is_prepared === true
 							)
-							.map(({ attributes: { products } }, i) => (
-								<div key={i} className="flex flex-col pb-2">
-									<div>
-										{/* <img src={'./'} /> */}
-										{products.map(
-											(
-												{
-													product_name,
-													supplement_list,
-													quantity,
-													price,
-												},
-												i
-											) => (
-												<div
-													className="flex justify-between"
-													key={i}
-												>
-													<p>{product_name}</p>
-													<div>
-														{supplement_list?.map(
-															(item, i) => (
-																<p key={i}>
-																	{item.name}
-																</p>
-															)
-														)}
-													</div>
-													<div className="flex">
-														<p className="p-2">
-															{quantity}
-														</p>
-													</div>
-													<p>{price} €</p>
-												</div>
-											)
-										)}
-									</div>
-								</div>
-							))}
+							.map(
+								({ attributes: { products, order_id } }, i) => (
+									<CuisineOrderFinish
+										products={products}
+										order_id={order_id}
+										key={i}
+									/>
+								)
+							)}
 						<div className="flex pt-5 justify-between w-full border-t-2 border-gray-50">
 							<p>Total</p>
 							<p>{total} €</p>

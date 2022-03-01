@@ -9,6 +9,7 @@ const NavListMobi = () => {
 		<div className={`flex items-center flex-col font-bold space-y-10`}>
 			{NavBarData.map((item, i) => (
 				<div
+					key={i}
 					className={
 						router.pathname == item.link
 							? 'text-red-500 hover:bg-red-500 hover:text-white py-2 px-4 transition duration-200 flex items-center justify-center w-full'
@@ -17,7 +18,7 @@ const NavListMobi = () => {
 				>
 					<p className="h-5 w-5">{item.icon}</p>
 					<div className="flex-1 ml-3">
-						<Link key={i} href={`/${item.link}`}>
+						<Link href={`${item.link}`}>
 							<a>{item.title}</a>
 						</Link>
 					</div>

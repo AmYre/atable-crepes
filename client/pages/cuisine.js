@@ -1,7 +1,6 @@
 import { useOrders } from '../hooks/queries/useOrders';
 import { useEffect } from 'react';
 import { UPDATE_ORDER } from '../hooks/mutations/useUpdateOrder';
-import { useMutation } from '@apollo/client';
 import CuisineOrder from '../components/CuisineOrder';
 
 const Kitchen = () => {
@@ -35,20 +34,18 @@ const Kitchen = () => {
 
 	return (
 		<>
-			<main className="flex flex-col gap-10 justify-center items-center p-20">
+			<main className="flex flex-col gap-10 justify-center items-center p-10">
 				<section className="w-full">
-					<div className="flex flex-col w-full bg-gray-800 rounded text-gray-50 shadow gap-8 p-10">
-						<h2 className="font-semibold text-xl">
+					<div className="flex flex-col justify-center py-5 bg-gray-800 rounded text-gray-50 shadow gap-8 px-10">
+						<h2 className="font-bold text-lg md:text-xl uppercase border-b-2 py-1">
 							Commande en cours
 						</h2>
-						<div>
-							<div className="flex justify-between font-bold">
-								<p>Produit</p>
-								<p>Supplement</p>
-								<p>quantite</p>
-								<p>supprimer</p>
-								<p>prix</p>
-							</div>
+						<div className="flex justify-between font-bold">
+							<p className="text-sm md:text-lg">Produit</p>
+							<p className="text-sm md:text-lg">Commande</p>
+							{/* <p>quantite</p>
+							<p>supprimer</p> */}
+							<p className="text-sm md:text-lg">prix</p>
 						</div>
 						{data?.commandes.data
 							.filter(
@@ -64,19 +61,22 @@ const Kitchen = () => {
 											order_id,
 											is_prepared,
 											products,
+											updatedAt,
 											total,
 										},
 									},
 									i
 								) => (
 									<CuisineOrder
+										order_id={order_id}
 										key={i}
 										id={id}
+										updatedAt={updatedAt}
 										products={products}
 									/>
 								)
 							)}
-						<h2 className="font-semibold text-xl">
+						<h2 className="font-bold text-lg md:text-xl uppercase border-b-2 py-1">
 							Commande terminée
 						</h2>
 						{data?.commandes.data

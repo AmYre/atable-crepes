@@ -2,7 +2,7 @@ import { useQuery, gql } from '@apollo/client';
 
 export const GET_ORDER = gql`
 	query getOrders {
-		commandes {
+		commandes(sort: "updatedAt") {
 			data {
 				id
 				attributes {
@@ -11,6 +11,7 @@ export const GET_ORDER = gql`
 					is_payed
 					preparation_time
 					total
+					updatedAt
 					products {
 						id
 						quantity

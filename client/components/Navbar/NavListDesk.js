@@ -7,8 +7,8 @@ const NavListDesk = () => {
 
 	return (
 		<div className={`flex items-center flex-row font-bold`}>
-			{NavBarData.map((item) => (
-				<Link href={`/${item.link}`}>
+			{NavBarData.map((item, i) => (
+				<Link key={i} href={`${item.link}`}>
 					<a
 						className={
 							router.pathname == item.link

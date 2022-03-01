@@ -116,7 +116,8 @@ const Success = () => {
 							{moreDetail && (
 								<div>
 									<h2 className="border-t-2 space-x-2 my-5 text-2xl">
-										Détail de votre commande
+										Détail de votre commande numéro{' '}
+										{currentOrderId?.attributes.order_id}
 									</h2>
 									{currentOrderId?.attributes.products.map(
 										(
@@ -148,7 +149,10 @@ const Success = () => {
 
 									<p className="text-2xl text-right">
 										Total:{' '}
-										{data?.session.amount_total / 100}0 €
+										{Number(
+											data?.session.amount_total / 100
+										).toFixed(2)}{' '}
+										€
 									</p>
 								</div>
 							)}

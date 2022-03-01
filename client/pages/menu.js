@@ -85,7 +85,7 @@ const Menu = () => {
 
 								<p className="text-sm md:text-lg">prix</p>
 							</div>
-							<div className="flex flex-col h-20 pb-2 overflow-auto">
+							<div className="flex flex-col h-28 pb-2 overflow-auto">
 								{productsList.map(
 									(
 										{

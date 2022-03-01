@@ -41,8 +41,8 @@ const Kitchen = () => {
 						<h2 className="font-bold text-lg md:text-xl uppercase border-gray-900 border-b-2 py-1">
 							Commande en cours
 						</h2>
-						<div className="flex justify-between font-bold">
-							<p className="text-sm md:text-lg">Produit</p>
+						<div className="flex justify-around font-bold">
+							{/* <p className="text-sm md:text-lg">Produit</p> */}
 							<p className="text-sm md:text-lg">Commande</p>
 							<p>Temps</p>
 							{/* <p>supprimer</p> */}
@@ -75,6 +75,7 @@ const Kitchen = () => {
 										id={id}
 										updatedAt={updatedAt}
 										products={products}
+										total={total}
 										preparation_time={preparation_time}
 										minutes={minutes}
 									/>

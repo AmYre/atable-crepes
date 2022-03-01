@@ -11,10 +11,10 @@ const CuisineOrderFinish = ({ order_id, products, key }) => {
 			{/* <img src={'./'} /> */}
 			<div
 				onClick={() => setActiveTab(!activeTab)}
-				className="flex justify-around p-3 mb-1 bg-gray-200"
+				className="flex justify-around p-3 mb-1 bg-gray-300"
 			>
 				<h2 className="text-xl fond-bold">N° {order_id}</h2>
-				<p className="text-xl text-green-400 ">Livrer</p>
+				<p className="text-xl text-green-500 ">Livrer</p>
 			</div>
 			{products.map(
 				({ product_name, supplement_list, quantity, price }, i) => (

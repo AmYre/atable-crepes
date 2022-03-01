@@ -6,6 +6,7 @@ const CuisineOrder = ({
 	products,
 	id,
 	order_id,
+	total,
 	updatedAt,
 	preparation_time,
 	minutes,
@@ -37,6 +38,9 @@ const CuisineOrder = ({
 					}`}
 				>
 					{preparation_time + minutes} Min
+				</p>
+				<p className="text-xl fond-bold cursor-pointer">
+					Total: {total.toFixed(2)} €
 				</p>
 			</div>
 			{/* <p>{updatedAt}</p> */}

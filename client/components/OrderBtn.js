@@ -35,7 +35,7 @@ const OrderBtn = ({ currentOrderId }) => {
 			products: productsList,
 		},
 	});
-	console.log(totalPreparationTime, waiting_time);
+
 	const createCheckoutSession = async () => {
 		localStorage.setItem('productList', JSON.stringify(productsList)); // save the basket in localStorage before paying
 		localStorage.setItem('preperation time', totalPreparationTime);

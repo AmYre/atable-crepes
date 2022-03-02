@@ -14,9 +14,9 @@ const CuisineOrder = ({
 	const [updateOrder] = useMutation(UPDATE_ORDER);
 
 	return (
-		<div className="flex flex-col min-h-full border-gray-900 border-x-2 overflow-auto">
+		<div className="flex flex-col min-h-full overflow-auto">
 			{/* <img src={'./'} /> */}
-			<div className="flex justify-around p-3 border-gray-900 border-y-2 text-gray-100 bg-gray-900">
+			<div className="flex justify-around p-3 border-gray-900 border-y-2 text-gray-100 bg-gray-800 hover:bg-gray-800">
 				<h2
 					onClick={() => {
 						updateOrder({

@@ -84,20 +84,25 @@ const Kitchen = () => {
 						<h2 className="font-bold text-lg md:text-xl uppercase border-gray-900 border-b-2 py-1">
 							Commande terminée
 						</h2>
-						{data?.commandes.data
-							.filter(
-								({ attributes: { is_prepared } }) =>
-									is_prepared === true
-							)
-							.map(
-								({ attributes: { products, order_id } }, i) => (
-									<CuisineOrderFinish
-										products={products}
-										order_id={order_id}
-										key={i}
-									/>
+						<div>
+							{data?.commandes.data
+								.filter(
+									({ attributes: { is_prepared } }) =>
+										is_prepared === true
 								)
-							)}
+								.map(
+									(
+										{ attributes: { products, order_id } },
+										i
+									) => (
+										<CuisineOrderFinish
+											products={products}
+											order_id={order_id}
+											key={i}
+										/>
+									)
+								)}
+						</div>
 						<div className="flex pt-5 justify-between w-full mb-5 border-gray-50">
 							<p className="text-xl font-bold">Total</p>
 							<p>{total} €</p>

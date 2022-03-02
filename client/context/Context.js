@@ -4,7 +4,7 @@ const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
 	const [firstStep, setFirstStep] = useState(false);
-	const [secondStep, setSecondStep] = useState(false);
+	// const [secondStep, setSecondStep] = useState(false);
 	const [productsList, setProductsList] = useState([]);
 	const [quantity, setQuantity] = useState(1);
 	const [theme, setTheme] = useState(false);
@@ -23,8 +23,6 @@ const AppProvider = ({ children }) => {
 				setProductsList,
 				firstStep,
 				setFirstStep,
-				secondStep,
-				setSecondStep,
 				quantity,
 				setQuantity,
 				randomNumber,

@@ -1,3 +1,4 @@
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/solid';
 import { useState } from 'react';
 
 const CuisineOrderFinish = ({ order_id, products, key }) => {
@@ -9,21 +10,28 @@ const CuisineOrderFinish = ({ order_id, products, key }) => {
 			className="flex flex-col min-h-full border-x-2 overflow-auto"
 		>
 			{/* <img src={'./'} /> */}
-			<div
-				onClick={() => setActiveTab(!activeTab)}
-				className="flex justify-around p-3 mb-1 bg-gray-300"
-			>
+			<div className="flex justify-around p-3 mb-1 bg-gray-300">
 				<h2 className="text-xl fond-bold">N° {order_id}</h2>
 				<p className="text-xl text-green-500 ">Livrer</p>
+				{activeTab ? (
+					<ChevronUpIcon
+						onClick={() => setActiveTab(!activeTab)}
+						className="w-5 cursor-pointer"
+					/>
+				) : (
+					<ChevronDownIcon
+						onClick={() => setActiveTab(!activeTab)}
+						className="w-5 cursor-pointer"
+					/>
+				)}
 			</div>
+
 			{products.map(
 				({ product_name, supplement_list, quantity, price }, i) => (
 					<div key={i} className={`overflow-hidden`}>
 						<div
-							className={`flex justify-between px-2 border-b-2 transition duration-500 ${
-								activeTab
-									? '-translate-y-0 h-auto'
-									: '-translate-y-full h-0'
+							className={`flex justify-between px-2 transition-transformt duration-500 ${
+								activeTab ? 'h-16 border-b-2' : 'h-0'
 							} `}
 						>
 							<div className="flex flex-col">

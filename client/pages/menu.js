@@ -44,7 +44,6 @@ const Menu = () => {
 		preparationTime.splice(index, 1);
 	};
 
-	console.log(preparationTime);
 	// concat all the arrays together and get all totals amounts
 	const tot = productsList?.map(({ supplement_list }) => supplement_list);
 	const concatArrays = tot?.reduce((a, b) => a.concat(b), []);
@@ -75,7 +74,7 @@ const Menu = () => {
 	if (loading) return 'Loading...';
 
 	return (
-		<div className="flex flex-col bg-gray-100">
+		<div className="flex flex-col bg-gray-200">
 			<Navbar />
 			{(firstStep && !loading) || (router.query.id && !loading) ? (
 				<div className="flex flex-col justify-between">

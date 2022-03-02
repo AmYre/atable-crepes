@@ -92,12 +92,19 @@ const Kitchen = () => {
 								)
 								.map(
 									(
-										{ attributes: { products, order_id } },
+										{
+											attributes: {
+												products,
+												order_id,
+												total,
+											},
+										},
 										i
 									) => (
 										<CuisineOrderFinish
 											products={products}
 											order_id={order_id}
+											total={total}
 											key={i}
 										/>
 									)
@@ -105,7 +112,7 @@ const Kitchen = () => {
 						</div>
 						<div className="flex pt-5 justify-between w-full mb-5 border-gray-50">
 							<p className="text-xl font-bold">Total</p>
-							<p>{total} €</p>
+							<p className="text-xl font-bold">{total} €</p>
 						</div>
 					</div>
 				</section>

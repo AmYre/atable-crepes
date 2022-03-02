@@ -16,7 +16,7 @@ const CuisineOrder = ({
 	return (
 		<div className="flex flex-col min-h-full overflow-auto">
 			{/* <img src={'./'} /> */}
-			<div className="flex justify-around p-3 border-gray-900 border-y-2 text-gray-100 bg-gray-800 hover:bg-gray-800">
+			<div className="flex justify-around p-3 border-gray-900 border-y-2 text-gray-100 bg-gray-900 hover:bg-gray-800">
 				<h2
 					onClick={() => {
 						updateOrder({
@@ -47,7 +47,7 @@ const CuisineOrder = ({
 			{products.map(
 				({ product_name, supplement_list, quantity, price }, i) => (
 					<div
-						className="flex justify-between px-2 pt-2 border-gray-900 border-b-2 hover:bg-gray-100"
+						className="flex justify-between px-2 pt-2 border-gray-900 border-b-2 bg-gray-200"
 						key={i}
 					>
 						<div className="flex flex-col">
@@ -70,7 +70,9 @@ const CuisineOrder = ({
 								))}
 							</div>
 						</div>
-						<p>{price.toFixed(2)} €</p>
+						<p className="text-sm md:text-base font-bold">
+							{price.toFixed(2)} €
+						</p>
 					</div>
 				)
 			)}

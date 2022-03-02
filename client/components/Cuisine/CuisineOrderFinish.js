@@ -1,7 +1,7 @@
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/solid';
 import { useState } from 'react';
 
-const CuisineOrderFinish = ({ order_id, products, key }) => {
+const CuisineOrderFinish = ({ order_id, products, key, total }) => {
 	const [activeTab, setActiveTab] = useState(false);
 
 	return (
@@ -10,6 +10,8 @@ const CuisineOrderFinish = ({ order_id, products, key }) => {
 			<div className="flex justify-around p-3 text-gray-100 bg-gray-900 hover:bg-gray-800">
 				<h2 className="text-xl fond-bold">N° {order_id}</h2>
 				<p className="text-xl text-green-500 ">Livrer</p>
+				<p className="text-xl">Total: {total.toFixed(2)} €</p>
+
 				{activeTab ? (
 					<ChevronUpIcon
 						onClick={() => setActiveTab(!activeTab)}
@@ -25,12 +27,9 @@ const CuisineOrderFinish = ({ order_id, products, key }) => {
 
 			{products.map(
 				({ product_name, supplement_list, quantity, price }, i) => (
-					<div
-						key={i}
-						className={`overflow-hidden hover:bg-gray-100`}
-					>
+					<div key={i} className={`overflow-hidden bg-gray-200`}>
 						<div
-							className={`flex justify-between px-2 duration-500 ${
+							className={`flex justify-between px-2  duration-500 ${
 								activeTab
 									? 'h-16 border-gray-900 border-b-2'
 									: 'h-1'
@@ -58,7 +57,9 @@ const CuisineOrderFinish = ({ order_id, products, key }) => {
 								</div>
 							</div>
 
-							<p>{price.toFixed(2)} €</p>
+							<p className="text-sm md:text-base font-bold">
+								{price.toFixed(2)} €
+							</p>
 						</div>
 					</div>
 				)

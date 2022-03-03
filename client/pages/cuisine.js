@@ -3,8 +3,10 @@ import { useEffect, useState } from 'react';
 import { UPDATE_ORDER } from '../hooks/mutations/useUpdateOrder';
 import CuisineOrder from '../components/Cuisine/CuisineOrder';
 import CuisineOrderFinish from '../components/Cuisine/CuisineOrderFinish';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
 const Kitchen = () => {
+	const { data: session } = useSession();
 	const { data, refetch } = useOrders();
 	const [minutes, setMinutes] = useState(0);
 	const [seconds, setSeconds] = useState(0);
@@ -32,91 +34,102 @@ const Kitchen = () => {
 	const total = data?.commandes.data
 		.reduce((a, b) => a + b.attributes.total, 0)
 		.toFixed(2);
-
-	return (
-		<>
-			<main className="flex flex-col gap-10 justify-center items-center p-10 bg-gray-200">
-				<section className="w-full">
-					<div className="flex flex-col justify-center py-5 bg-white text-gray-900 rounded shadow-lg gap-8 px-10">
-						<h2 className="font-bold text-lg md:text-xl uppercase border-gray-900 border-b-2 py-1">
-							Commande en cours
-						</h2>
-						<div className="flex justify-around font-bold">
-							{/* <p className="text-sm md:text-lg">Produit</p> */}
-							<p className="text-sm md:text-lg">Commande</p>
-							<p>Temps</p>
-							{/* <p>supprimer</p> */}
-							<p className="text-sm md:text-lg">prix</p>
-						</div>
-						{data?.commandes.data
-							.filter(
-								({ attributes: { is_prepared, is_payed } }) =>
-									is_prepared === false && is_payed === true
-							)
-							.map(
-								(
-									{
-										id,
-										attributes: {
-											confirm_order,
-											order_id,
-											is_prepared,
-											products,
-											updatedAt,
-											total,
-											preparation_time,
-										},
-									},
-									i
-								) => (
-									<CuisineOrder
-										order_id={order_id}
-										key={i}
-										id={id}
-										updatedAt={updatedAt}
-										products={products}
-										total={total}
-										preparation_time={preparation_time}
-										minutes={minutes}
-									/>
-								)
-							)}
-						<h2 className="font-bold text-lg md:text-xl uppercase border-gray-900 border-b-2 py-1">
-							Commande terminée
-						</h2>
-						<div>
+	if (session) {
+		return (
+			<>
+				<main className="flex flex-col gap-10 justify-center items-center p-10 bg-gray-200">
+					<section className="w-full">
+						<div className="flex flex-col justify-center py-5 bg-white text-gray-900 rounded shadow-lg gap-8 px-10">
+							<h2 className="font-bold text-lg md:text-xl uppercase border-gray-900 border-b-2 py-1">
+								Commande en cours
+							</h2>
+							<div className="flex justify-around font-bold">
+								{/* <p className="text-sm md:text-lg">Produit</p> */}
+								<p className="text-sm md:text-lg">Commande</p>
+								<p>Temps</p>
+								{/* <p>supprimer</p> */}
+								<p className="text-sm md:text-lg">prix</p>
+							</div>
 							{data?.commandes.data
 								.filter(
-									({ attributes: { is_prepared } }) =>
-										is_prepared === true
+									({
+										attributes: { is_prepared, is_payed },
+									}) =>
+										is_prepared === false &&
+										is_payed === true
 								)
 								.map(
 									(
 										{
+											id,
 											attributes: {
-												products,
+												confirm_order,
 												order_id,
+												is_prepared,
+												products,
+												updatedAt,
 												total,
+												preparation_time,
 											},
 										},
 										i
 									) => (
-										<CuisineOrderFinish
-											products={products}
+										<CuisineOrder
 											order_id={order_id}
-											total={total}
 											key={i}
+											id={id}
+											updatedAt={updatedAt}
+											products={products}
+											total={total}
+											preparation_time={preparation_time}
+											minutes={minutes}
 										/>
 									)
 								)}
+							<h2 className="font-bold text-lg md:text-xl uppercase border-gray-900 border-b-2 py-1">
+								Commande terminée
+							</h2>
+							<div>
+								{data?.commandes.data
+									.filter(
+										({ attributes: { is_prepared } }) =>
+											is_prepared === true
+									)
+									.map(
+										(
+											{
+												attributes: {
+													products,
+													order_id,
+													total,
+												},
+											},
+											i
+										) => (
+											<CuisineOrderFinish
+												products={products}
+												order_id={order_id}
+												total={total}
+												key={i}
+											/>
+										)
+									)}
+							</div>
+							<div className="flex pt-5 justify-between w-full mb-5 border-gray-50">
+								<p className="text-xl font-bold">Total</p>
+								<p className="text-xl font-bold">{total} €</p>
+							</div>
 						</div>
-						<div className="flex pt-5 justify-between w-full mb-5 border-gray-50">
-							<p className="text-xl font-bold">Total</p>
-							<p className="text-xl font-bold">{total} €</p>
-						</div>
-					</div>
-				</section>
-			</main>
+						<button onClick={() => signOut()}>Sign out</button>
+					</section>
+				</main>
+			</>
+		);
+	}
+	return (
+		<>
+			Not signed in <br />
+			<button onClick={() => signIn()}>Sign in</button>
 		</>
 	);
 };

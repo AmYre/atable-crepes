@@ -94,10 +94,12 @@ export const Navbar = () => {
 				)}
 			</div> */}
 			<div className="md:hidden cursor-pointer">
-				<MenuIcon
-					onClick={handleClick}
-					className="w-8 h-8 hover:bg-gray-200 rounded-lg"
-				/>
+				{!active && (
+					<MenuIcon
+						onClick={handleClick}
+						className="w-8 h-8 hover:bg-gray-200 rounded-lg"
+					/>
+				)}
 			</div>
 		</header>
 	);

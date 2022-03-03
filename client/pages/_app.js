@@ -5,15 +5,19 @@ import { AppProvider } from '../context/Context';
 import 'tailwindcss/tailwind.css';
 import { ApolloProvider } from '@apollo/client';
 import client from '../hooks/apollo/apollo-client';
+import { SessionProvider } from 'next-auth/react';
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
+	<SessionProvider></SessionProvider>;
 	return (
 		<AppProvider>
 			<ApolloProvider client={client}>
-				<ThemeProvider attribute="class">
-					<Component {...pageProps} />
-				</ThemeProvider>
+				<SessionProvider>
+					<ThemeProvider attribute="class">
+						<Component {...pageProps} />
+					</ThemeProvider>
+				</SessionProvider>
 			</ApolloProvider>
 		</AppProvider>
 	);

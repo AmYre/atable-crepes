@@ -74,7 +74,7 @@ const Menu = () => {
 	if (loading) return 'Loading...';
 
 	return (
-		<div className="flex flex-col bg-gray-200">
+		<div className="bg-gray-200 h-screen">
 			<Navbar />
 			{(firstStep && !loading) || (router.query.id && !loading) ? (
 				<div className="flex flex-col justify-between">
@@ -88,7 +88,6 @@ const Menu = () => {
 							</h2>
 							<div className="flex justify-between font-bold">
 								<p className="text-sm md:text-lg">Produit</p>
-
 								<p className="text-sm md:text-lg">prix</p>
 							</div>
 							<div className="flex flex-col h-28 pb-2 overflow-auto">
@@ -155,7 +154,6 @@ const Menu = () => {
 								<p className="text-lg md:text-xl font-bold">
 									Total
 								</p>
-
 								<p className="text-lg font-bold">
 									{Number(totalSupplement + total).toFixed(2)}{' '}
 									€
@@ -166,9 +164,9 @@ const Menu = () => {
 					<Orders currentOrderId={currentOrderId} />
 				</div>
 			) : (
-				<div className="h-screen m-auto">
+				<div className="h-2/3 flex justify-center items-center bg-white my-14 mx-10">
 					<button
-						className="m-auto bg-red-500 hover:bg-red-400 rounded-md shadow-lg px-4 py-3 text-gray-50"
+						className="bg-red-500 hover:bg-red-400 rounded-md shadow-lg px-4 py-3 text-gray-50"
 						onClick={() => {
 							setFirstStep(!firstStep);
 							createOrder({

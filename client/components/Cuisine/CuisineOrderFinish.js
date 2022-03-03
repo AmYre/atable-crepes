@@ -29,7 +29,7 @@ const CuisineOrderFinish = ({ order_id, products, key, total }) => {
 				({ product_name, supplement_list, quantity, price }, i) => (
 					<div key={i} className={`overflow-hidden bg-gray-200`}>
 						<div
-							className={`flex justify-between px-2  duration-500 ${
+							className={`flex justify-between px-2 duration-500 ${
 								activeTab
 									? 'h-16 border-gray-900 border-b-2'
 									: 'h-1'

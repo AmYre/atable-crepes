@@ -9,7 +9,6 @@ import { SessionProvider } from 'next-auth/react';
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
-	<SessionProvider></SessionProvider>;
 	return (
 		<AppProvider>
 			<ApolloProvider client={client}>

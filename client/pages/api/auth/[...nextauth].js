@@ -6,7 +6,7 @@ export default NextAuth({
 		CredentialsProvider({
 			name: 'Email',
 			credentials: {
-				email: {
+				username: {
 					label: 'Email',
 					type: 'email',
 					placeholder: 'Your email',

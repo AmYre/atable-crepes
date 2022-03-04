@@ -85,7 +85,7 @@ const ModalCrepesSucrees = ({
 						</div>
 						<div className="absolute bottom-0 left-0 w-full">
 							<button
-								className="w-full text-bold bg-blue-600 text-white text-xl px-3 py-5"
+								className="w-full text-bold bg-gray-900 hover:bg-gray-800 text-white text-xl px-3 py-5"
 								onClick={() => {
 									setProductsList([
 										...productsList,

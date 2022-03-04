@@ -24,6 +24,6 @@ export const NavBarData = [
 	{
 		title: 'Connexion',
 		icon: <LoginIcon />,
-		link: '/login',
+		link: '/api/auth/signin',
 	},
 ];

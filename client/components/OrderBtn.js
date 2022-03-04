@@ -64,7 +64,7 @@ const OrderBtn = ({ currentOrderId }) => {
 				<button
 					role="link"
 					onClick={createCheckoutSession}
-					className="w-full text-bold text-xl bg-red-500 shadow-lg px-4 py-3 text-gray-50"
+					className="w-full text-bold text-xl bg-gray-800 hover:bg-gray-700 shadow-lg px-4 py-3 text-gray-50"
 				>
 					Commander
 				</button>

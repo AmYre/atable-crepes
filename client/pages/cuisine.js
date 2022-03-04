@@ -6,7 +6,7 @@ import CuisineOrderFinish from '../components/Cuisine/CuisineOrderFinish';
 import { signIn, signOut, useSession } from 'next-auth/react';
 
 const Kitchen = () => {
-	const { data: session } = useSession();
+	const { data: session, status } = useSession();
 	const { data, refetch } = useOrders();
 	const [minutes, setMinutes] = useState(0);
 	const [seconds, setSeconds] = useState(0);
@@ -34,7 +34,12 @@ const Kitchen = () => {
 	const total = data?.commandes.data
 		.reduce((a, b) => a + b.attributes.total, 0)
 		.toFixed(2);
-	if (session) {
+
+	// if (status === 'unauthenticated') {
+	// 	window.location.reload('/api/auth/signin');
+	// }
+
+	if (status === 'authenticated') {
 		return (
 			<>
 				<main className="flex flex-col gap-10 justify-center items-center p-10 bg-gray-200">
@@ -120,17 +125,36 @@ const Kitchen = () => {
 								<p className="text-xl font-bold">{total} €</p>
 							</div>
 						</div>
-						<button onClick={() => signOut()}>Sign out</button>
+						<div className="w-full mt-5 flex justify-center">
+							<button
+								className="text-bold text-xl rounded bg-gray-900 hover:bg-gray-800 shadow-lg px-4 py-3 text-gray-50"
+								onClick={() => signOut()}
+							>
+								Déconnection
+							</button>
+						</div>
 					</section>
 				</main>
 			</>
 		);
 	}
 	return (
-		<>
-			Not signed in <br />
-			<button onClick={() => signIn()}>Sign in</button>
-		</>
+		<div className="bg-gray-100 h-screen">
+			<div className="bg-white p-5">
+				<div className="flex flex-col justify-center items-center">
+					<h2 className="text-xl font-semibold p-5">
+						Vous devez etre connecté pour aller sur cette page{' '}
+						<br />
+					</h2>
+					<button
+						className="text-bold text-xl rounded bg-gray-900 hover:bg-gray-800 shadow-lg px-4 py-3 text-gray-50"
+						onClick={() => signIn()}
+					>
+						Connection
+					</button>
+				</div>
+			</div>
+		</div>
 	);
 };
 

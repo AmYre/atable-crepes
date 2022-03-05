@@ -1,12 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import { UPDATE_ORDER } from '../hooks/mutations/useUpdateOrder';
 import { useMutation } from '@apollo/client';
 import { useGlobalContext } from '../context/Context';
 import { useOrders } from '../hooks/queries/useOrders';
+import { useReactToPrint } from 'react-to-print';
 
 const Success = () => {
+	const componentRef = useRef(); // Print the page
+	const handlePrint = useReactToPrint({
+		content: () => componentRef.current,
+	});
+
 	const router = useRouter();
 	const { data: orderData } = useOrders();
 	const [statusCrepes, setStatusCrepes] = useState('');
@@ -20,6 +26,7 @@ const Success = () => {
 		seconds,
 		setSeconds,
 	} = useGlobalContext();
+
 	const totalPreparationTime = preparationTime.reduce((a, b) => a + b, 0);
 
 	const { data, error } = useSWR(
@@ -49,6 +56,8 @@ const Success = () => {
 			localStorage.clear();
 		}
 	}, [data]);
+
+	console.log(data);
 
 	const waiting_time = orderData?.commandes.data
 		.filter(
@@ -113,53 +122,56 @@ const Success = () => {
 							</p>
 							<button
 								onClick={() => setMoreDetail(!moreDetail)}
-								className="mt-8 mb-5 bg-red-500 rounded-md shadow-lg px-3 py-2 text-gray-50"
+								className="mt-8 mb-5 bg-gray-900 rounded-md shadow-lg px-3 py-2 text-gray-50"
 							>
 								Voir le detail de ma commande
 							</button>
-							{moreDetail && (
-								<div>
-									<h2 className="border-t-2 space-x-2 my-5 text-2xl">
-										Détail de votre commande numéro{' '}
-										{currentOrderId?.attributes.order_id}
-									</h2>
-									{currentOrderId?.attributes.products.map(
-										(
-											{ product_name, supplement_list },
-											i
-										) => (
-											<div
-												key={i}
-												className="flex space-x-10"
-											>
-												<p className="text-xs md:text-sm font-bold">
-													{product_name}:
-												</p>
-												{supplement_list.map(
-													({ name }, i) => (
-														<div
-															key={i}
-															className="flex flex-wrap my-2"
-														>
-															<p className="font-normal text-xs md:text-sm px-1">
-																{name}
-															</p>
-														</div>
-													)
-												)}
-											</div>
-										)
-									)}
+							{/* {moreDetail && ( */}
+							<div ref={componentRef}>
+								<h2 className="space-x-2 my-5 text-2xl">
+									Détail de votre commande numéro{' '}
+									{currentOrderId?.attributes.order_id}
+								</h2>
+								{currentOrderId?.attributes.products.map(
+									({ product_name, supplement_list }, i) => (
+										<div
+											key={i}
+											className="flex space-x-10"
+										>
+											<p className="text-xs md:text-sm font-bold">
+												{product_name}:
+											</p>
+											{supplement_list.map(
+												({ name }, i) => (
+													<div
+														key={i}
+														className="flex flex-wrap my-2"
+													>
+														<p className="font-normal text-xs md:text-sm px-1">
+															{name}
+														</p>
+													</div>
+												)
+											)}
+										</div>
+									)
+								)}
 
-									<p className="text-2xl text-right">
-										Total:{' '}
-										{Number(
-											data?.session.amount_total / 100
-										).toFixed(2)}{' '}
-										€
-									</p>
-								</div>
-							)}
+								<p className="text-2xl text-right">
+									Total:{' '}
+									{Number(
+										data?.session.amount_total / 100
+									).toFixed(2)}{' '}
+									€
+								</p>
+							</div>
+							<button
+								className="bg-gray-900 hover:bg-gray-800 text-white w-1/4 px-2 py-3 rounded mx-auto"
+								onClick={handlePrint}
+							>
+								{' '}
+								Imprimer{' '}
+							</button>
 							{called ? (
 								<div>
 									<h2 className="border-t-2 space-x-2 my-5 text-2xl">

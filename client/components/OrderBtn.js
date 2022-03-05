@@ -60,15 +60,14 @@ const OrderBtn = ({ currentOrderId }) => {
 
 	return (
 		<>
-			{productsList.length > 0 && (
-				<button
-					role="link"
-					onClick={createCheckoutSession}
-					className="w-full text-bold text-xl bg-gray-800 hover:bg-gray-700 shadow-lg px-4 py-3 text-gray-50"
-				>
-					Commander
-				</button>
-			)}
+			<button
+				role="link"
+				disabled={productsList.length === 0}
+				onClick={createCheckoutSession}
+				className="w-full text-bold text-xl bg-gray-800 hover:bg-gray-700 shadow-lg px-4 py-3 text-gray-50"
+			>
+				Commander
+			</button>
 		</>
 	);
 };

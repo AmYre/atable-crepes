@@ -1,5 +1,4 @@
 import { useMutation } from '@apollo/client';
-import { useEffect } from 'react';
 import { UPDATE_ORDER } from '../../hooks/mutations/useUpdateOrder';
 
 const CuisineOrder = ({

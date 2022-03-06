@@ -57,8 +57,6 @@ const Success = () => {
 		}
 	}, [data]);
 
-	console.log(data);
-
 	const waiting_time = orderData?.commandes.data
 		.filter(
 			(item) =>
@@ -110,54 +108,66 @@ const Success = () => {
 					<main className="max-w-screen-lg mx-auto">
 						<div className="flex flex-col p-10 bg-white">
 							<div className="space-x-2 mb-5">
-								<h1 className="text-2xl">
+								<h1 className="font-semibold text-xl md:text-2xl px-3">
 									Merci de votre achat, votre commandes est
 									confirmé!
 								</h1>
 							</div>
 
-							<p>
-								Votre commande est en cours de préparation vous
-								serez averti lorsque votre commande est prete
-							</p>
-							<button
-								onClick={() => setMoreDetail(!moreDetail)}
-								className="mt-8 mb-5 bg-gray-900 rounded-md shadow-lg px-3 py-2 text-gray-50"
-							>
-								Voir le detail de ma commande
-							</button>
-							{/* {moreDetail && ( */}
 							<div ref={componentRef}>
-								<h2 className="space-x-2 my-5 text-2xl">
-									Détail de votre commande numéro{' '}
+								<h2 className="font-bold text-sm md:text-xl  uppercase text-gray-100 bg-gray-900 hover:bg-gray-800 py-5 px-3">
+									Détail de votre commande n°{' '}
 									{currentOrderId?.attributes.order_id}
 								</h2>
-								{currentOrderId?.attributes.products.map(
-									({ product_name, supplement_list }, i) => (
-										<div
-											key={i}
-											className="flex space-x-10"
-										>
-											<p className="text-xs md:text-sm font-bold">
-												{product_name}:
-											</p>
-											{supplement_list.map(
-												({ name }, i) => (
-													<div
-														key={i}
-														className="flex flex-wrap my-2"
-													>
-														<p className="font-normal text-xs md:text-sm px-1">
-															{name}
+								<div className="flex flex-col justify-center pb-5 text-gray-900 rounded gap-8 border-gray-900 border-b-2 bg-gray-200">
+									{currentOrderId?.attributes.products.map(
+										(
+											{
+												product_name,
+												supplement_list,
+												quantity,
+												price,
+											},
+											i
+										) => (
+											<div
+												className="flex justify-between px-2 pt-2 border-gray-900 border-t-2 bg-gray-200"
+												key={i}
+											>
+												<div className="flex flex-col">
+													<div className="flex">
+														<p className="text-sm md:text-base font-bold pr-5">
+															{product_name}
+														</p>
+														<p className="text-sm md:text-base font-bold">
+															x {quantity}
 														</p>
 													</div>
-												)
-											)}
-										</div>
-									)
-								)}
-
-								<p className="text-2xl text-right">
+													<div className="flex flex-wrap my-2">
+														{supplement_list?.map(
+															(item, i) => (
+																<p
+																	className="font-light text-xs md:text-sm px-1"
+																	key={i}
+																>
+																	{item.name}{' '}
+																	{item.price.toFixed(
+																		2
+																	)}{' '}
+																	€
+																</p>
+															)
+														)}
+													</div>
+												</div>
+												<p className="text-sm md:text-base font-bold">
+													{price.toFixed(2)} €
+												</p>
+											</div>
+										)
+									)}
+								</div>
+								<p className="text-xl md:text-2xl font-semibold text-right pt-5 pl-2">
 									Total:{' '}
 									{Number(
 										data?.session.amount_total / 100
@@ -166,17 +176,17 @@ const Success = () => {
 								</p>
 							</div>
 							<button
-								className="bg-gray-900 hover:bg-gray-800 text-white w-1/4 px-2 py-3 rounded mx-auto"
+								className="text-xs md:text-base bg-gray-900 hover:bg-gray-800 text-white w-1/4 px-2 py-3 rounded mx-auto my-5"
 								onClick={handlePrint}
 							>
 								{' '}
 								Imprimer{' '}
 							</button>
 							{called ? (
-								<div>
-									<h2 className="border-t-2 space-x-2 my-5 text-2xl">
+								<div className="bg-gray-200 flex flex-col items-center justify-center py-5 border-gray-900 border-b-2">
+									<h2 className="space-x-2 my-5 text-lg md:text-2xl font-semibold px-2">
 										Votre commande est en cours de
-										préparation
+										préparation ...
 									</h2>
 									<p>{statusCrepes}</p>
 								</div>

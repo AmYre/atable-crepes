@@ -44,7 +44,7 @@ export default NextAuth({
 	},
 	theme: {
 		colorScheme: 'auto',
-		logo: 'http://localhost:3000/_next/image?url=%2Flogo.png&w=128&q=75',
+		logo: `${process.env.HOST}/_next/image?url=%2Flogo.png&w=128&q=75`,
 	},
 	secret: 'test',
 	jwt: {

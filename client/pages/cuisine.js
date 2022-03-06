@@ -1,6 +1,5 @@
 import { useOrders } from '../hooks/queries/useOrders';
 import { useEffect, useState } from 'react';
-import { UPDATE_ORDER } from '../hooks/mutations/useUpdateOrder';
 import CuisineOrder from '../components/Cuisine/CuisineOrder';
 import CuisineOrderFinish from '../components/Cuisine/CuisineOrderFinish';
 import { signIn, signOut, useSession } from 'next-auth/react';
@@ -34,10 +33,6 @@ const Kitchen = () => {
 	const total = data?.commandes.data
 		.reduce((a, b) => a + b.attributes.total, 0)
 		.toFixed(2);
-
-	// if (status === 'unauthenticated') {
-	// 	window.location.reload('/api/auth/signin');
-	// }
 
 	if (status === 'authenticated') {
 		return (

@@ -30,6 +30,8 @@ const ModalCrepesSucrees = ({
 
 	const { data } = useMenuList();
 
+	// work // https://res.cloudinary.com/dvcul5qz8/image/upload/v1646632846/crepes_nutella_4ba292526a.jpg?w=256&q=75
+	// not // https://res.cloudinary.com/uploads/crepes_nutella_dkokof_0a42f90d57.jpg?w=256&q=75
 	const totalSupplement = Number(
 		supplementList.reduce((a, b) => a + b.price, 0).toFixed(2)
 	);

@@ -1,6 +1,6 @@
 module.exports = {
 	images: {
-		domains: ['a-vos-crepes.herokuapp.com'],
+		domains: ['res.cloudinary.com'],
 	},
 	reactStrictMode: true,
 	env: {

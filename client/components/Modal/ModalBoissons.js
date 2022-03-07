@@ -24,9 +24,8 @@ const ModalBoissons = ({
 	} = useGlobalContext();
 
 	const myLoader = ({ src, width, quality }) => {
-		return `http://localhost:1337${src}?w=${width}&q=${quality || 75}`;
+		return `${src}?w=${width}&q=${quality || 75}`;
 	};
-
 	return (
 		<div className="flex items-center border-t-2 z-50 hover:bg-gray-100">
 			<div

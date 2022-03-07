@@ -2,7 +2,9 @@ import { useMenuList } from '../../hooks/queries/useMenuList';
 import ModalCrepesSucrees from '../Modal/ModalCrepesSucres';
 
 const CrepesSucrees = () => {
-	const { data } = useMenuList();
+	const { data, loading } = useMenuList();
+
+	if (loading) return 'Loading ...';
 
 	return (
 		<div>

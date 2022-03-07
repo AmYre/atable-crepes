@@ -35,7 +35,7 @@ const ModalCrepesSucrees = ({
 	);
 
 	const myLoader = ({ src, width, quality }) => {
-		return `http://localhost:1337${src}?w=${width}&q=${quality || 75}`;
+		return `${src}?w=${width}&q=${quality || 75}`;
 	};
 
 	return (

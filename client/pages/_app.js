@@ -11,7 +11,7 @@ import '../styles/globals.css';
 function MyApp({ Component, pageProps }) {
 	return (
 		<AppProvider>
-			<ApolloProvider client={client}>
+			<ApolloProvider client={client()}>
 				<SessionProvider>
 					<ThemeProvider attribute="class">
 						<Component {...pageProps} />

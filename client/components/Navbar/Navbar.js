@@ -52,7 +52,7 @@ export const Navbar = () => {
 				</a>
 			</div>
 			<nav
-				className={`md:flex md:gap-3 font-bold transition duration-500 ease-in-out delay-150 dark:bg-grey-200 ${
+				className={`md:flex md:gap-3 font-bold transition duration-500 ease-in-out delay-150 bg-white dark:bg-gray-700 dark:text-gray-100 ${
 					active
 						? 'translate-x-0 md:hidden fixed top-0 right-0 h-full w-48 flex items-center flex-col'
 						: 'translate-x-full fixed top-0 right-0 h-full w-48 flex items-center flex-col '
@@ -65,7 +65,7 @@ export const Navbar = () => {
 					<div className="md:hidden cursor-pointer">
 						<MenuIcon
 							onClick={handleClick}
-							className="w-8 h-8 hover:bg-gray-200 "
+							className="w-8 h-8 hover:bg-gray-200 dark:hover:bg-gray-600"
 						/>
 					</div>
 				</div>
@@ -95,7 +95,7 @@ export const Navbar = () => {
 				{!active && (
 					<MenuIcon
 						onClick={handleClick}
-						className="w-8 h-8 hover:bg-gray-200 rounded-lg"
+						className="w-8 h-8 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg"
 					/>
 				)}
 			</div>

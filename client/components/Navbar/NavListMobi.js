@@ -13,7 +13,7 @@ const NavListMobi = () => {
 					className={
 						router.pathname == item.link
 							? 'text-red-500 hover:bg-red-500 hover:text-white py-2 px-4 transition duration-200 flex items-center justify-center w-full'
-							: 'text-black hover:bg-black hover:text-white py-2 px-4 transition duration-200 flex items-center justify-center w-full'
+							: 'text-black dark:text-gray-200 hover:bg-black hover:text-white py-2 px-4 transition duration-200 flex items-center justify-center w-full'
 					}
 				>
 					<p className="h-5 w-5">{item.icon}</p>

@@ -74,7 +74,7 @@ const Menu = () => {
 	if (loading) return 'Loading...';
 
 	return (
-		<div className="bg-gray-200 h-screen">
+		<div className="h-screen">
 			<Navbar />
 			{(firstStep && !loading) || (router.query.id && !loading) ? (
 				<div className="flex flex-col justify-between">

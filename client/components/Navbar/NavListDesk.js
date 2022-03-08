@@ -13,7 +13,7 @@ const NavListDesk = () => {
 						className={
 							router.pathname == item.link
 								? 'text-red-500 hover:bg-red-500 hover:text-white rounded-lg py-2 px-4 transition duration-200'
-								: 'text-black hover:bg-black hover:text-white rounded-lg py-2 px-4 transition duration-200'
+								: 'text-black dark:text-gray-200 hover:bg-black hover:text-white rounded-lg py-2 px-4 transition duration-200'
 						}
 					>
 						{item.title}

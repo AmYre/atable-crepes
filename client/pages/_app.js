@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }) {
 		<AppProvider>
 			<ApolloProvider client={client()}>
 				<SessionProvider>
-					<ThemeProvider attribute="class">
+					<ThemeProvider enableSystem={true} attribute="class">
 						<Component {...pageProps} />
 					</ThemeProvider>
 				</SessionProvider>

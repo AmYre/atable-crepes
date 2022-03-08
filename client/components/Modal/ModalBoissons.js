@@ -27,7 +27,7 @@ const ModalBoissons = ({
 		return `${src}?w=${width}&q=${quality || 75}`;
 	};
 	return (
-		<div className="flex items-center border-t-2 z-50 hover:bg-gray-100">
+		<div className="flex items-center border-t-2 z-50 hover:bg-gray-100 dark:hover:bg-gray-700">
 			<div
 				className={`${
 					modal

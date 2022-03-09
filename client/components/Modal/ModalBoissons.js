@@ -36,7 +36,7 @@ const ModalBoissons = ({
 				}`}
 			>
 				<div className="bg-white py-0 rounded w-full sm:w-2/3 md:w-1/2">
-					<div className="w-full h-screen py-10 px-3 bg-gray-100 relative">
+					<div className="w-full h-screen py-10 px-3 bg-gray-100 dark:bg-gray-700 relative">
 						<Image
 							loader={myLoader}
 							src={url}

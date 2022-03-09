@@ -104,9 +104,9 @@ const Success = () => {
 	return (
 		<>
 			{data ? (
-				<div className="bg-gray-100 h-screen">
+				<div className="bg-gray-100 dark:bg-black h-screen">
 					<main className="max-w-screen-lg mx-auto">
-						<div className="flex flex-col p-10 bg-white">
+						<div className="flex flex-col p-10 bg-white dark:bg-black dark:text-gray-200">
 							<div className="space-x-2 mb-5">
 								<h1 className="font-semibold text-xl md:text-2xl px-3">
 									Merci de votre achat, votre commandes est
@@ -115,11 +115,11 @@ const Success = () => {
 							</div>
 
 							<div ref={componentRef}>
-								<h2 className="font-bold text-sm md:text-xl  uppercase text-gray-100 bg-gray-900 hover:bg-gray-800 py-5 px-3">
+								<h2 className="font-bold text-sm md:text-xl  uppercase text-gray-100 bg-zinc-900 hover:bg-zinc-800 py-5 px-3">
 									Détail de votre commande n°{' '}
 									{currentOrderId?.attributes.order_id}
 								</h2>
-								<div className="flex flex-col justify-center pb-5 text-gray-900 rounded gap-8 border-gray-900 border-b-2 bg-gray-200">
+								<div className="flex flex-col justify-center pb-5 text-gray-900 rounded gap-8 border-gray-900 border-b-2 bg-gray-200 dark:bg-zinc-800">
 									{currentOrderId?.attributes.products.map(
 										(
 											{
@@ -131,7 +131,7 @@ const Success = () => {
 											i
 										) => (
 											<div
-												className="flex justify-between px-2 pt-2 border-gray-900 border-t-2 bg-gray-200"
+												className="flex justify-between px-2 pt-2 border-gray-900 border-t-2 bg-gray-200 dark:bg-zinc-800 dark:text-gray-200"
 												key={i}
 											>
 												<div className="flex flex-col">
@@ -176,14 +176,14 @@ const Success = () => {
 								</p>
 							</div>
 							<button
-								className="text-xs md:text-base bg-gray-900 hover:bg-gray-800 text-white w-1/4 px-2 py-3 rounded mx-auto my-5"
+								className="text-xs md:text-base bg-zinc-900 hover:bg-zinc-800 text-white w-1/4 px-2 py-3 rounded mx-auto my-5"
 								onClick={handlePrint}
 							>
 								{' '}
 								Imprimer{' '}
 							</button>
 							{called ? (
-								<div className="bg-gray-200 flex flex-col items-center justify-center py-5 border-gray-900 border-b-2">
+								<div className="bg-gray-200 dark:bg-zinc-800 dark:text-gray-200 flex flex-col items-center justify-center py-5 border-gray-900 border-b-2">
 									<h2 className="space-x-2 my-5 text-lg md:text-2xl font-semibold px-2">
 										Votre commande est en cours de
 										préparation ...

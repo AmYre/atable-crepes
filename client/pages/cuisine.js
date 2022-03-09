@@ -37,9 +37,9 @@ const Kitchen = () => {
 	if (status === 'authenticated') {
 		return (
 			<>
-				<main className="flex flex-col gap-10 justify-center items-center p-10 bg-gray-200">
+				<main className="flex flex-col gap-10 justify-center items-center p-10 bg-gray-200 dark:bg-gray-900">
 					<section className="w-full">
-						<div className="flex flex-col justify-center py-5 bg-white text-gray-900 rounded shadow-lg gap-8 px-10">
+						<div className="flex flex-col justify-center py-5 bg-white text-gray-900 dark:bg-gray-700 dark:text-gray-200 rounded shadow-lg gap-8 px-10">
 							<h2 className="font-bold text-lg md:text-xl uppercase border-gray-900 border-b-2 py-1">
 								Commande en cours
 							</h2>
@@ -122,7 +122,7 @@ const Kitchen = () => {
 						</div>
 						<div className="w-full mt-5 flex justify-center">
 							<button
-								className="text-bold text-xl rounded bg-gray-900 hover:bg-gray-800 shadow-lg px-4 py-3 text-gray-50"
+								className="text-bold text-xl rounded bg-gray-900 hover:bg-gray-800 dark:bg-black dark:hover:bg-gray-800 shadow-lg px-4 py-3 text-gray-50"
 								onClick={() => signOut()}
 							>
 								Déconnection

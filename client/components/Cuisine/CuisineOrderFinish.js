@@ -27,7 +27,10 @@ const CuisineOrderFinish = ({ order_id, products, key, total }) => {
 
 			{products.map(
 				({ product_name, supplement_list, quantity, price }, i) => (
-					<div key={i} className={`overflow-hidden bg-gray-200`}>
+					<div
+						key={i}
+						className={`overflow-hidden bg-gray-200 dark:bg-gray-600`}
+					>
 						<div
 							className={`flex justify-between px-2 duration-500 ${
 								activeTab

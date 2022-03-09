@@ -46,7 +46,7 @@ const CuisineOrder = ({
 			{products.map(
 				({ product_name, supplement_list, quantity, price }, i) => (
 					<div
-						className="flex justify-between px-2 pt-2 border-gray-900 border-b-2 bg-gray-200"
+						className="flex justify-between px-2 pt-2 border-gray-900 border-b-2 bg-gray-200 dark:bg-gray-600"
 						key={i}
 					>
 						<div className="flex flex-col">

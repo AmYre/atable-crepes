@@ -164,7 +164,7 @@ const Menu = () => {
 					<Orders currentOrderId={currentOrderId} />
 				</div>
 			) : (
-				<div className="h-2/3 flex justify-center items-center bg-white my-14 mx-10">
+				<div className="h-2/3 flex justify-center items-center bg-white dark:bg-gray-700 my-14 mx-10">
 					<button
 						className="bg-red-500 hover:bg-red-400 rounded-md shadow-lg px-4 py-3 text-gray-50"
 						onClick={() => {

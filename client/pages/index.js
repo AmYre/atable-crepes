@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { Navbar } from '../components/Navbar/Navbar';
-import Qrscanner from '../components/Qrscanner';
+import Homes from '../components/Home';
 
 export default function Home() {
 	return (
@@ -20,7 +20,7 @@ export default function Home() {
 				/>
 			</Head>
 			<Navbar />
-			<Qrscanner />
+			<Homes />
 		</>
 	);
 }

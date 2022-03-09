@@ -14,7 +14,7 @@ const Success = () => {
 	});
 
 	const router = useRouter();
-	const { data: orderData } = useOrders();
+	const { data: orderData, loading } = useOrders();
 	const [statusCrepes, setStatusCrepes] = useState('');
 	const [moreDetail, setMoreDetail] = useState(false);
 	const {
@@ -100,6 +100,8 @@ const Success = () => {
 	const currentOrderId = orderData?.commandes.data.find(
 		({ id }) => Number(id) === Number(data?.session.metadata.id)
 	);
+
+	if (loading) return 'Loading ...';
 
 	return (
 		<>

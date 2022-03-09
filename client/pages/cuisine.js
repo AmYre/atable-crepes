@@ -6,7 +6,7 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 
 const Kitchen = () => {
 	const { data: session, status } = useSession();
-	const { data, refetch } = useOrders();
+	const { data, refetch, loading } = useOrders();
 	const [minutes, setMinutes] = useState(0);
 	const [seconds, setSeconds] = useState(0);
 	let startingMinutes = 0;
@@ -33,6 +33,8 @@ const Kitchen = () => {
 	const total = data?.commandes.data
 		.reduce((a, b) => a + b.attributes.total, 0)
 		.toFixed(2);
+
+	if (loading) return 'Loading ...';
 
 	if (status === 'authenticated') {
 		return (

@@ -9,8 +9,11 @@ const CuisineOrder = ({
 	updatedAt,
 	preparation_time,
 	minutes,
+	refetch,
 }) => {
-	const [updateOrder] = useMutation(UPDATE_ORDER);
+	const [updateOrder, { loading, called }] = useMutation(UPDATE_ORDER);
+
+	if (loading) return 'Loading ...';
 
 	return (
 		<div className="flex flex-col min-h-full overflow-auto">
@@ -24,6 +27,7 @@ const CuisineOrder = ({
 								is_prepared: true,
 							},
 						});
+						// refetch();
 					}}
 					className="text-xl fond-bold cursor-pointer"
 				>

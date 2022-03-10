@@ -85,6 +85,7 @@ const Kitchen = () => {
 											total={total}
 											preparation_time={preparation_time}
 											minutes={minutes}
+											refetch={refetch}
 										/>
 									)
 								)}

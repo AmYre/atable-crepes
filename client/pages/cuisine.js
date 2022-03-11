@@ -6,7 +6,7 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 
 const Kitchen = () => {
 	const { data: session, status } = useSession();
-	const { data, refetch, loading } = useOrders();
+	const { data, refetch } = useOrders();
 	const [minutes, setMinutes] = useState(0);
 	const [seconds, setSeconds] = useState(0);
 	let startingMinutes = 0;
@@ -18,12 +18,12 @@ const Kitchen = () => {
 		time--;
 		seconds < 10 ? `0${seconds}` : seconds;
 	};
-
+	console.log(data);
 	useEffect(() => {
 		setInterval(() => {
 			const timer = refetch();
 			return clearInterval(timer);
-		}, 5000);
+		}, 10000);
 		setInterval(() => {
 			const timer = timerCountDown();
 			return clearInterval(timer);
@@ -34,14 +34,14 @@ const Kitchen = () => {
 		.reduce((a, b) => a + b.attributes.total, 0)
 		.toFixed(2);
 
-	if (loading) return 'Loading ...';
+	// if (loading) return 'Loading ...';
 
 	if (status === 'authenticated') {
 		return (
 			<>
 				<main className="flex flex-col gap-10 justify-center items-center p-10 bg-gray-200 dark:bg-gray-900">
 					<section className="w-full">
-						<div className="flex flex-col justify-center py-5 bg-white text-gray-900 dark:bg-gray-700 dark:text-gray-200 rounded shadow-lg gap-8 px-10">
+						<div className="flex flex-col justify-center py-5 bg-white text-gray-900 dark:bg-gray-700 dark:text-gray-200 rounded shadow-lg gap-8 px-10 overflow-auto">
 							<h2 className="font-bold text-lg md:text-xl uppercase border-gray-900 border-b-2 py-1">
 								Commande en cours
 							</h2>

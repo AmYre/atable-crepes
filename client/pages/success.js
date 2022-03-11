@@ -98,7 +98,7 @@ const Success = () => {
 	};
 
 	const currentOrderId = orderData?.commandes.data.find(
-		({ id }) => Number(id) === Number(data?.session.metadata.id)
+		({ id }) => Number(id) === Number(data?.session.metadata.id) // get the order id from the session
 	);
 
 	if (loading) return 'Loading ...';

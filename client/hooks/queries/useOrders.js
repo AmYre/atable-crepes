@@ -2,7 +2,7 @@ import { useQuery, gql } from '@apollo/client';
 
 export const GET_ORDER = gql`
 	query getOrders {
-		commandes(sort: "updatedAt") {
+		commandes(sort: "updatedAt", pagination: { limit: 20 }) {
 			data {
 				id
 				attributes {

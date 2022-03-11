@@ -9,7 +9,6 @@ const CuisineOrder = ({
 	updatedAt,
 	preparation_time,
 	minutes,
-	refetch,
 }) => {
 	const [updateOrder, { loading, called }] = useMutation(UPDATE_ORDER);
 

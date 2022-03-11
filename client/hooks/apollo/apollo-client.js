@@ -9,10 +9,10 @@ const client = () => {
 		if (!authToken) return null;
 
 		return {
-			authorization: `${authToken}`,
+			authorization: `${process.env.NEXT_PUBLIC_HOST_TOKEN_API}`,
 		};
 	};
-
+	console.log(authToken);
 	const link = new HttpLink({
 		// uri: 'http://localhost:1337/graphql',
 		uri: `${process.env.NEXT_PUBLIC_HOST_STRAPI}/graphql`,

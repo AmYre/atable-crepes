@@ -9,7 +9,7 @@ const client = () => {
 		if (!authToken) return null;
 
 		return {
-			authorization: `${authToken}`,
+			authorization: `Bearer ${authToken}`,
 		};
 	};
 

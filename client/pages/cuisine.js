@@ -23,7 +23,7 @@ const Kitchen = () => {
 		setInterval(() => {
 			const timer = refetch();
 			return clearInterval(timer);
-		}, 30000);
+		}, 5000);
 		setInterval(() => {
 			const timer = timerCountDown();
 			return clearInterval(timer);
@@ -85,7 +85,6 @@ const Kitchen = () => {
 											total={total}
 											preparation_time={preparation_time}
 											minutes={minutes}
-											refetch={refetch}
 										/>
 									)
 								)}

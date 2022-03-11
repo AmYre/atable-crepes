@@ -1,11 +1,11 @@
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/solid';
 import { useState } from 'react';
 
-const CuisineOrderFinish = ({ order_id, products, key, total }) => {
+const CuisineOrderFinish = ({ order_id, products, total }) => {
 	const [activeTab, setActiveTab] = useState(false);
 
 	return (
-		<div key={key} className="flex flex-col min-h-full overflow-auto">
+		<div className="flex flex-col min-h-full overflow-auto">
 			{/* <img src={'./'} /> */}
 			<div className="flex justify-around p-3 text-gray-100 bg-gray-900 hover:bg-gray-800">
 				<h2 className="text-xl fond-bold">N° {order_id}</h2>
@@ -35,7 +35,7 @@ const CuisineOrderFinish = ({ order_id, products, key, total }) => {
 							className={`flex justify-between px-2 duration-500 ${
 								activeTab
 									? 'h-16 border-gray-900 border-b-2'
-									: 'h-1'
+									: 'h-0'
 							} `}
 						>
 							<div className="flex flex-col">

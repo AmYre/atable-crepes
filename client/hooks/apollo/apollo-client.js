@@ -9,7 +9,7 @@ const client = () => {
 		if (!authToken) return null;
 
 		return {
-			authorization: `Bearer ${authToken}`,
+			Authorization: `Bearer ${authToken}`,
 		};
 	};
 	console.log(getHeader());

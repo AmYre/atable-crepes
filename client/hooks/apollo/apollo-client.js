@@ -12,7 +12,7 @@ const client = () => {
 			Authorization: `Bearer ${authToken}`,
 		};
 	};
-	console.log(getHeader());
+
 	const link = new HttpLink({
 		// uri: 'http://localhost:1337/graphql',
 		uri: `${process.env.NEXT_PUBLIC_HOST_STRAPI}/graphql`,

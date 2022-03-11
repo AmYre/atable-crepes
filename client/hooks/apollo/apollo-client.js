@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 const client = () => {
 	const [authToken, setAuthToken] = useState(
-		process.env.NEXT_PUBLIC_HOST_TOKEN_API
+		process.env.NEXT_PUBLIC_LOCAL_TOKEN_API
 	);
 	const getHeader = () => {
 		if (!authToken) return null;

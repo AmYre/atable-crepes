@@ -4,8 +4,9 @@ import useSWR from 'swr';
 import { UPDATE_ORDER } from '../hooks/mutations/useUpdateOrder';
 import { useMutation } from '@apollo/client';
 import { useGlobalContext } from '../context/Context';
-import { useOrders } from '../hooks/queries/useOrders';
+import { useQuery } from '@apollo/client';
 import { useReactToPrint } from 'react-to-print';
+import { GET_ORDER_SUCCESS } from '../hooks/queries/useOrderSuccess';
 
 const Success = () => {
 	const componentRef = useRef(); // Print the page
@@ -14,20 +15,9 @@ const Success = () => {
 	});
 
 	const router = useRouter();
-	const { data: orderData, loading } = useOrders();
 	const [statusCrepes, setStatusCrepes] = useState('');
-	const [moreDetail, setMoreDetail] = useState(false);
-	const {
-		productsList,
-		setProductsList,
-		preparationTime,
-		minutes,
-		setMinutes,
-		seconds,
-		setSeconds,
-	} = useGlobalContext();
-
-	const totalPreparationTime = preparationTime.reduce((a, b) => a + b, 0);
+	const { setProductsList, minutes, setMinutes, seconds, setSeconds } =
+		useGlobalContext();
 
 	const { data, error } = useSWR(
 		router.query.session_id ? `/api/${router.query.session_id}` : null,
@@ -37,7 +27,15 @@ const Success = () => {
 				.catch((err) => console.log(err.message))
 	);
 
-	const [updateOrder, { data: OrderData, called }] = useMutation(
+	const {
+		error: errorOrder,
+		data: orderData,
+		loading,
+	} = useQuery(GET_ORDER_SUCCESS, {
+		variables: { id: data?.session.metadata.id },
+	});
+
+	const [updateOrder, { data: OrderDataUpdate, called }] = useMutation(
 		UPDATE_ORDER,
 		{
 			variables: {
@@ -51,21 +49,15 @@ const Success = () => {
 	useEffect(() => {
 		if (data !== undefined && data.session.id.startsWith('cs_')) {
 			updateOrder();
-			setProductsList(OrderData);
+			setProductsList(OrderDataUpdate);
 			handleTimer();
 			localStorage.clear();
 		}
-	}, [data]);
+	}, [data, orderData]);
 
-	const waiting_time = orderData?.commandes.data
-		.filter(
-			(item) =>
-				item.attributes.is_prepared === false &&
-				item.attributes.is_payed === true
-		)
-		.reduce((a, b) => a + b.attributes.preparation_time, 0);
-
-	let time = (waiting_time + totalPreparationTime) * 60;
+	let time = Number(
+		orderData?.commande.data.attributes.preparation_time * 60
+	);
 
 	const timerCountDown = () => {
 		if (time > 0) {
@@ -97,10 +89,6 @@ const Success = () => {
 		}, 1000);
 	};
 
-	const currentOrderId = orderData?.commandes.data.find(
-		({ id }) => Number(id) === Number(data?.session.metadata.id) // get the order id from the session
-	);
-
 	if (loading) return 'Loading ...';
 
 	return (
@@ -119,10 +107,13 @@ const Success = () => {
 							<div ref={componentRef}>
 								<h2 className="font-bold text-sm md:text-xl  uppercase text-gray-100 bg-zinc-900 hover:bg-zinc-800 py-5 px-3">
 									Détail de votre commande n°{' '}
-									{currentOrderId?.attributes.order_id}
+									{
+										orderData?.commande.data.attributes
+											.order_id
+									}
 								</h2>
 								<div className="flex flex-col justify-center pb-5 text-gray-900 rounded gap-8 border-gray-900 border-b-2 bg-gray-200 dark:bg-zinc-800">
-									{currentOrderId?.attributes.products.map(
+									{orderData?.commande.data.attributes.products.map(
 										(
 											{
 												product_name,
@@ -190,7 +181,7 @@ const Success = () => {
 										Votre commande est en cours de
 										préparation ...
 									</h2>
-									<p>{statusCrepes}</p>
+									<p>{!loading && statusCrepes}</p>
 								</div>
 							) : (
 								'Loading...'

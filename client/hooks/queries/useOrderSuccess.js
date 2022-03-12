@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const GET_ONE_ORDER = gql`
+export const GET_ORDER_SUCCESS = gql`
 	query commande($id: ID) {
 		commande(id: $id) {
 			data {
@@ -14,7 +14,6 @@ export const GET_ONE_ORDER = gql`
 					products {
 						quantity
 						product_name
-						category_name
 						price
 						supplement_list {
 							id

@@ -18,7 +18,7 @@ const Kitchen = () => {
 		time--;
 		seconds < 10 ? `0${seconds}` : seconds;
 	};
-	console.log(data);
+	// console.log(data);
 	useEffect(() => {
 		setInterval(() => {
 			const timer = refetch();

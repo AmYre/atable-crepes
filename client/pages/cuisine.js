@@ -53,7 +53,7 @@ const Kitchen = () => {
 			const timer = refetch();
 			const timer2 = refetchNoPrepared();
 			return clearInterval(timer, timer2);
-		}, 5000);
+		}, 30000);
 		setInterval(() => {
 			const timer = timerCountDown();
 			return clearInterval(timer);

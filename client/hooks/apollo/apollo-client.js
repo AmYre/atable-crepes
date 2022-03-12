@@ -1,4 +1,4 @@
-import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
 import { useState } from 'react';
 
 const client = () => {
@@ -13,7 +13,7 @@ const client = () => {
 		};
 	};
 
-	const link = new createHttpLink({
+	const link = new HttpLink({
 		// uri: 'http://localhost:1337/graphql',
 		uri: `${process.env.NEXT_PUBLIC_HOST_STRAPI}/graphql`,
 		// headers: getHeader(),

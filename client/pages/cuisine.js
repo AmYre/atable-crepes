@@ -1,4 +1,4 @@
-import { GET_ORDER, useOrders } from '../hooks/queries/useOrders';
+import { GET_ORDER } from '../hooks/queries/useOrders';
 import { useEffect, useState } from 'react';
 import CuisineOrder from '../components/Cuisine/CuisineOrder';
 import CuisineOrderFinish from '../components/Cuisine/CuisineOrderFinish';
@@ -35,7 +35,6 @@ const Kitchen = () => {
 		},
 	});
 
-	const { data } = useOrders();
 	const [minutes, setMinutes] = useState(0);
 	const [seconds, setSeconds] = useState(0);
 	let startingMinutes = 0;
@@ -60,11 +59,13 @@ const Kitchen = () => {
 		}, 1000);
 	}, []);
 
-	const total = data?.commandes.data
-		.reduce((a, b) => a + b.attributes.total, 0)
-		.toFixed(2);
+	// console.log(dataNoPrepared);
 
-	if (loadNoPrepared || loadPrepared) return 'Loading ...';
+	// const total = dataNoPrepared?.commandes.data
+	// 	.reduce((a, b) => a + b.attributes.total, 0)
+	// 	.toFixed(2);
+
+	if (loadNoPrepared) return 'Loading ...';
 
 	if (status === 'authenticated') {
 		return (
@@ -125,6 +126,10 @@ const Kitchen = () => {
 										</div>
 									)
 								)}
+							{/* <div className="flex pt-5 justify-between w-full mb-5 border-gray-50">
+								<p className="text-xl font-bold">Total</p>
+								<p className="text-xl font-bold">{total} €</p>
+							</div> */}
 							<h2 className="font-bold text-lg md:text-xl uppercase border-gray-900 border-b-2 py-1">
 								Commande terminée
 							</h2>
@@ -170,10 +175,6 @@ const Kitchen = () => {
 									}`}
 									onClick={() => setPage(page + 5)}
 								/>
-							</div>
-							<div className="flex pt-5 justify-between w-full mb-5 border-gray-50">
-								<p className="text-xl font-bold">Total</p>
-								<p className="text-xl font-bold">{total} €</p>
 							</div>
 						</div>
 						<div className="w-full mt-5 flex justify-center">

@@ -5,6 +5,27 @@ import { buffer } from 'micro';
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const endpointSecret = process.env.STRIPE_SIGNING_SECRET;
 
+// create a mutation to fulfillOrder
+
+// const client = new ApolloClient({
+// 	uri: `${process.env.HOST_BACKEND}`,
+// 	cache: new InMemoryCache(),
+// });
+
+// const { data } = await client.query({
+// 	mutation: gql`
+//     mutation commandes(id: 300 is_payed: true total: 338 ) {
+// 		data {
+// 			id
+// 			attributes {
+// 				is_payed
+// 				total
+// 			}
+// 		}
+// 	}
+// 	`,
+// });
+
 const fulfillOrder = (session) => {
 	console.log(session);
 };

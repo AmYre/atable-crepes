@@ -7,7 +7,7 @@ const CuisineOrderFinish = ({ order_id, products, total }) => {
 	return (
 		<div className="flex flex-col min-h-full overflow-auto">
 			{/* <img src={'./'} /> */}
-			<div className="flex justify-around p-3 text-gray-100 bg-gray-900 hover:bg-gray-800">
+			<div className="flex justify-around p-3 text-gray-100 bg-gray-900 hover:bg-gray-800 ">
 				<h2 className="text-xl fond-bold">N° {order_id}</h2>
 				<p className="text-xl text-green-500 ">Livrer</p>
 				<p className="text-xl">Total: {total.toFixed(2)} €</p>

@@ -7,18 +7,23 @@ import {
 } from '@heroicons/react/solid';
 import { useGlobalContext } from '../../context/Context';
 import { useRouter } from 'next/router';
-import { useOrders } from '../../hooks/queries/useOrders';
+import { GET_ORDER, useOrders } from '../../hooks/queries/useOrders';
 import { useEffect, useState } from 'react';
 import NavListMobi from './NavListMobi';
 import Link from 'next/link';
 import NavListDesk from './NavListDesk';
+import { useQuery } from '@apollo/client';
 
 export const Navbar = () => {
 	const router = useRouter();
-	const { productsList, theme, setTheme } = useGlobalContext();
-	const { data, refetch } = useOrders();
+	const { data, loading, refetch } = useQuery(GET_ORDER, {
+		variables: {
+			limit: 100,
+			eq: false,
+		},
+	});
+	console.log(data);
 	const [active, setActive] = useState(false);
-	// const cardLength = productsList.reduce((a, b) => a + b.quantity * 1, 0);
 
 	useEffect(() => {
 		setInterval(() => {
@@ -26,10 +31,6 @@ export const Navbar = () => {
 			return clearInterval(timer);
 		}, 10000);
 	}, []);
-
-	const isPreparedOrder = data?.commandes.data.filter(
-		({ attributes: { is_prepared } }) => is_prepared === false // Get the length of the unprepared order
-	);
 
 	const handleClick = () => {
 		setActive(!active);
@@ -60,7 +61,7 @@ export const Navbar = () => {
 			>
 				<div className="flex justify-between w-full items-center p-5">
 					<h2 className="text-sm font-light md:hidden ">
-						{isPreparedOrder?.length} Commande en cours ...
+						{data?.commandes.data.length} Commande en cours ...
 					</h2>
 					<div className="md:hidden cursor-pointer">
 						<MenuIcon
@@ -78,7 +79,7 @@ export const Navbar = () => {
 			</div>
 			<div className="hidden md:flex">
 				<h2 className="text-sm">
-					{isPreparedOrder?.length} Commande en cours ...
+					{data?.commandes.data.length} Commande en cours ...
 				</h2>
 			</div>
 			{/* <div>

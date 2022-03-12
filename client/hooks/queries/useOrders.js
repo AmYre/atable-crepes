@@ -5,7 +5,7 @@ export const GET_ORDER = gql`
 		commandes(
 			sort: $sort
 			pagination: { limit: $limit, start: $start }
-			filters: { is_prepared: { eq: $eq }, is_payed: { eq: $eq } }
+			filters: { is_prepared: { eq: $eq } }
 		) {
 			data {
 				id

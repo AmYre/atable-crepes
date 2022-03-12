@@ -1,10 +1,9 @@
 import { useGlobalContext } from '../context/Context';
 import MenuList from '../components/MenuList/MenuList ';
 import Orders from '../components/Orders';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { useMenuList } from '../hooks/queries/useMenuList';
 import { CREATE_ORDER } from '../hooks/mutations/useCreateOrder';
-import { useOrders } from '../hooks/queries/useOrders';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { TrashIcon } from '@heroicons/react/solid';
@@ -12,7 +11,7 @@ import { Navbar } from '../components/Navbar/Navbar';
 
 const Menu = () => {
 	const router = useRouter();
-	const { refetch } = useOrders();
+	// const { refetch } = useOrders(); // removed on the 12/3
 	const { loading } = useMenuList();
 	const {
 		productsList,
@@ -176,7 +175,7 @@ const Menu = () => {
 									confirm_order: false,
 								},
 							});
-							refetch();
+							// refetch(); // removed on the 12/3
 						}}
 					>
 						Choisir une crépes

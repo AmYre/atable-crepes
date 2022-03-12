@@ -1,30 +1,25 @@
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { useGlobalContext } from '../context/Context';
 import { UPDATE_ORDER } from '../hooks/mutations/useUpdateOrder';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { useOrders } from '../hooks/queries/useOrders';
+import { GET_ORDER_TIME } from '../hooks/queries/useOrderTime';
+
 const stripePromise = loadStripe(process.env.stripe_public_key);
 
 const OrderBtn = ({ currentOrderId }) => {
 	const { productsList, preparationTime } = useGlobalContext();
 	const router = useRouter();
-	const { data: orderData } = useOrders();
+	const { loading, error, data } = useQuery(GET_ORDER_TIME);
 
-	const waiting_time = orderData?.commandes.data // Get the total waiting time from the server
-		.filter(
-			(item) =>
-				item.attributes.is_prepared === false &&
-				item.attributes.is_payed === true
-		)
+	const waiting_time = data?.commandes.data // Get the total waiting time from the server
 		.reduce((a, b) => a + b.attributes.preparation_time, 0);
 
 	// concat all the arrays together and get all totals amounts
 	const tot = productsList.map(({ supplement_list }) => supplement_list);
 	const concatArrays = tot.reduce((a, b) => a.concat(b), []);
 	const totalSupplement = concatArrays.reduce((a, b) => a + b?.price, 0);
-	const total = productsList.reduce((a, b) => a + b.price * b.quantity, 0);
 	const totalPreparationTime = preparationTime.reduce((a, b) => a + b, 0);
 
 	const [updateOrder] = useMutation(UPDATE_ORDER, {
@@ -57,6 +52,8 @@ const OrderBtn = ({ currentOrderId }) => {
 		console.log(result);
 		if (result.error) alert(result.error.message);
 	};
+
+	if (loading) return 'Loading ...';
 
 	return (
 		<>

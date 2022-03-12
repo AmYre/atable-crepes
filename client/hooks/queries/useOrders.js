@@ -1,8 +1,12 @@
 import { useQuery, gql } from '@apollo/client';
 
 export const GET_ORDER = gql`
-	query getOrders {
-		commandes(sort: "updatedAt", pagination: { limit: 20 }) {
+	query getOrders($sort: [String], $limit: Int, $start: Int, $eq: Boolean) {
+		commandes(
+			sort: $sort
+			pagination: { limit: $limit, start: $start }
+			filters: { is_prepared: { eq: $eq }, is_payed: { eq: $eq } }
+		) {
 			data {
 				id
 				attributes {

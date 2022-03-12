@@ -1,5 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { UPDATE_ORDER } from '../../hooks/mutations/useUpdateOrder';
+import { GET_ORDER } from '../../hooks/queries/useOrders';
 
 const CuisineOrder = ({
 	products,
@@ -10,7 +11,9 @@ const CuisineOrder = ({
 	preparation_time,
 	minutes,
 }) => {
-	const [updateOrder, { loading, called }] = useMutation(UPDATE_ORDER);
+	const [updateOrder, { loading, called }] = useMutation(UPDATE_ORDER, {
+		refetchQueries: [{ query: GET_ORDER }],
+	});
 
 	return (
 		<div className="flex flex-col min-h-full overflow-auto">
@@ -24,7 +27,6 @@ const CuisineOrder = ({
 								is_prepared: true,
 							},
 						});
-						// refetch();
 					}}
 					className="text-xl fond-bold cursor-pointer"
 				>

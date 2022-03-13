@@ -5,13 +5,6 @@ const client = () => {
 	const [authToken, setAuthToken] = useState(
 		process.env.NEXT_PUBLIC_HOST_TOKEN_API
 	);
-	// const getHeader = () => {
-	// 	if (!authToken) return null;
-
-	// 	return {
-	// 		Authorization: `Bearer ${authToken}`,
-	// 	};
-	// };
 
 	const link = new HttpLink({
 		// uri: 'http://localhost:1337/graphql',

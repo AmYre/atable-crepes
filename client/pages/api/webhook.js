@@ -1,33 +1,33 @@
 import { buffer } from 'micro';
 
-// Establish connection to Stripe
-
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const endpointSecret = process.env.STRIPE_SIGNING_SECRET;
-
-// create a mutation to fulfillOrder
-
+// create a connection to the server apollo client
 // const client = new ApolloClient({
 // 	uri: `${process.env.HOST_BACKEND}`,
 // 	cache: new InMemoryCache(),
 // });
 
-// const { data } = await client.query({
-// 	mutation: gql`
-//     mutation commandes(id: 300 is_payed: true total: 338 ) {
-// 		data {
-// 			id
-// 			attributes {
-// 				is_payed
-// 				total
-// 			}
-// 		}
-// 	}
-// 	`,
-// });
+// Establish connection to Stripe
 
-const fulfillOrder = (session) => {
-	console.log(session);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const endpointSecret = process.env.STRIPE_SIGNING_SECRET;
+
+const fulfillOrder = async (session) => {
+	// create a mutation to fulfillOrder
+
+	// const { data } = await client.query({
+	// 	mutation: gql`
+	//     mutation commandes(id: 300 is_payed: true total: 338 ) {
+	// 		data {
+	// 			id
+	// 			attributes {
+	// 				is_payed
+	// 				total
+	// 			}
+	// 		}
+	// 	}
+	// 	`,
+	// });
+	console.log(`The order ${session} has been added to the database`);
 };
 
 export default async (req, res) => {

@@ -9,14 +9,14 @@ const client = () => {
 		if (!authToken) return null;
 
 		return {
-			authorization: `Bearer ${authToken}`,
+			Authorization: `Bearer ${authToken}`,
 		};
 	};
 
 	const link = new HttpLink({
 		// uri: 'http://localhost:1337/graphql',
-		uri: `${process.env.NEXT_PUBLIC_HOST_STRAPI}/graphql`,
-		// headers: getHeader(),
+		uri: `${process.env.NEXT_PUBLIC_HOST_STRAPI}`,
+		headers: getHeader(),
 	});
 
 	return new ApolloClient({

@@ -14,15 +14,15 @@ import Link from 'next/link';
 import NavListDesk from './NavListDesk';
 import { useQuery } from '@apollo/client';
 
-export const Navbar = () => {
+const Navbar = () => {
 	const router = useRouter();
 	const { data, loading, refetch } = useQuery(GET_ORDER, {
 		variables: {
-			limit: 100,
+			limit: 200,
 			eq: false,
 		},
 	});
-	console.log(data);
+
 	const [active, setActive] = useState(false);
 
 	useEffect(() => {
@@ -103,3 +103,4 @@ export const Navbar = () => {
 		</header>
 	);
 };
+export default Navbar;

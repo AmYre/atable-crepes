@@ -59,12 +59,6 @@ const Kitchen = () => {
 		}, 1000);
 	}, []);
 
-	// console.log(dataNoPrepared);
-
-	// const total = dataNoPrepared?.commandes.data
-	// 	.reduce((a, b) => a + b.attributes.total, 0)
-	// 	.toFixed(2);
-
 	if (loadNoPrepared) return 'Loading ...';
 
 	if (status === 'authenticated') {
@@ -77,10 +71,8 @@ const Kitchen = () => {
 								Commande en cours
 							</h2>
 							<div className="flex justify-around font-bold">
-								{/* <p className="text-sm md:text-lg">Produit</p> */}
 								<p className="text-sm md:text-lg">Commande</p>
 								<p>Temps</p>
-								{/* <p>supprimer</p> */}
 								<p className="text-sm md:text-lg">prix</p>
 							</div>
 							{dataNoPrepared?.commandes.data
@@ -126,10 +118,6 @@ const Kitchen = () => {
 										</div>
 									)
 								)}
-							{/* <div className="flex pt-5 justify-between w-full mb-5 border-gray-50">
-								<p className="text-xl font-bold">Total</p>
-								<p className="text-xl font-bold">{total} €</p>
-							</div> */}
 							<h2 className="font-bold text-lg md:text-xl uppercase border-gray-900 border-b-2 py-1">
 								Commande terminée
 							</h2>

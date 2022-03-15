@@ -7,12 +7,12 @@ import { CREATE_ORDER } from '../hooks/mutations/useCreateOrder';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { TrashIcon } from '@heroicons/react/solid';
-import { Navbar } from '../components/Navbar/Navbar';
+import Navbar from '../components/Navbar/Navbar';
+import { ApolloClient, gql, InMemoryCache } from '@apollo/client';
 
-const Menu = () => {
+const Menu = ({ data }) => {
 	const router = useRouter();
-	// const { refetch } = useOrders(); // removed on the 12/3
-	const { loading } = useMenuList();
+
 	const {
 		productsList,
 		setProductsList,
@@ -70,15 +70,13 @@ const Menu = () => {
 		setFirstStep(false);
 	}, [router]);
 
-	if (loading) return 'Loading...';
-
 	return (
 		<div className="h-screen">
 			<Navbar />
-			{(firstStep && !loading) || (router.query.id && !loading) ? (
+			{firstStep || router.query.id ? (
 				<div className="flex flex-col justify-between">
 					<main>
-						<MenuList />
+						<MenuList data={data} />
 					</main>
 					<section>
 						<div className="flex flex-col justify-center mx-5 h-96 bg-gray-800 rounded text-gray-50 shadow gap-8 px-10">
@@ -187,3 +185,69 @@ const Menu = () => {
 };
 
 export default Menu;
+
+export async function getServerSideProps(context) {
+	const client = new ApolloClient({
+		uri: 'http://localhost:1337/graphql',
+		cache: new InMemoryCache(),
+	});
+
+	const { data } = await client.query({
+		query: gql`
+			query Foods {
+				crepesSucrees {
+					data {
+						attributes {
+							category_name
+							price
+							product_name
+							preparation_time
+							image {
+								data {
+									attributes {
+										url
+										width
+										height
+									}
+								}
+							}
+						}
+					}
+				}
+				boissons {
+					data {
+						attributes {
+							category_name
+							product_name
+							price
+							image {
+								data {
+									attributes {
+										url
+										width
+										height
+									}
+								}
+							}
+						}
+					}
+				}
+				supplements {
+					data {
+						id
+						attributes {
+							name
+							price
+						}
+					}
+				}
+			}
+		`,
+	});
+
+	return {
+		props: {
+			data: data,
+		},
+	};
+}

@@ -4,7 +4,7 @@ import BounceLoader from 'react-spinners/BounceLoader';
 import { useMenuList } from '../../hooks/queries/useMenuList';
 import Boisson from './Boisson';
 
-const FoodAndDrink = () => {
+const FoodAndDrink = ({ data }) => {
 	const { loading } = useMenuList();
 
 	if (loading)
@@ -25,8 +25,8 @@ const FoodAndDrink = () => {
 			</h3>
 			<div className="h-96 mx-5 mt-2 mb-5 bg-white dark:bg-gray-800 shadow-md overflow-hidden overflow-y-scroll">
 				<div className="m-3 my-2 p-2 bg-white dark:bg-gray-800">
-					<CrepesSucrees />
-					<Boisson />
+					<CrepesSucrees data={data} />
+					<Boisson data={data} />
 				</div>
 			</div>
 		</div>

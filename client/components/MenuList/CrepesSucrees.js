@@ -1,11 +1,7 @@
 import { useMenuList } from '../../hooks/queries/useMenuList';
 import ModalCrepesSucrees from '../Modal/ModalCrepesSucres';
 
-const CrepesSucrees = () => {
-	const { data, loading } = useMenuList();
-
-	if (loading) return 'Loading ...';
-
+const CrepesSucrees = ({ data }) => {
 	return (
 		<div>
 			<h2 className="text-center text-xl font-bold mb-3">

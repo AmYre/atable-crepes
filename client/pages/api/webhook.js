@@ -13,20 +13,6 @@ const endpointSecret = process.env.STRIPE_SIGNING_SECRET;
 
 const fulfillOrder = async (session) => {
 	// create a mutation to fulfillOrder
-
-	// const { data } = await client.query({
-	// 	mutation: gql`
-	//     mutation commandes(id: 300 is_payed: true total: 338 ) {
-	// 		data {
-	// 			id
-	// 			attributes {
-	// 				is_payed
-	// 				total
-	// 			}
-	// 		}
-	// 	}
-	// 	`,
-	// });
 	console.log(`The order ${session} has been added to the database`);
 };
 

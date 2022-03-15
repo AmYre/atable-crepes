@@ -1,9 +1,7 @@
 import { useMenuList } from '../../hooks/queries/useMenuList';
 import ModalBoissons from '../Modal/ModalBoissons';
 
-const Boisson = () => {
-	const { data } = useMenuList();
-
+const Boisson = ({ data }) => {
 	return (
 		<div>
 			<h2 className="text-center text-xl font-bold mb-3">Boissons</h2>

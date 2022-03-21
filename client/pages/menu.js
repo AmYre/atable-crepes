@@ -188,7 +188,7 @@ export default Menu;
 
 export async function getServerSideProps(context) {
 	const client = new ApolloClient({
-		uri: 'http://localhost:1337/graphql',
+		uri: `${process.env.HOST_STRAPI}`,
 		cache: new InMemoryCache(),
 	});
 

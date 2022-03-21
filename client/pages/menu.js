@@ -188,7 +188,7 @@ export default Menu;
 
 export async function getServerSideProps(context) {
 	const client = new ApolloClient({
-		uri: `${process.env.HOST_STRAPI}`,
+		uri: `https://a-vos-crepes.herokuapp.com/graphql`,
 		cache: new InMemoryCache(),
 	});
 

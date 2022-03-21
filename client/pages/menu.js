@@ -188,10 +188,10 @@ export default Menu;
 
 export async function getServerSideProps(context) {
 	const client = new ApolloClient({
-		uri: `https://a-vos-crepes.herokuapp.com/graphql`,
+		uri: `${process.env.HOST_STRAPI}`,
 		cache: new InMemoryCache(),
 	});
-
+	console.log(process.env.HOST_STRAPI);
 	const { data } = await client.query({
 		query: gql`
 			query Foods {

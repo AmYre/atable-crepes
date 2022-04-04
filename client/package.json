@@ -8,8 +8,8 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
-		"@apollo/client": "^3.5.8",
-		"@emotion/react": "^11.7.1",
+		"@apollo/client": "^3.5.10",
+		"@emotion/react": "^11.8.2",
 		"@heroicons/react": "^1.0.5",
 		"@stripe/stripe-js": "^1.22.0",
 		"axios": "^0.26.0",

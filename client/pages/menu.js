@@ -191,7 +191,7 @@ export async function getServerSideProps(context) {
 		uri: `${process.env.HOST_STRAPI}`,
 		cache: new InMemoryCache(),
 	});
-	console.log(process.env.HOST_STRAPI);
+
 	const { data } = await client.query({
 		query: gql`
 			query Foods {

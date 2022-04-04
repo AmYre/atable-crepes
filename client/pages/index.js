@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import Navbar from '../components/Navbar/Navbar';
-import Homes from '../components/Home';
 
 export default function Home() {
 	return (
@@ -24,7 +23,7 @@ export default function Home() {
 					}}
 				/>
 				<div className='h-1/3 w-full flex flex-col justify-center items-center'>
-					<h1 className='text-xl text-center md:text-2xl'>Bienvenue sur a Pomme de Pain - Crêpes</h1>
+					<h1 className='text-xl text-center md:text-2xl'>Bienvenue sur Pomme de Pain - Crêpes</h1>
 				</div>
 				<section className='h-2/3 w-full flex flex-col justify-start items-center'></section>
 			</main>

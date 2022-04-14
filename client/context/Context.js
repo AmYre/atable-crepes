@@ -38,8 +38,7 @@ const AppProvider = ({ children }) => {
 				setSeconds,
 				payed,
 				setPayed,
-			}}
-		>
+			}}>
 			{children}
 		</AppContext.Provider>
 	);

@@ -13,17 +13,7 @@ import { ApolloClient, gql, InMemoryCache } from '@apollo/client';
 const Menu = ({ data }) => {
 	const router = useRouter();
 
-	const {
-		productsList,
-		setProductsList,
-		theme,
-		firstStep,
-		setFirstStep,
-		randomNumber,
-		supplementList,
-		preparationTime,
-		setPreparationTime,
-	} = useGlobalContext();
+	const { productsList, setProductsList, theme, firstStep, setFirstStep, randomNumber, supplementList, preparationTime, setPreparationTime } = useGlobalContext();
 
 	const [createOrder, { data: newOrderData }] = useMutation(CREATE_ORDER);
 
@@ -31,9 +21,7 @@ const Menu = ({ data }) => {
 
 	const removeProduct = (id) => {
 		// remove the crepes from the recap list when click on trash icon
-		const removedProduct = productsList.filter(
-			(product) => product.product_id !== id
-		);
+		const removedProduct = productsList.filter((product) => product.product_id !== id);
 		setProductsList(removedProduct);
 		localStorage.clear();
 	};
@@ -71,99 +59,61 @@ const Menu = ({ data }) => {
 	}, [router]);
 
 	return (
-		<div className="h-screen">
+		<div className='h-screen'>
 			<Navbar />
 			{firstStep || router.query.id ? (
-				<div className="flex flex-col justify-between">
+				<div className='flex flex-col justify-between'>
 					<main>
 						<MenuList data={data} />
 					</main>
 					<section>
-						<div className="flex flex-col justify-center mx-5 h-96 bg-gray-800 rounded text-gray-50 shadow gap-8 px-10">
-							<h2 className="font-bold text-lg md:text-xl uppercase border-b-2 py-1">
-								Récap' de votre commande
-							</h2>
-							<div className="flex justify-between font-bold">
-								<p className="text-sm md:text-lg">Produit</p>
-								<p className="text-sm md:text-lg">prix</p>
+						<div className='flex flex-col justify-center mx-5 h-96 bg-gray-800 rounded text-gray-50 shadow gap-8 px-10'>
+							<h2 className='font-bold text-lg md:text-xl uppercase border-b-2 py-1'>Récap' de votre commande</h2>
+							<div className='flex justify-between font-bold'>
+								<p className='text-sm md:text-lg'>Produit</p>
+								<p className='text-sm md:text-lg'>prix</p>
 							</div>
-							<div className="flex flex-col h-28 pb-2 overflow-auto">
-								{productsList.map(
-									(
-										{
-											product_name,
-											price,
-											product_id,
-											quantity,
-											supplement_list,
-										},
-										index
-									) => (
-										<div
-											className="flex justify-between"
-											key={index}
-										>
-											<div className="flex flex-col">
-												<div className="flex">
-													<p className="text-sm md:text-base font-bold pr-5">
-														{product_name}
-													</p>
-													<p className="text-sm md:text-base font-bold">
-														x {quantity}
-													</p>
-												</div>
-												<div className="flex flex-wrap my-2">
-													{supplement_list?.map(
-														(item, i) => (
-															<p
-																className="font-light text-xs md:text-sm px-1"
-																key={i}
-															>
-																{item.name}{' '}
-																{item.price.toFixed(
-																	2
-																)}{' '}
-																€
-															</p>
-														)
-													)}
-												</div>
+							<div className='flex flex-col h-28 pb-2 overflow-auto'>
+								{productsList.map(({ product_name, price, product_id, quantity, supplement_list }, index) => (
+									<div className='flex justify-between' key={index}>
+										<div className='flex flex-col'>
+											<div className='flex'>
+												<p className='text-sm md:text-base font-bold pr-5'>{product_name}</p>
+												<p className='text-sm md:text-base font-bold'>x {quantity}</p>
 											</div>
-											<div className="flex items-center">
-												<p className="px-2 font-semibold">
-													{price.toFixed(2)} €
-												</p>
-												<TrashIcon
-													onClick={() => {
-														removeProduct(
-															product_id
-														);
-														removeTime(index);
-													}}
-													className="cursor-pointer w-4 h-4"
-												/>
+											<div className='flex flex-wrap my-2'>
+												{supplement_list?.map((item, i) => (
+													<p className='font-light text-xs md:text-sm px-1' key={i}>
+														{item.name} {item.price.toFixed(2)} €
+													</p>
+												))}
 											</div>
 										</div>
-									)
-								)}
+										<div className='flex items-center'>
+											<p className='px-2 font-semibold'>{price.toFixed(2)} €</p>
+											<TrashIcon
+												onClick={() => {
+													removeProduct(product_id);
+													removeTime(index);
+												}}
+												className='cursor-pointer w-4 h-4'
+											/>
+										</div>
+									</div>
+								))}
 							</div>
-							<div className="flex justify-between w-full border-t-2 border-gray-50">
-								<p className="text-lg md:text-xl font-bold">
-									Total
-								</p>
-								<p className="text-lg font-bold">
-									{Number(totalSupplement + total).toFixed(2)}{' '}
-									€
-								</p>
+							<div className='flex justify-between w-full border-t-2 border-gray-50'>
+								<p className='text-lg md:text-xl font-bold'>Total</p>
+								<p className='text-lg font-bold'>{Number(totalSupplement + total).toFixed(2)} €</p>
 							</div>
 						</div>
 					</section>
 					<Orders currentOrderId={currentOrderId} />
 				</div>
 			) : (
-				<div className="h-2/3 flex justify-center items-center bg-white dark:bg-gray-700 my-14 mx-10">
+				<div className='h-2/3 flex justify-center items-center bg-white dark:bg-gray-700 my-14 mx-10'>
 					<button
-						className="bg-red-500 hover:bg-red-400 rounded-md shadow-lg px-4 py-3 text-gray-50"
+						className='bg-red-500 hover:bg-red-400 rounded-md shadow-lg px-4 py-3 text-gray-50'
 						onClick={() => {
 							setFirstStep(!firstStep);
 							createOrder({
@@ -174,8 +124,7 @@ const Menu = ({ data }) => {
 								},
 							});
 							// refetch(); // removed on the 12/3
-						}}
-					>
+						}}>
 						Choisir une crépes
 					</button>
 				</div>

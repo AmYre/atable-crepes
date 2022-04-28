@@ -18,7 +18,11 @@
     "price": {
       "type": "decimal"
     },
+<<<<<<< HEAD
     "image": {
+=======
+    "img": {
+>>>>>>> 06e1edff4447b964b25d1cee6c95ed5aa3d6b57e
       "allowedTypes": [
         "images",
         "files",
@@ -26,7 +30,11 @@
         "audios"
       ],
       "type": "media",
+<<<<<<< HEAD
       "multiple": true
+=======
+      "multiple": false
+>>>>>>> 06e1edff4447b964b25d1cee6c95ed5aa3d6b57e
     }
   }
 }

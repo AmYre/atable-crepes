@@ -126,7 +126,6 @@ const Menu = ({ data }) => {
 							// refetch(); // removed on the 12/3
 						}}>
 						Choisir une crépes
-						{console.log(process.env.HOST_STRAPI)}
 					</button>
 				</div>
 			)}
